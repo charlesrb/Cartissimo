@@ -1,0 +1,22 @@
+.menu {
+    background-color: $secondary-color;
+    display:flex;
+    align-items: center;
+    color:white;
+    height: 50px;
+    gap:10px;
+    &__button {
+        background-color: $primary-color;
+        height: 100%;
+        width:60px;
+        font-size:30px;
+        text-align:center;
+        font-weight:400;
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+    &__title {
+        font-size:20px;
+        font-weight:500;
+    }
+}
