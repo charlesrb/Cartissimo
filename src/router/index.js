@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Cartissimo from "../views/Cartissimo.vue";
-
+import Resultats from "../views/Resultats.vue";
+import Utilisateur from "../views/Utilisateur.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -8,6 +9,16 @@ const router = createRouter({
       path: "/",
       name: "cartissimo",
       component: Cartissimo,
+    },
+    {
+      path: "/resultats",
+      name: "resultats",
+      component: Resultats,
+    },
+    {
+      path: "/utilisateur",
+      name: "utilisateur",
+      component: Utilisateur,
     },
     // {
     //   path: "/about",

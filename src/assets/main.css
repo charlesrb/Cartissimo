@@ -161,6 +161,11 @@ body {
   font-weight: 500;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 .resultats {
   background-color: #F1F1F1;
   margin-bottom: 0;
