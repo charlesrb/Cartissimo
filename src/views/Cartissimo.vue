@@ -25,15 +25,7 @@
         </form>
       </div>
     </section>
-    <!-- <section>
-      <div v-for="user in users" :key="user.id">
-        <p v-if="!search"></p>
-        <p v-else-if="user.joueur.toLowerCase().includes(search.toLowerCase())">
-          <span class="pseudo">{{ user.pseudo }}</span> -
-          {{ user.joueur }}
-        </p>
-      </div>
-    </section> -->
+
     <section class="collection">
       <h2 class="collection__title">Collectionneurs par équipe</h2>
 
@@ -69,7 +61,7 @@
         </select>
       </form>
     </section>
-    <Subscribe></Subscribe>
+    <!-- <Subscribe></Subscribe> -->
     <section class="video">
       <div class="video__title">
         <p>Découvrez nos vidéos sur YouTube</p>
@@ -86,11 +78,11 @@
 </template>
 
 <script>
-import Subscribe from "../components/Subscribe.vue";
+// import Subscribe from "../components/Subscribe.vue";
 import axios from "axios";
 
-const instanceNba = axios.create({
-  baseURL: "http://localhost:3000/api/nba",
+const instanceSports = axios.create({
+  baseURL: "http://localhost:3000/api/sports",
 });
 const instanceUser = axios.create({
   baseURL: "http://localhost:3000/api/user",
@@ -156,25 +148,40 @@ export default {
         error;
       });
 
-    instanceNba
+    instanceSports
       .get("/")
       .then((data) => {
-        this.teamsNba = data.data.result;
-        console.log(data.data);
+        console.log(data.data.result[0].league.equipes);
+        this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {
         error;
       });
 
-    fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams")
-      .then((res) => res.json())
-      .then((data) => {
-        this.teamsNfl = data.sports;
-        console.log(data.sports.leagues);
-      })
-      .catch((err) => console.log(err.message));
+    // fetch("https://www.balldontlie.io/api/v1/teams")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     this.teamsNba = data.data;
+    //   })
+    //   .catch((err) => console.log(err.message));
+
+    // fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data.sports[0].leagues[0].teams);
+    //     this.teamsNfl = data.sports[0].leagues[0].teams;
+    //   })
+    //   .catch((err) => console.log(err.message));
+
+    // fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.teamsNfl = data.sports;
+    //     console.log(data.sports.leagues);
+    //   })
+    //   .catch((err) => console.log(err.message));
   },
-  components: { Subscribe },
 };
 </script>
 

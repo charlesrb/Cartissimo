@@ -7,21 +7,16 @@
     <section class="collection">
       <h2 class="collection__title">Collectionneurs par équipe</h2>
       <form action="" class="collection__form">
-        <select
-          name=""
-          id=""
-          class="collection__form--select"
-          v-model="select"
-          @change="selectTeam()"
-        >
+        <select name="" id="" class="collection__form--select" v-model="select">
+          <!-- @change="selectTeam()" -->
           <option value="NBA" disabled>NBA</option>
 
           <option
             v-for="teamNba in teamsNba"
             :key="teamNba.id"
-            :value="teamNba.full_name"
+            :value="teamNba.name"
           >
-            {{ teamNba.full_name }}
+            {{ teamNba.name }}
           </option>
         </select>
         <select name="" id="" class="collection__form--select">
@@ -78,6 +73,15 @@
 </template>
 
 <script>
+import axios from "axios";
+const instanceSports = axios.create({
+  baseURL: "http://localhost:3000/api/sports",
+});
+
+const instanceUser = axios.create({
+  baseURL: "http://localhost:3000/api/user",
+});
+
 export default {
   name: "ResultatsTeam",
   data: function () {
@@ -90,19 +94,40 @@ export default {
     };
   },
   computed: {
-    selectTeam() {
-      let testUser = [];
-      for (const user of this.users) {
-        if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
-          testUser.push(user);
-          localStorage.setItem("users", JSON.stringify(testUser));
-        }
-      }
-      e.preventDefault();
-    },
+    // selectTeam() {
+    //   let testUser = [];
+    //   for (const user of this.users) {
+    //     if (user.equipe) {
+    //       if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
+    //         testUser.push(user);
+    //         localStorage.setItem("users", JSON.stringify(testUser));
+    //       }
+    //     }
+    //   }
+    //   e.preventDefault();
+    // },
   },
   methods: {},
   beforeCreate() {
+    instanceSports
+      .get("/")
+      .then((data) => {
+        console.log(data.data.result[0].league.equipes);
+        this.teamsNba = data.data.result[0].league.equipes;
+      })
+      .catch((error) => {
+        error;
+      });
+
+    instanceUser
+      .get("/")
+      .then((data) => {
+        this.users = data.data.result;
+        console.log(data.data);
+      })
+      .catch((error) => {
+        error;
+      });
     // fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
     //   .then((res) => res.json())
     //   .then((data) => {
@@ -116,20 +141,20 @@ export default {
     //   })
     //   .catch((err) => console.log(err.message));
 
-    fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
-      .then((res) => res.json())
-      .then((data) => {
-        this.users = data;
-        console.log(this.users);
-      })
-      .catch((err) => console.log(err.message));
+    // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.users = data;
+    //     console.log(this.users);
+    //   })
+    //   .catch((err) => console.log(err.message));
 
-    fetch("https://www.balldontlie.io/api/v1/teams")
-      .then((res) => res.json())
-      .then((data) => {
-        this.teamsNba = data.data;
-      })
-      .catch((err) => console.log(err.message));
+    // fetch("https://www.balldontlie.io/api/v1/teams")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.teamsNba = data.data;
+    //   })
+    //   .catch((err) => console.log(err.message));
 
     // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
     //   .then((res) => res.json())

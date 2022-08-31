@@ -3,6 +3,7 @@ import Cartissimo from "../views/Cartissimo.vue";
 import Resultats from "../views/Resultats.vue";
 import Utilisateur from "../views/Utilisateur.vue";
 import ResultatsTeam from "../views/ResultatsTeam.vue";
+import Subscribe from "../views/Subscribe.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -25,6 +26,11 @@ const router = createRouter({
       path: "/resultatsteam",
       name: "resultatsteam",
       component: ResultatsTeam,
+    },
+    {
+      path: "/subscribe",
+      name: "subscribe",
+      component: Subscribe,
     },
     // {
     //   path: "/about",
