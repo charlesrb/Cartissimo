@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Cartissimo from "../views/Cartissimo.vue";
 import Resultats from "../views/Resultats.vue";
 import Utilisateur from "../views/Utilisateur.vue";
+import ResultatsTeam from "../views/ResultatsTeam.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,6 +20,11 @@ const router = createRouter({
       path: "/utilisateur",
       name: "utilisateur",
       component: Utilisateur,
+    },
+    {
+      path: "/resultatsteam",
+      name: "resultatsteam",
+      component: ResultatsTeam,
     },
     // {
     //   path: "/about",

@@ -97,6 +97,13 @@ export default {
         this.users = data;
       })
       .catch((err) => console.log(err.message));
+
+    // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.users = data;
+    //   })
+    //   .catch((err) => console.log(err.message));
   },
 };
 </script>

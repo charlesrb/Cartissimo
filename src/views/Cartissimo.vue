@@ -37,8 +37,20 @@
     <section class="collection">
       <h2 class="collection__title">Collectionneurs par équipe</h2>
       <form action="" class="collection__form">
-        <select name="" id="" class="collection__form--select">
-          <option v-for="teamNba in teamsNba" :key="teamNba.id" value="NBA">
+        <select
+          name=""
+          id=""
+          class="collection__form--select"
+          v-model="select"
+          @change="selectTeam()"
+        >
+          <option value="NBA" disabled>NBA</option>
+
+          <option
+            v-for="teamNba in teamsNba"
+            :key="teamNba.id"
+            :value="teamNba.full_name"
+          >
             {{ teamNba.full_name }}
           </option>
         </select>
@@ -56,7 +68,7 @@
         </select>
       </form>
     </section>
-
+    <!-- <Subscribe></Subscribe> -->
     <section class="video">
       <div class="video__title">
         <p>Découvrez nos vidéos sur YouTube</p>
@@ -73,6 +85,8 @@
 </template>
 
 <script>
+import Subscribe from "../components/Subscribe.vue";
+
 export default {
   name: "Cartissimo",
   data: function () {
@@ -82,32 +96,39 @@ export default {
       teamsNba: {},
       teamsNfl: {},
       search: "",
+      select: "NBA",
     };
   },
+  computed: {},
 
   methods: {
     searchPlayer() {
-      let testUser = [];
+      let usersSelected = [];
       localStorage.clear();
-
       localStorage.setItem("search", this.search);
       for (const user of this.users) {
         if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
+          usersSelected.push(user);
+          localStorage.setItem("users", JSON.stringify(usersSelected));
+        }
+      }
+      this.$router.push("/resultats");
+      e.preventDefault();
+    },
+
+    selectTeam() {
+      let testUser = [];
+      localStorage.clear();
+      localStorage.setItem("select", this.select);
+      for (const user of this.users) {
+        if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
           testUser.push(user);
           localStorage.setItem("users", JSON.stringify(testUser));
         }
       }
-      this.$router.push("/resultats");
+      console.log(testUser);
+      this.$router.push("/resultatsteam");
 
-      // if ()
-      // localStorage.setItem("users", this.userdata.data.token);
-      // fetch(`https://sheetdb.io/api/v1/j8ef9j4vw6ecz/`)
-      //   .then((res) => res.json())
-      //   .then((response) => {
-      //     console.log(response);
-
-      //   })
-      //   .catch((err) => console.log(err.message));
       e.preventDefault();
     },
   },
@@ -118,7 +139,6 @@ export default {
         this.teamsNba = data.data;
       })
       .catch((err) => console.log(err.message));
-
     fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams")
       .then((res) => res.json())
       .then((data) => {
@@ -127,10 +147,19 @@ export default {
       })
       .catch((err) => console.log(err.message));
 
-    fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
+    // fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.users = data;
+    //   })
+    //   .catch((err) => console.log(err.message));
+
+    fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
       .then((res) => res.json())
       .then((data) => {
         this.users = data;
+        console.log(this.users);
+        console.log(data);
       })
       .catch((err) => console.log(err.message));
 
@@ -147,6 +176,7 @@ export default {
     //   })
     //   .catch((err) => console.log(err.message));
   },
+  components: { Subscribe },
 };
 </script>
 
