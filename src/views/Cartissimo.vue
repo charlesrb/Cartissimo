@@ -151,7 +151,7 @@ export default {
     instanceSports
       .get("/")
       .then((data) => {
-        console.log(data.data.result[0].league.equipes);
+        console.log(data.data);
         this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {

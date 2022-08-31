@@ -205,7 +205,7 @@ export default {
       equipeNhl: [],
       equipeMlb: [],
       equipeSoccer: [],
-      joueur: {},
+      joueur: "",
       collec: "",
       premiereCarte: "",
       actif: "",
