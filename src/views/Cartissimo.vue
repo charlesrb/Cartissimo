@@ -1,7 +1,9 @@
 <template>
   <main>
     <nav class="menu">
-      <div class="menu__button"><i class="fas fa-bars"></i></div>
+      <div class="menu__button">
+        <router-link to="/subscribe"><i class="fas fa-bars"></i></router-link>
+      </div>
       <div class="menu__title">Cartissimo.fr</div>
     </nav>
     <section class="header">
