@@ -36,6 +36,7 @@
     </section> -->
     <section class="collection">
       <h2 class="collection__title">Collectionneurs par équipe</h2>
+
       <form action="" class="collection__form">
         <select
           name=""
@@ -49,9 +50,9 @@
           <option
             v-for="teamNba in teamsNba"
             :key="teamNba.id"
-            :value="teamNba.full_name"
+            :value="teamNba.name"
           >
-            {{ teamNba.full_name }}
+            {{ teamNba.name }}
           </option>
         </select>
         <select name="" id="" class="collection__form--select">
@@ -68,7 +69,7 @@
         </select>
       </form>
     </section>
-    <!-- <Subscribe></Subscribe> -->
+    <Subscribe></Subscribe>
     <section class="video">
       <div class="video__title">
         <p>Découvrez nos vidéos sur YouTube</p>
@@ -86,7 +87,14 @@
 
 <script>
 import Subscribe from "../components/Subscribe.vue";
+import axios from "axios";
 
+const instanceNba = axios.create({
+  baseURL: "http://localhost:3000/api/nba",
+});
+const instanceUser = axios.create({
+  baseURL: "http://localhost:3000/api/user",
+});
 export default {
   name: "Cartissimo",
   data: function () {
@@ -104,12 +112,15 @@ export default {
   methods: {
     searchPlayer() {
       let usersSelected = [];
+
       localStorage.clear();
       localStorage.setItem("search", this.search);
       for (const user of this.users) {
-        if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
-          usersSelected.push(user);
-          localStorage.setItem("users", JSON.stringify(usersSelected));
+        if (user.joueur) {
+          if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
+            usersSelected.push(user);
+            localStorage.setItem("users", JSON.stringify(usersSelected));
+          }
         }
       }
       this.$router.push("/resultats");
@@ -121,9 +132,11 @@ export default {
       localStorage.clear();
       localStorage.setItem("select", this.select);
       for (const user of this.users) {
-        if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
-          testUser.push(user);
-          localStorage.setItem("users", JSON.stringify(testUser));
+        if (user.equipe) {
+          if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
+            testUser.push(user);
+            localStorage.setItem("users", JSON.stringify(testUser));
+          }
         }
       }
       console.log(testUser);
@@ -133,12 +146,26 @@ export default {
     },
   },
   beforeCreate() {
-    fetch("https://www.balldontlie.io/api/v1/teams")
-      .then((res) => res.json())
+    instanceUser
+      .get("/")
       .then((data) => {
-        this.teamsNba = data.data;
+        this.users = data.data.result;
+        console.log(data.data.result);
       })
-      .catch((err) => console.log(err.message));
+      .catch((error) => {
+        error;
+      });
+
+    instanceNba
+      .get("/")
+      .then((data) => {
+        this.teamsNba = data.data.result;
+        console.log(data.data);
+      })
+      .catch((error) => {
+        error;
+      });
+
     fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams")
       .then((res) => res.json())
       .then((data) => {
@@ -146,35 +173,6 @@ export default {
         console.log(data.sports.leagues);
       })
       .catch((err) => console.log(err.message));
-
-    // fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     this.users = data;
-    //   })
-    //   .catch((err) => console.log(err.message));
-
-    fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
-      .then((res) => res.json())
-      .then((data) => {
-        this.users = data;
-        console.log(this.users);
-        console.log(data);
-      })
-      .catch((err) => console.log(err.message));
-
-    // fetch("https://api.sheetson.com/v2/sheets/sheet", {
-    //   headers: {
-    //     Authorization:
-    //       "Bearer nQiHh7iTzp303KDegk8UcYwLBsS-hWJrOkS3f9dKQN4P3M-KRbrOIcFAWhw",
-    //     "X-Spreadsheet-Id": "1hdVHC9_ZiXENMNeZpieoDZtYNMbyt2KGGkpYO4EtFb0",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     this.users = data.results;
-    //   })
-    //   .catch((err) => console.log(err.message));
   },
   components: { Subscribe },
 };

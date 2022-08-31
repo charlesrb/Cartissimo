@@ -31,6 +31,11 @@
 </template>
 
 <script>
+import axios from "axios";
+
+const instanceUser = axios.create({
+  baseURL: "http://localhost:3000/api/user",
+});
 export default {
   name: "Utilisateur",
   data: function () {
@@ -39,15 +44,17 @@ export default {
     };
   },
   beforeCreate() {
-    fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
-      .then((res) => res.json())
+    instanceUser
+      .get("/")
       .then((data) => {
-        console.log(data);
-        this.user = data.filter(
+        this.user = data.data.result.filter(
           (user) => user.pseudo == this.$route.query.user
         );
+        console.log(data.data.result);
       })
-      .catch((err) => console.log(err.message));
+      .catch((error) => {
+        error;
+      });
   },
 };
 </script>

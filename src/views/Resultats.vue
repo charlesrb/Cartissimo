@@ -65,6 +65,11 @@
 </template>
 
 <script>
+import axios from "axios";
+
+const instanceUser = axios.create({
+  baseURL: "http://localhost:3000/api/user",
+});
 export default {
   name: "Resultats",
   data: function () {
@@ -86,17 +91,21 @@ export default {
           localStorage.setItem("users", JSON.stringify(testUser));
         }
       }
+      console.log(testUser);
 
       location.reload();
     },
   },
   beforeCreate() {
-    fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
-      .then((res) => res.json())
+    instanceUser
+      .get("/")
       .then((data) => {
-        this.users = data;
+        this.users = data.data.result;
+        console.log(data.data);
       })
-      .catch((err) => console.log(err.message));
+      .catch((error) => {
+        error;
+      });
 
     // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
     //   .then((res) => res.json())
