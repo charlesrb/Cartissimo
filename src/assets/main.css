@@ -140,13 +140,18 @@ body {
   border: 1px solid #707070;
   padding-left: 15px;
   padding-right: 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white !important;
+  background: url("../../src/assets/line-angle-down-icon.svg");
+  background-repeat: no-repeat;
+  background-size: 5%;
+  background-position: 95% 50%;
 }
 .collection__form--select option {
   color: black;
   text-decoration: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 
 .video {
