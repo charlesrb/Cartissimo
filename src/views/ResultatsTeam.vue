@@ -97,7 +97,7 @@
       <p>Resultats pour</p>
       <p>"{{ select }}"</p>
     </section>
-    <section v-if="this.user" class="resultats">
+    <section v-if="user != null && user.length >= 1" class="resultats">
       <article v-for="use in user" :key="use.id" class="resultats__detail">
         <div class="resultats__detail--user">
           <span><i class="fas fa-circle-user"></i></span>
@@ -127,7 +127,7 @@
       </article>
     </section>
 
-    <section :v-else="user.length == 0" class="resultats">
+    <section v-else-if="user == null || !user.length" class="resultats">
       <article class="resultats__detail">
         <h3>Pas encore de collectionneurs !</h3>
         <p>
@@ -174,7 +174,6 @@ export default {
   },
   computed: {
     selectTeam() {
-      let testUser = [];
       this.user = [];
 
       for (const user of this.users) {
@@ -220,8 +219,7 @@ export default {
           }
         }
       }
-      e.preventDefault();
-      console.log(testUser);
+      // e.preventDefault();
     },
   },
   methods: {},

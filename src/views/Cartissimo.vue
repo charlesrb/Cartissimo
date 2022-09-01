@@ -2,7 +2,9 @@
   <main>
     <nav class="menu">
       <div class="menu__button">
-        <router-link to="/subscribe"><i class="fas fa-bars"></i></router-link>
+        <!-- <router-link to="/subscribe"> -->
+        <i class="fas fa-bars" @click="showMenu"></i>
+        <!-- </router-link> -->
       </div>
       <div class="menu__title">Cartissimo.fr</div>
     </nav>
@@ -164,6 +166,9 @@ export default {
   computed: {},
 
   methods: {
+    showMenu() {
+      console.log("coucou");
+    },
     searchPlayer() {
       let usersSelected = [];
 
