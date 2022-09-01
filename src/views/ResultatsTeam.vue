@@ -90,6 +90,7 @@ export default {
       users: {},
       testUser: [],
       teamsNba: {},
+      teamsNfl: {},
     };
   },
   computed: {
@@ -111,7 +112,15 @@ export default {
     instanceSports
       .get("/")
       .then((data) => {
-        this.teamsNba = data.data.result[0].league.equipes;
+        let teams = data.data.result;
+        for (const team of teams) {
+          if (team.league.name === "NBA") {
+            this.teamsNba = team.league.equipes.name;
+          } else if (team.league.name === "NFL") {
+            this.teamsNfl = team.league.equipes.name;
+          }
+        }
+        // this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {
         error;

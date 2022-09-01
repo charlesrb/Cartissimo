@@ -35,55 +35,55 @@
         <div v-for="teamNba in teamsNba" :key="teamNba.id">
           <input
             type="checkbox"
-            :value="teamNba.name"
+            :value="teamNba"
             :id="teamNba.id"
             v-model="equipeNba"
           />
-          <label :for="teamNba.id">{{ teamNba.name }}</label>
+          <label :for="teamNba.id">{{ teamNba }}</label>
         </div>
 
         <p>Collectionnez-vous une (des ?) équipe NFL ?</p>
-        <div v-for="teamNba in teamsNba" :key="teamNba.id">
+        <div v-for="teamNfl in teamsNfl" :key="teamNfl.id">
           <input
             type="checkbox"
-            :value="teamNba.name"
-            :id="teamNba.id"
+            :value="teamNfl"
+            :id="teamNfl.id"
             v-model="equipeNfl"
           />
-          <label :for="teamNba.id">{{ teamNba.name }}</label>
+          <label :for="teamNfl.id">{{ teamNfl }}</label>
         </div>
 
         <p>Collectionnez-vous une (des ?) équipe NHL ?</p>
-        <div v-for="teamNba in teamsNba" :key="teamNba.id">
+        <div v-for="teamNhl in teamsNhl" :key="teamNhl.id">
           <input
             type="checkbox"
-            :value="teamNba.name"
-            :id="teamNba.id"
+            :value="teamNhl"
+            :id="teamNhl.id"
             v-model="equipeNhl"
           />
-          <label :for="teamNba.id">{{ teamNba.name }}</label>
+          <label :for="teamNhl.id">{{ teamNhl }}</label>
         </div>
 
         <p>Collectionnez-vous une (des ?) équipe MLB ?</p>
-        <div v-for="teamNba in teamsNba" :key="teamNba.id">
+        <div v-for="teamMlb in teamsMlb" :key="teamMlb.id">
           <input
             type="checkbox"
-            :value="teamNba.name"
-            :id="teamNba.id"
+            :value="teamMlb"
+            :id="teamMlb.id"
             v-model="equipeMlb"
           />
-          <label :for="teamNba.id">{{ teamNba.name }}</label>
+          <label :for="teamMlb.id">{{ teamMlb }}</label>
         </div>
 
         <p>Collectionnez-vous une (des ?) équipe de Soccer ?</p>
-        <div v-for="teamNba in teamsNba" :key="teamNba.id">
+        <div v-for="teamSoccer in teamsSoccer" :key="teamSoccer.id">
           <input
             type="checkbox"
-            :value="teamNba.name"
-            :id="teamNba.id"
+            :value="teamSoccer"
+            :id="teamSoccer.id"
             v-model="equipeSoccer"
           />
-          <label :for="teamNba.id">{{ teamNba.name }}</label>
+          <label :for="teamSoccer.id">{{ teamSoccer }}</label>
         </div>
 
         <p>
@@ -198,6 +198,10 @@ export default {
   data: function () {
     return {
       teamsNba: {},
+      teamsNfl: {},
+      teamsNhl: {},
+      teamsMlb: {},
+      teamsSoccer: {},
       sport: [],
       equipeNba: [],
       equipeNfl: [],
@@ -253,8 +257,22 @@ export default {
     instanceSports
       .get("/")
       .then((data) => {
-        console.log(data.data.result[0].league.equipes);
-        this.teamsNba = data.data.result[0].league.equipes;
+        console.log(data.data.result);
+        let teams = data.data.result;
+        for (const team of teams) {
+          if (team.league.name === "NBA") {
+            this.teamsNba = team.league.equipes.name;
+          } else if (team.league.name === "NFL") {
+            this.teamsNfl = team.league.equipes.name;
+          } else if (team.league.name === "NHL") {
+            this.teamsNhl = team.league.equipes.name;
+          } else if (team.league.name === "MLB") {
+            this.teamsMlb = team.league.equipes.name;
+          } else if (team.league.name === "Soccer") {
+            this.teamsSoccer = team.league.equipes.name;
+          }
+        }
+        // this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {
         error;
