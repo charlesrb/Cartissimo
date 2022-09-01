@@ -125,10 +125,12 @@ export default {
       localStorage.clear();
       localStorage.setItem("select", this.select);
       for (const user of this.users) {
-        if (user.equipe) {
-          if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
-            testUser.push(user);
-            localStorage.setItem("users", JSON.stringify(testUser));
+        for (const use of user.equipeNba) {
+          if (use) {
+            if (use.includes(this.select)) {
+              testUser.push(user);
+              localStorage.setItem("users", JSON.stringify(testUser));
+            }
           }
         }
       }

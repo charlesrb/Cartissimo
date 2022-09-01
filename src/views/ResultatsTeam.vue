@@ -111,7 +111,6 @@ export default {
     instanceSports
       .get("/")
       .then((data) => {
-        console.log(data.data.result[0].league.equipes);
         this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {
@@ -127,6 +126,7 @@ export default {
       .catch((error) => {
         error;
       });
+
     // fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
     //   .then((res) => res.json())
     //   .then((data) => {
