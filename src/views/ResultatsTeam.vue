@@ -1,9 +1,6 @@
 <template>
   <main>
-    <nav class="menu">
-      <div class="menu__button"><i class="fas fa-bars"></i></div>
-      <div class="menu__title">Cartissimo.fr</div>
-    </nav>
+    <Navigation></Navigation>
     <section class="collection">
       <h2 class="collection__title">Collectionneurs par équipe</h2>
 
@@ -145,6 +142,8 @@
 
 <script>
 import axios from "axios";
+import Navigation from "../components/Navigation.vue";
+
 const instanceSports = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
 });
@@ -293,6 +292,7 @@ export default {
     //   })
     //   .catch((err) => console.log(err.message));
   },
+  components: { Navigation },
 };
 </script>
 

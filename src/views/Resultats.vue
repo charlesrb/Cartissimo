@@ -1,9 +1,6 @@
 <template>
   <main>
-    <nav class="menu">
-      <div class="menu__button"><i class="fas fa-bars"></i></div>
-      <div class="menu__title">Cartissimo.fr</div>
-    </nav>
+    <Navigation></Navigation>
     <section class="header">
       <div class="header__text">
         <p>
@@ -66,6 +63,7 @@
 
 <script>
 import axios from "axios";
+import Navigation from "../components/Navigation.vue";
 
 const instanceUser = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
@@ -83,7 +81,6 @@ export default {
     searchPlayer() {
       let testUser = [];
       localStorage.clear();
-
       localStorage.setItem("search", this.search);
       for (const user of this.users) {
         if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
@@ -92,7 +89,6 @@ export default {
         }
       }
       console.log(testUser);
-
       location.reload();
     },
   },
@@ -106,7 +102,6 @@ export default {
       .catch((error) => {
         error;
       });
-
     // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
     //   .then((res) => res.json())
     //   .then((data) => {
@@ -114,6 +109,7 @@ export default {
     //   })
     //   .catch((err) => console.log(err.message));
   },
+  components: { Navigation },
 };
 </script>
 

@@ -1,9 +1,6 @@
 <template>
   <main>
-    <nav class="menu">
-      <div class="menu__button"><i class="fas fa-bars"></i></div>
-      <div class="menu__title">Cartissimo.fr</div>
-    </nav>
+    <Navigation></Navigation>
     <section class="header">
       <div class="header__text">
         <span><i class="fas fa-circle-user"></i></span>
@@ -53,6 +50,7 @@
 
 <script>
 import axios from "axios";
+import Navigation from "../components/Navigation.vue";
 
 const instanceUser = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
@@ -77,6 +75,7 @@ export default {
         error;
       });
   },
+  components: { Navigation },
 };
 </script>
 

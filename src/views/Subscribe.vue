@@ -1,8 +1,5 @@
 <template>
-  <nav class="menu">
-    <div class="menu__button"><i class="fas fa-bars"></i></div>
-    <div class="menu__title">Cartissimo.fr</div>
-  </nav>
+  <Navigation></Navigation>
   <section class="header">
     <div class="header__text">
       <h1>Référencez-vous !</h1>
@@ -216,6 +213,7 @@
 
 <script>
 import axios from "axios";
+import Navigation from "../components/Navigation.vue";
 
 const instanceSports = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
@@ -252,7 +250,6 @@ export default {
       mail: "",
     };
   },
-
   methods: {
     createUser() {
       let dataForm = {
@@ -275,14 +272,12 @@ export default {
         contact: this.contact,
         mail: this.mail,
       };
-
       instanceUser
         .post("/", dataForm)
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
     },
   },
-
   beforeCreate() {
     instanceSports
       .get("/")
@@ -308,6 +303,7 @@ export default {
         error;
       });
   },
+  components: { Navigation },
 };
 </script>
 

@@ -1,13 +1,7 @@
 <template>
   <main>
-    <nav class="menu">
-      <div class="menu__button">
-        <!-- <router-link to="/subscribe"> -->
-        <i class="fas fa-bars" @click="showMenu"></i>
-        <!-- </router-link> -->
-      </div>
-      <div class="menu__title">Cartissimo.fr</div>
-    </nav>
+    <Navigation></Navigation>
+
     <section class="header">
       <div class="header__text">
         <p>
@@ -138,6 +132,8 @@
 <script>
 // import Subscribe from "../components/Subscribe.vue";
 import axios from "axios";
+import Navigation from "../components/Navigation.vue";
+
 const instanceSports = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
 });
@@ -329,6 +325,9 @@ export default {
     //     console.log(data.sports.leagues);
     //   })
     //   .catch((err) => console.log(err.message));
+  },
+  components: {
+    Navigation,
   },
 };
 </script>
