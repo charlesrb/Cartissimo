@@ -37,8 +37,8 @@
       <p>Resultats pour</p>
       <p>"{{ select }}"</p>
     </section>
-    <section v-for="use in user" :key="use.id" class="resultats">
-      <article class="resultats__detail">
+    <section v-if="user" class="resultats">
+      <article v-for="use in user" :key="use.id" class="resultats__detail">
         <div class="resultats__detail--user">
           <span><i class="fas fa-circle-user"></i></span>
           <h3>
@@ -64,6 +64,17 @@
             <p>{{ use.instagram }}</p>
           </div>
         </div>
+      </article>
+    </section>
+
+    <section v-else-if="!user" class="resultats">
+      <article class="resultats__detail">
+        <h3>Pas encore de collectionneurs !</h3>
+        <p>
+          Vous collectionnez cette équipe ?
+          <router-link :to="{ path: '/subscribe' }">Inscrivez-vous</router-link>
+          !
+        </p>
       </article>
     </section>
     <footer class="footer">

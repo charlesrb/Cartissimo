@@ -26,9 +26,9 @@
           <input type="checkbox" id="Soccer" value="Soccer" v-model="sport" />
           <label for="Soccer">Soccer</label>
 
-          <input type="checkbox" id="other" value="other" />
+          <!-- <input type="checkbox" id="other" value="other" />
           <label for="other">Autre</label>
-          <input type="text" id="otherValue" name="other" />
+          <input type="text" id="otherValue" name="other" /> -->
         </div>
 
         <p>Collectionnez-vous une (des ?) équipe NBA ?</p>
