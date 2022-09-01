@@ -210,4 +210,77 @@ a {
 .resultats__detail--socialmedia img {
   width: 20px;
   height: 20px;
+}
+
+.form {
+  padding: 10px;
+}
+
+.form__detail--sport {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.form__detail--sport label {
+  padding-left: 5px;
+}
+
+.form__detail--team {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.form__detail--team label {
+  padding-left: 5px;
+}
+
+.subscribe {
+  background-color: #C22C25;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+}
+.subscribe__text {
+  color: white;
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 10px;
+}
+.subscribe__form {
+  font-family: "Poppins", sans-serif;
+}
+.subscribe__form--detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.subscribe__form--input {
+  height: 36px;
+  width: 300px;
+  border-radius: 20px;
+  border: 1px solid #707070;
+  padding-left: 20px;
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 20px;
+}
+.subscribe__form--button {
+  height: 36px;
+  width: 300px;
+  border-radius: 20px;
+  background-color: #8B2621;
+  color: white;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
 }/*# sourceMappingURL=main.css.map */
