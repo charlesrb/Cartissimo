@@ -336,6 +336,16 @@ export default {
 .pseudo {
   font-weight: 700;
 }
+
+.collection__form select {
+  height: 36px;
+  width: 300px;
+  text-decoration: none;
+  border-radius: 20px;
+  border: 1px solid #707070;
+  padding-left: 15px;
+  padding-right: 15px;
+}
 </style>
 
 

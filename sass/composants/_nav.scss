@@ -26,3 +26,17 @@
         }
     }
 }
+
+.dropdownMenu {
+    background-color:$primary-color;
+    color:white;
+
+    & a {
+        color:white;
+    }
+}
+
+.menuArrow {
+    border-bottom:1px solid white;
+    padding:10px;
+}

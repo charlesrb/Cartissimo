@@ -90,6 +90,19 @@ body {
   color: white;
 }
 
+.dropdownMenu {
+  background-color: #C22C25;
+  color: white;
+}
+.dropdownMenu a {
+  color: white;
+}
+
+.menuArrow {
+  border-bottom: 1px solid white;
+  padding: 10px;
+}
+
 .footer {
   background-color: #F1F1F1;
   padding-top: 160px;
@@ -127,6 +140,9 @@ body {
   border: 1px solid #707070;
   padding-left: 15px;
   padding-right: 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .collection__form--select option {
   color: black;
