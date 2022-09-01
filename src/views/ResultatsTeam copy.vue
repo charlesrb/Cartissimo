@@ -4,20 +4,21 @@
     <section class="collection">
       <h2 class="collection__title">Collectionneurs par équipe</h2>
 
-      <div class="collection__form">
+      <form action="" class="collection__form">
         <select
           name="NBA"
           id="NBA"
           class="collection__form--select"
-          @change="selectTeamNba()"
-          v-model="selectNba"
+          @change="selectTeam()"
+          placeholder="test"
         >
-          <option :value="this.selectNba" disabled>NBA</option>
+          <option :value="this.select" disabled>NBA</option>
 
           <option
             v-for="teamNba in teamsNba"
             :key="teamNba.id"
             :value="teamNba"
+            selected
           >
             {{ teamNba }}
           </option>
@@ -26,10 +27,10 @@
           name=""
           id=""
           class="collection__form--select"
-          v-model="selectNfl"
-          @change.prevent="selectTeamNfl()"
+          v-model="select"
+          @change.prevent="selectTeam()"
         >
-          <option :value="this.selectNfl" disabled>NFL</option>
+          <option :value="robert[1].name" disabled selected hidden>NFL</option>
           <option
             v-for="teamNfl in teamsNfl"
             :key="teamNfl.id"
@@ -42,10 +43,10 @@
           name=""
           id=""
           class="collection__form--select"
-          v-model="selectNhl"
-          @change="selectTeamNhl()"
+          v-model="select"
+          @change="selectTeam()"
         >
-          <option :value="this.selectNhl" disabled>NHL</option>
+          <option value="" disabled>NHL</option>
           <option
             v-for="teamNhl in teamsNhl"
             :key="teamNhl.id"
@@ -59,10 +60,10 @@
           name=""
           id=""
           class="collection__form--select"
-          v-model="selectMlb"
-          @change="selectTeamMlb()"
+          v-model="select"
+          @change="selectTeam()"
         >
-          <option :value="this.selectMlb" disabled>MLB</option>
+          <option value="" disabled>MLB</option>
           <option
             v-for="teamMlb in teamsMlb"
             :key="teamMlb.id"
@@ -76,10 +77,10 @@
           name=""
           id=""
           class="collection__form--select"
-          v-model="selectSoccer"
-          @change="selectTeamSoccer()"
+          v-model="select"
+          @change="selectTeam()"
         >
-          <option :value="this.selectSoccer" disabled>Soccer</option>
+          <option value="" disabled>Soccer</option>
           <option
             v-for="teamSoccer in teamsSoccer"
             :key="teamSoccer.id"
@@ -88,12 +89,12 @@
             {{ teamSoccer }}
           </option>
         </select>
-      </div>
-      >
+      </form>
     </section>
     <section class="title-2">
       <p>Resultats pour</p>
       <p>"{{ select }}"</p>
+      <p>{{ robert[0].name }}</p>
     </section>
     <section v-if="user != null && user.length >= 1" class="resultats">
       <article v-for="use in user" :key="use.id" class="resultats__detail">
@@ -130,9 +131,7 @@
         <h3>Pas encore de collectionneurs !</h3>
         <p>
           Vous collectionnez cette équipe ?
-          <router-link class="link__subscribe" :to="{ path: '/subscribe' }"
-            >Inscrivez-vous</router-link
-          >
+          <router-link :to="{ path: '/subscribe' }">Inscrivez-vous</router-link>
           !
         </p>
       </article>
@@ -167,83 +166,65 @@ export default {
       teamsNhl: {},
       teamsMlb: {},
       teamsSoccer: {},
-      selectNba: "NBA",
-      selectNfl: "NFL",
-      selectNhl: "NHL",
-      selectMlb: "MLB",
-      selectSoccer: "Soccer",
+      selectNba: "",
+      selectNfl: "",
+      selectNhl: "",
+      selectMlb: "",
+      selectSoccer: "",
       robert: [{ name: "NBA" }, { name: "NFL" }],
     };
   },
-  computed: {},
-  methods: {
-    selectTeamNba() {
+  computed: {
+    selectTeam() {
       this.user = [];
 
       for (const user of this.users) {
-        if (user.equipeNba.includes(this.selectNba)) {
-          this.select = this.selectNba;
-          this.user.push(user);
+        if (user.equipeNba.includes(this.select)) {
+          for (const use of user.equipeNba) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeNfl.includes(this.select)) {
+          for (const use of user.equipeNfl) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeNhl.includes(this.select)) {
+          for (const use of user.equipeNhl) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeMlb.includes(this.select)) {
+          for (const use of user.equipeMlb) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeSoccer.includes(this.select)) {
+          for (const use of user.equipeSoccer) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
         }
       }
-      if (this.select != this.selectNba) {
-        this.select = this.selectNba;
-      }
-    },
-
-    selectTeamNfl() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeNfl.includes(this.selectNfl)) {
-          this.select = this.selectNfl;
-          this.user.push(user);
-        }
-      }
-      if (this.select != this.selectNfl) {
-        this.select = this.selectNfl;
-      }
-    },
-    selectTeamNhl() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeNhl.includes(this.selectNhl)) {
-          this.select = this.selectNfl;
-          this.user.push(user);
-        }
-      }
-      if (this.select != this.selectNhl) {
-        this.select = this.selectNhl;
-      }
-    },
-    selectTeamMlb() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeMlb.includes(this.selectMlb)) {
-          this.select = this.selectMlb;
-          this.user.push(user);
-        }
-      }
-      if (this.select != this.selectMlb) {
-        this.select = this.selectMlb;
-      }
-    },
-    selectTeamSoccer() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeSoccer.includes(this.selectSoccer)) {
-          this.select = this.selectSoccer;
-          this.user.push(user);
-        }
-      }
-      if (this.select != this.selectSoccer) {
-        this.select = this.selectSoccer;
-      }
+      // e.preventDefault();
     },
   },
+  methods: {},
   beforeCreate() {
     instanceSports
       .get("/")
@@ -278,6 +259,41 @@ export default {
       .catch((error) => {
         error;
       });
+
+    // fetch("https://sheetdb.io/api/v1/j8ef9j4vw6ecz")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.users = data;
+
+    //     // for (const user of this.users) {
+    //     //   if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
+    //     //     testUser.push(user);
+    //     //   }
+    //     // }
+    //   })
+    //   .catch((err) => console.log(err.message));
+
+    // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.users = data;
+    //     console.log(this.users);
+    //   })
+    //   .catch((err) => console.log(err.message));
+
+    // fetch("https://www.balldontlie.io/api/v1/teams")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.teamsNba = data.data;
+    //   })
+    //   .catch((err) => console.log(err.message));
+
+    // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.users = data;
+    //   })
+    //   .catch((err) => console.log(err.message));
   },
   components: { Navigation },
 };
@@ -299,10 +315,5 @@ export default {
   justify-content: center;
   font-size: 16px;
   font-weight: 500;
-}
-
-.link__subscribe {
-  color: #c22c25;
-  font-weight: 700;
 }
 </style>

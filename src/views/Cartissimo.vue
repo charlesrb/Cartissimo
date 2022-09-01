@@ -293,7 +293,7 @@ export default {
       console.log(testUser);
       this.$router.push("/resultatsteam");
 
-      e.preventDefault();
+      // e.preventDefault();
     },
   },
   beforeCreate() {

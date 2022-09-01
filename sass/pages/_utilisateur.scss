@@ -1,0 +1,13 @@
+.user__header {
+display:flex;
+flex-direction:row;
+justify-content: center;
+align-items: center;
+gap:10px;
+background-color: $primary-color;
+padding:20px;
+color:white;
+& i { 
+    font-size:50px;
+} 
+}

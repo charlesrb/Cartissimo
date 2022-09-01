@@ -310,4 +310,18 @@ a {
   font-size: 13px;
   font-weight: 500;
   font-family: "Poppins", sans-serif;
+}
+
+.user__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: #C22C25;
+  padding: 20px;
+  color: white;
+}
+.user__header i {
+  font-size: 50px;
 }/*# sourceMappingURL=main.css.map */

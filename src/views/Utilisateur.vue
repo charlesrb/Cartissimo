@@ -1,8 +1,8 @@
 <template>
   <main>
     <Navigation></Navigation>
-    <section class="header">
-      <div class="header__text">
+    <section class="user">
+      <div class="user__header">
         <span><i class="fas fa-circle-user"></i></span>
         <h1>{{ this.$route.query.user }}</h1>
       </div>
