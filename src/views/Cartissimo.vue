@@ -153,7 +153,6 @@ export default {
       teamsNhl: {},
       teamsMlb: {},
       teamsSoccer: {},
-
       search: "",
       selectNba: "NBA",
       selectNfl: "NFL",
