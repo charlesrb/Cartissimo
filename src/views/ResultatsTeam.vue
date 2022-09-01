@@ -6,30 +6,90 @@
     </nav>
     <section class="collection">
       <h2 class="collection__title">Collectionneurs par équipe</h2>
+
       <form action="" class="collection__form">
-        <select name="" id="" class="collection__form--select" v-model="select">
-          <!-- @change="selectTeam()" -->
-          <option value="NBA" disabled>NBA</option>
+        <select
+          name="NBA"
+          id="NBA"
+          class="collection__form--select"
+          v-model="select"
+          @change="selectTeam()"
+        >
+          <option value="" disabled>NBA</option>
 
           <option
             v-for="teamNba in teamsNba"
             :key="teamNba.id"
-            :value="teamNba.name"
+            :value="teamNba"
           >
-            {{ teamNba.name }}
+            {{ teamNba }}
           </option>
         </select>
-        <select name="" id="" class="collection__form--select">
-          <option value="NFL">NFL</option>
+        <select
+          name=""
+          id=""
+          class="collection__form--select"
+          v-model="select"
+          @change.prevent="selectTeam()"
+        >
+          <option value="" disabled>NFL</option>
+          <option
+            v-for="teamNfl in teamsNfl"
+            :key="teamNfl.id"
+            :value="teamNfl"
+          >
+            {{ teamNfl }}
+          </option>
         </select>
-        <select name="" id="" class="collection__form--select">
-          <option value="MLB">MLB</option>
+        <select
+          name=""
+          id=""
+          class="collection__form--select"
+          v-model="select"
+          @change="selectTeam()"
+        >
+          <option value="" disabled>NHL</option>
+          <option
+            v-for="teamNhl in teamsNhl"
+            :key="teamNhl.id"
+            :value="teamNhl"
+          >
+            {{ teamNhl }}
+          </option>
         </select>
-        <select name="" id="" class="collection__form--select">
-          <option value="NHL">NHL</option>
+
+        <select
+          name=""
+          id=""
+          class="collection__form--select"
+          v-model="select"
+          @change="selectTeam()"
+        >
+          <option value="" disabled>MLB</option>
+          <option
+            v-for="teamMlb in teamsMlb"
+            :key="teamMlb.id"
+            :value="teamMlb"
+          >
+            {{ teamMlb }}
+          </option>
         </select>
-        <select name="" id="" class="collection__form--select">
-          <option value="Soccer">Soccer</option>
+
+        <select
+          name=""
+          id=""
+          class="collection__form--select"
+          v-model="select"
+          @change="selectTeam()"
+        >
+          <option value="" disabled>Soccer</option>
+          <option
+            v-for="teamSoccer in teamsSoccer"
+            :key="teamSoccer.id"
+            :value="teamSoccer"
+          >
+            {{ teamSoccer }}
+          </option>
         </select>
       </form>
     </section>
@@ -99,36 +159,89 @@ export default {
       user: JSON.parse(localStorage.getItem("users")),
       select: localStorage.getItem("select"),
       users: {},
-      testUser: [],
       teamsNba: {},
       teamsNfl: {},
+      teamsNhl: {},
+      teamsMlb: {},
+      teamsSoccer: {},
+      selectNba: "",
+      selectNfl: "",
+      selectNhl: "",
+      selectMlb: "",
+      selectSoccer: "",
+      robert: [{ name: "NBA" }, { name: "NFL" }],
     };
   },
   computed: {
-    // selectTeam() {
-    //   let testUser = [];
-    //   for (const user of this.users) {
-    //     if (user.equipe) {
-    //       if (user.equipe.toLowerCase().includes(this.select.toLowerCase())) {
-    //         testUser.push(user);
-    //         localStorage.setItem("users", JSON.stringify(testUser));
-    //       }
-    //     }
-    //   }
-    //   e.preventDefault();
-    // },
+    selectTeam() {
+      let testUser = [];
+      this.user = [];
+
+      for (const user of this.users) {
+        if (user.equipeNba.includes(this.select)) {
+          for (const use of user.equipeNba) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeNfl.includes(this.select)) {
+          for (const use of user.equipeNfl) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeNhl.includes(this.select)) {
+          for (const use of user.equipeNhl) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeMlb.includes(this.select)) {
+          for (const use of user.equipeMlb) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        } else if (user.equipeSoccer.includes(this.select)) {
+          for (const use of user.equipeSoccer) {
+            if (use) {
+              if (use.includes(this.select)) {
+                this.user.push(user);
+              }
+            }
+          }
+        }
+      }
+      e.preventDefault();
+      console.log(testUser);
+    },
   },
   methods: {},
   beforeCreate() {
     instanceSports
       .get("/")
       .then((data) => {
+        console.log(data.data.result);
         let teams = data.data.result;
         for (const team of teams) {
           if (team.league.name === "NBA") {
             this.teamsNba = team.league.equipes.name;
           } else if (team.league.name === "NFL") {
             this.teamsNfl = team.league.equipes.name;
+          } else if (team.league.name === "NHL") {
+            this.teamsNhl = team.league.equipes.name;
+          } else if (team.league.name === "MLB") {
+            this.teamsMlb = team.league.equipes.name;
+          } else if (team.league.name === "Soccer") {
+            this.teamsSoccer = team.league.equipes.name;
           }
         }
         // this.teamsNba = data.data.result[0].league.equipes;
