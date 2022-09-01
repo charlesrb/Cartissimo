@@ -116,11 +116,40 @@
     <!-- <Subscribe></Subscribe> -->
     <section class="video">
       <div class="video__title">
-        <p>Découvrez nos vidéos sur YouTube</p>
+        <h2>Découvrez nos vidéos sur YouTube</h2>
       </div>
-      <div class="video__img">
-        <img src="../assets/img/thumbnails.png" alt="" />
-        <legend>Conception de carte jersey | Épisode 011</legend>
+      <div class="video__title--detail">
+        <iframe
+          src="https://www.youtube.com/embed/Z7iNNc7rzhc"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          showinfo="0"
+          rel="0"
+          controls="1"
+        ></iframe>
+        <legend>9 cartes qui résument mon parcours de collectionneur</legend>
+      </div>
+      <div class="video__title--detail">
+        <iframe
+          src="https://www.youtube.com/embed/makTdonwPyA"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+        <legend>Les premiers prototypes de cartes Cartissimo</legend>
+      </div>
+      <div class="video__title--detail">
+        <iframe
+          src="https://www.youtube.com/embed/SfTkkzHT0XA"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+        <legend>Après les Bulls elle va bosser pour Cartissimo</legend>
       </div>
     </section>
     <footer class="footer">
@@ -345,6 +374,23 @@ export default {
   border: 1px solid #707070;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.video__title--detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+legend {
+  margin-top: 10px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
 }
 </style>
 

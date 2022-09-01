@@ -55,6 +55,16 @@
         </div>
       </article>
     </section>
+    <section v-if="display == false || user == null" class="resultats">
+      <article class="resultats__detail">
+        <h3>Pas encore de collectionneurs !</h3>
+        <p>
+          Vous collectionnez cette équipe ?
+          <router-link :to="{ path: '/subscribe' }">Inscrivez-vous</router-link>
+          !
+        </p>
+      </article>
+    </section>
     <footer class="footer">
       <img src="../assets/img/logo-cartissimo-gris-sans-texte.png" alt="" />
     </footer>
@@ -75,21 +85,25 @@ export default {
       user: JSON.parse(localStorage.getItem("users")),
       search: localStorage.getItem("search"),
       users: {},
+      display: "false",
     };
   },
+  computed: {},
   methods: {
     searchPlayer() {
       let testUser = [];
-      localStorage.clear();
-      localStorage.setItem("search", this.search);
+      this.user = [];
+
       for (const user of this.users) {
-        if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
-          testUser.push(user);
-          localStorage.setItem("users", JSON.stringify(testUser));
+        if (user.joueur != null) {
+          if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
+            console.log(user.joueur);
+            this.user.push(user);
+          }
+        } else if (!user.joueur) {
+          this.display = !this.display;
         }
       }
-      console.log(testUser);
-      location.reload();
     },
   },
   beforeCreate() {

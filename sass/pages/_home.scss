@@ -20,27 +20,20 @@
     &--select {
         height:36px;
         width:300px;
-        text-decoration: none;
-
         border-radius:20px;
         border:1px solid $tertiary-color-bis;
         padding-left:15px;
         padding-right:15px;
-       
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-color: white!important;
-            background: url("../../src/assets/line-angle-down-icon.svg");
-            background-repeat:no-repeat;
-            background-size: 5%;
-            background-position: 95% 50%;
-            color:black;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: white!important;
+        background: url("../../src/assets/line-angle-down-icon.svg");
+        background-repeat:no-repeat;
+        background-size: 5%;
+        background-position: 95% 50%;
+        color:black;
           
-          
-
-
-
         & option {
             color:black;
             text-decoration: none;
