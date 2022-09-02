@@ -197,7 +197,6 @@ a {
   background-color: #F1F1F1;
   margin-bottom: 0;
   height: 100%;
-  padding-bottom: 30px;
   display: flex;
   flex-direction: column;
   padding-left: 35px;
@@ -208,8 +207,8 @@ a {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-bottom: 20px;
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 .resultats__detail--user {
   display: flex;
@@ -229,10 +228,12 @@ a {
   font-size: 10px;
   font-weight: 400;
 }
-.resultats__detail--socialmedia div {
+.resultats__detail--socialmedia div, .resultats__detail--socialmedia a {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 .resultats__detail--socialmedia img {
   width: 20px;
@@ -241,6 +242,9 @@ a {
 
 .form {
   padding: 10px;
+}
+.form__detail--legende {
+  margin-top: 20px;
 }
 
 .form__detail--sport {
@@ -291,7 +295,18 @@ a {
 }
 .subscribe__form--input {
   height: 36px;
-  width: 300px;
+  width: 370px;
+  border-radius: 20px;
+  border: 1px solid #707070;
+  padding-left: 20px;
+  font-size: 13px;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  margin-top: 10px;
+}
+.subscribe__form--select {
+  height: 36px;
+  width: 370px;
   border-radius: 20px;
   border: 1px solid #707070;
   padding-left: 20px;
@@ -299,17 +314,72 @@ a {
   font-weight: 400;
   font-family: "Poppins", sans-serif;
   margin-bottom: 20px;
+  margin-top: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white !important;
+  background: url("../../src/assets/line-angle-down-icon.svg");
+  background-repeat: no-repeat;
+  background-size: 5%;
+  background-position: 95% 50%;
+  color: black;
 }
 .subscribe__form--button {
   height: 36px;
-  width: 300px;
+  width: 370px;
   border-radius: 20px;
   background-color: #8B2621;
   color: white;
   border: none;
+  margin-top: 20px;
   font-size: 13px;
   font-weight: 500;
   font-family: "Poppins", sans-serif;
+}
+
+.multiselect {
+  width: 370px !important;
+}
+.multiselect__tags {
+  min-height: 36px !important;
+  width: 370px !important;
+  border-radius: 20px !important;
+  border: 1px solid #707070 !important;
+  padding-left: 20px !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  font-family: "Poppins", sans-serif !important;
+  margin-top: 10px !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-color: white !important;
+  background: url("../../src/assets/line-angle-down-icon.svg") !important;
+  background-repeat: no-repeat !important;
+  background-size: 5% !important;
+  background-position: 95% 50% !important;
+  color: black !important;
+}
+.multiselect__content-wrapper {
+  width: 370px !important;
+}
+.multiselect__select {
+  display: none;
+}
+.multiselect__select:before {
+  display: none;
+}
+
+.multiselect__tag {
+  background-color: #C22C25 !important;
+}
+.multiselect__tag-icon:after {
+  color: white !important;
+}
+
+.multiselect__option--highlight, .multiselect__option--highlight:after {
+  background-color: #505050 !important;
 }
 
 .user__header {

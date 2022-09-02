@@ -1,5 +1,9 @@
 .form {
     padding:10px;
+    &__detail--legende {
+        margin-top:20px;
+    }
+   
 }
 
 .form__detail--sport {
@@ -47,11 +51,27 @@
             justify-content: center;
             align-items: center;
             gap:10px;
+            
+            
            
         }
+        
         &--input {
             height:36px;
-            width:300px;
+            width:370px;
+            border-radius:20px;
+            border:1px solid $tertiary-color-bis;
+            padding-left:20px;
+            font-size: 13px;
+            font-weight:400;
+            font-family:'Poppins', sans-serif;
+            
+            margin-top:10px;
+            
+        }
+        &--select {
+            height:36px;
+            width:370px;
             border-radius:20px;
             border:1px solid $tertiary-color-bis;
             padding-left:20px;
@@ -59,18 +79,76 @@
             font-weight:400;
             font-family:'Poppins', sans-serif;
             margin-bottom:20px;
+            margin-top:10px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: white!important;
+            background: url("../../src/assets/line-angle-down-icon.svg");
+            background-repeat:no-repeat;
+            background-size: 5%;
+            background-position: 95% 50%;
+            color:black;
         }
         &--button {
             height:36px;
-            width:300px;
+            width:370px;
             border-radius:20px;
             background-color: $secondary-color;
             color:white;
             border:none;
+            margin-top:20px;
             font-size: 13px;
             font-weight:500;
             font-family:'Poppins', sans-serif;
         
         }
     }
+}
+
+.multiselect {
+    width:370px!important;
+    
+    &__tags {
+        min-height:36px!important;
+    width:370px!important;
+    border-radius:20px!important;
+    border:1px solid $tertiary-color-bis!important;
+    padding-left:20px!important;
+    font-size: 13px!important;
+    font-weight:400!important;
+    font-family:'Poppins', sans-serif!important;
+    
+    margin-top:10px!important;
+    -webkit-appearance: none!important;
+    -moz-appearance: none!important;
+        appearance: none!important;
+    background-color: white!important;
+    background: url("../../src/assets/line-angle-down-icon.svg")!important;
+    background-repeat:no-repeat!important;
+    background-size: 5%!important;
+    background-position: 95% 50%!important;
+    color:black!important;
+    }
+    &__content-wrapper {
+        width:370px!important;
+    }
+    &__select {
+        display:none;
+        &:before {
+            display:none;
+        }
+    }
+}
+
+.multiselect__tag {
+    background-color: $primary-color!important;
+
+    &-icon:after {
+        color:white!important;
+    }
+}
+
+.multiselect__option--highlight, .multiselect__option--highlight:after {
+    background-color: $tertiary-color!important;
 }

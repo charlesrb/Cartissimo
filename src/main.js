@@ -5,6 +5,7 @@ import vSelect from "vue-select";
 
 import "./assets/main.css";
 import "vue-select/dist/vue-select.css";
+import "vue-multiselect/dist/vue-multiselect.css";
 
 const app = createApp(App);
 

@@ -20,7 +20,6 @@ a {
     background-color: #F1F1F1;
     margin-bottom:0;
     height:100%;
-    padding-bottom:30px;
     display:flex;
     flex-direction: column;
     padding-left:35px;
@@ -30,8 +29,8 @@ a {
         display:flex;
         flex-direction: column;
         gap:10px;
-        padding-bottom:20px;
         padding-top:20px;
+        padding-bottom:20px;
         &--user {
             display:flex;
             flex-direction: row;
@@ -50,10 +49,12 @@ a {
             gap:10px;
             font-size: 10px;
             font-weight: 400;
-            & div {
+            & div, a {
                 display:flex;
                 flex-direction: row;
-                gap:10px;
+                justify-content: center;
+                align-items: center;
+                gap:5px;
             }
             & img {
                 width: 20px;

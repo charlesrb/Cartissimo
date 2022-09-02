@@ -106,20 +106,28 @@
             >
           </h3>
         </div>
-        <div>
-          <p class="collection-detail">Collection : {{ use.collection }}</p>
+        <div v-if="use.contact">
+          <p class="collection-detail">Contact :</p>
+          <p class="collection-detail">{{ use.contact }}</p>
         </div>
         <div
           class="resultats__detail--socialmedia"
-          v-if="(use.twitter && use.instagram) || use.twitter || use.instagram"
+          v-if="
+            use.twitter.toLowerCase() != non ||
+            use.instagram.toLowerCase() != non
+          "
         >
-          <div v-if="use.twitter && use.twitter != 'Non'">
+          <div v-if="use.twitter.toLowerCase() != 'non'">
             <img src="../assets/img/twitter_logo.png" alt="" />
-            <p>{{ use.twitter }}</p>
+            <a :href="'https://twitter.com/' + use.twitter">
+              <p>{{ use.twitter }}</p>
+            </a>
           </div>
-          <div v-if="use.instagram && use.instagram != 'Non'">
+          <div v-if="use.instagram.toLowerCase() != 'non'">
             <img src="../assets/img/instagram_logo.png" alt="" />
-            <p>{{ use.instagram }}</p>
+            <a :href="'https://instagram.com/' + use.instagram.substr(1)">
+              <p>{{ use.instagram }}</p>
+            </a>
           </div>
         </div>
       </article>
@@ -172,7 +180,6 @@ export default {
       selectNhl: "NHL",
       selectMlb: "MLB",
       selectSoccer: "Soccer",
-      robert: [{ name: "NBA" }, { name: "NFL" }],
     };
   },
   computed: {},

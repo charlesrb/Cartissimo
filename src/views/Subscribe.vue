@@ -9,170 +9,160 @@
     <div>
       <form action="" class="form__detail" @submit.prevent="onSubmit">
         <div>
-          <p>Quel sport collectionnez-vous ?</p>
-          <div class="form__detail--sport">
-            <div>
-              <input type="checkbox" id="NBA" value="NBA" v-model="sport" />
-              <label for="NBA">NBA</label>
-            </div>
-            <div>
-              <input type="checkbox" id="NFL" value="NFL" v-model="sport" />
-              <label for="NFL">NFL</label>
-            </div>
-            <div>
-              <input type="checkbox" id="NHL" value="NHL" v-model="sport" />
-              <label for="NHL">NHL</label>
-            </div>
-            <div>
-              <input type="checkbox" id="MLB" value="MLB" v-model="sport" />
-              <label for="MLB">MLB</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                id="Soccer"
-                value="Soccer"
-                v-model="sport"
-              />
-              <label for="Soccer">Soccer</label>
-            </div>
-          </div>
-          <!-- <input type="checkbox" id="other" value="other" />
-          <label for="other">Autre</label>
-          <input type="text" id="otherValue" name="other" /> -->
+          <p class="form__detail--legende">Quel sport collectionnez-vous ?</p>
+          <VueMultiselect
+            v-model="sportSelected"
+            :multiple="true"
+            :options="sport"
+            select-label="Selectionner"
+            deselect-label="Déselectionner"
+            selected-label="Selectionné"
+            :close-on-select="false"
+            tag-placeholder="Ajouter ce sport"
+            placeholder="Chercher ou sélectionner un sport"
+            :taggable="true"
+            @tag="addTag"
+          >
+          </VueMultiselect>
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Collectionnez-vous une (des ?) équipe NBA ?
+          </p>
+          <VueMultiselect
+            v-model="equipeNba"
+            :multiple="true"
+            :options="teamsNba"
+            select-label="Selectionner"
+            deselect-label="Déselectionner"
+            selected-label="Selectionné"
+            :close-on-select="false"
+          >
+          </VueMultiselect>
         </div>
 
-        <p>Collectionnez-vous une (des ?) équipe NBA ?</p>
-        <div class="form__detail--team">
-          <div v-for="teamNba in teamsNba" :key="teamNba.id">
-            <input
-              type="checkbox"
-              :value="teamNba"
-              :id="teamNba.id"
-              v-model="equipeNba"
-            />
-            <label :for="teamNba.id">{{ teamNba }}</label>
-          </div>
+        <div>
+          <p class="form__detail--legende">
+            Collectionnez-vous une (des ?) équipe NFL ?
+          </p>
+          <VueMultiselect
+            v-model="equipeNfl"
+            :multiple="true"
+            :options="teamsNfl"
+            select-label="Selectionner"
+            deselect-label="Déselectionner"
+            selected-label="Selectionné"
+            :close-on-select="false"
+          >
+          </VueMultiselect>
         </div>
 
-        <p>Collectionnez-vous une (des ?) équipe NFL ?</p>
-        <div class="form__detail--team">
-          <div v-for="teamNfl in teamsNfl" :key="teamNfl.id">
-            <input
-              type="checkbox"
-              :value="teamNfl"
-              :id="teamNfl.id"
-              v-model="equipeNfl"
-            />
-            <label :for="teamNfl.id">{{ teamNfl }}</label>
-          </div>
+        <div>
+          <p class="form__detail--legende">
+            Collectionnez-vous une (des ?) équipe NHL ?
+          </p>
+          <VueMultiselect
+            v-model="equipeNhl"
+            :multiple="true"
+            :options="teamsNhl"
+            select-label="Selectionner"
+            deselect-label="Déselectionner"
+            selected-label="Selectionné"
+            :close-on-select="false"
+          >
+          </VueMultiselect>
         </div>
-        <p>Collectionnez-vous une (des ?) équipe NHL ?</p>
-        <div class="form__detail--team">
-          <div v-for="teamNhl in teamsNhl" :key="teamNhl.id">
-            <input
-              type="checkbox"
-              :value="teamNhl"
-              :id="teamNhl.id"
-              v-model="equipeNhl"
-            />
-            <label :for="teamNhl.id">{{ teamNhl }}</label>
-          </div>
-        </div>
-        <p>Collectionnez-vous une (des ?) équipe MLB ?</p>
 
-        <div class="form__detail--team">
-          <div v-for="teamMlb in teamsMlb" :key="teamMlb.id">
-            <input
-              type="checkbox"
-              :value="teamMlb"
-              :id="teamMlb.id"
-              v-model="equipeMlb"
-            />
-            <label :for="teamMlb.id">{{ teamMlb }}</label>
-          </div>
+        <div>
+          <p class="form__detail--legende">
+            Collectionnez-vous une (des ?) équipe MLB ?
+          </p>
+          <VueMultiselect
+            v-model="equipeMlb"
+            :multiple="true"
+            :options="teamsMlb"
+            select-label="Selectionner"
+            deselect-label="Déselectionner"
+            selected-label="Selectionné"
+            :close-on-select="false"
+          >
+          </VueMultiselect>
         </div>
-        <p>Collectionnez-vous une (des ?) équipe de Soccer ?</p>
-
-        <div class="form__detail--team">
-          <div v-for="teamSoccer in teamsSoccer" :key="teamSoccer.id">
-            <input
-              type="checkbox"
-              :value="teamSoccer"
-              :id="teamSoccer.id"
-              v-model="equipeSoccer"
-            />
-            <label :for="teamSoccer.id">{{ teamSoccer }}</label>
-          </div>
+        <div>
+          <p class="form__detail--legende">
+            Collectionnez-vous une (des ?) équipe Soccer ?
+          </p>
+          <VueMultiselect
+            v-model="equipeSoccer"
+            :multiple="true"
+            :options="teamsSoccer"
+            select-label="Selectionner"
+            deselect-label="Déselectionner"
+            selected-label="Selectionné"
+            :close-on-select="false"
+          >
+          </VueMultiselect>
         </div>
-        <p>
-          Collectionnez-vous un ou des joueurs en particulier ? (Indiquez le
-          Prénom et le Nom, et séparez les joueurs par une virgule : Michael
-          Jordan, Scottie Pippen)
-        </p>
-        <input class="subscribe__form--input" type="text" v-model="joueur" />
-
-        <p>
+        <div class="form__detail--text">
+          <p class="form__detail--legende">
+            Collectionnez-vous un ou des joueurs en particulier ? (Indiquez le
+            Prénom et le Nom, et séparez les joueurs par une virgule : Michael
+            Jordan, Scottie Pippen)
+          </p>
+          <input class="subscribe__form--input" type="text" v-model="joueur" />
+        </div>
+        <p class="form__detail--legende">
           Avez-vous un autre type de collection (ni joueur, ni équipe, mais sur
           d'autres thèmes...)
         </p>
         <input type="selec" class="subscribe__form--input" v-model="collec" />
 
-        <p>En quelle année avez-vous acheté vos premières cartes ?</p>
+        <p class="form__detail--legende">
+          En quelle année avez-vous acheté vos premières cartes ?
+        </p>
 
-        <select class="subscribe__form--input" v-model="premiereCarte">
-          <option value="Avant 1986">Avant 1986</option>
-          <option value="Entre 1986 et 1990">Entre 1986 et 1990</option>
-          <option value="Entre 1991 et 1995">Entre 1991 et 1995</option>
-          <option value="Entre 1996 et 2000">Entre 1996 et 2000</option>
-          <option value="Entre 2001 et 2005">Entre 2001 et 2005</option>
-          <option value="Entre 2006 et 2010">Entre 2006 et 2010</option>
-          <option value="Entre 2011 et 2015">Entre 2011 et 2015</option>
-          <option value="Entre 2016 et 2020">Entre 2016 et 2020</option>
-          <option value="Après 2020">Après 2020</option>
-        </select>
+        <VueMultiselect
+          v-model="premiereCarte"
+          :options="periode"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+        ></VueMultiselect>
 
-        <p>
+        <p class="form__detail--legende">
           Depuis quand êtes vous actif sur votre collection actuelle ? (si vous
           avez collectionné en 1995, puis arrêté, puis repris en 2020...
           indiquez 2020 !)
         </p>
 
-        <select class="subscribe__form--input" v-model="actif">
-          <option value="Avant 1986">Avant 1986</option>
-          <option value="Entre 1986 et 1990">Entre 1986 et 1990</option>
-          <option value="Entre 1991 et 1995">Entre 1991 et 1995</option>
-          <option value="Entre 1996 et 2000">Entre 1996 et 2000</option>
-          <option value="Entre 2001 et 2005">Entre 2001 et 2005</option>
-          <option value="Entre 2006 et 2010">Entre 2006 et 2010</option>
-          <option value="Entre 2011 et 2015">Entre 2011 et 2015</option>
-          <option value="Entre 2016 et 2020">Entre 2016 et 2020</option>
-          <option value="Après 2020">Après 2020</option>
-        </select>
+        <VueMultiselect
+          v-model="actif"
+          :options="periode"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+        ></VueMultiselect>
 
-        <p>Dans quel pays habitez-vous ?</p>
-        <select class="subscribe__form--input" v-model="pays">
-          <option value="France">France</option>
-          <option value="Belgique">Belgique</option>
-          <option value="Algérie">Algérie</option>
-          <option value="Canada">Canada</option>
-          <option value="Etats Unis">Etats Unis</option>
-          <option value="Luxembourg">Luxembourg</option>
-          <option value="Maroc">Maroc</option>
-          <option value="Monaco">Monaco</option>
-          <option value="Suisse">Suisse</option>
-          <option value="Tunisie">Tunisie</option>
-        </select>
+        <p class="form__detail--legende">Dans quel pays habitez-vous ?</p>
+        <VueMultiselect
+          v-model="pays"
+          :options="listePays"
+          :searchable="false"
+          :close-on-select="true"
+          :show-labels="false"
+        ></VueMultiselect>
 
-        <p>Quel est le code postal de la ville dans laquelle vous habitez ?</p>
+        <p class="form__detail--legende">
+          Quel est le code postal de la ville dans laquelle vous habitez ?
+        </p>
         <input class="subscribe__form--input" type="text" v-model="cp" />
 
-        <p>
+        <p class="form__detail--legende">
           Sous quel Nom ou Pseudonyme souhaitez-vous apparaître dans l'annuaire
           ?
         </p>
         <input class="subscribe__form--input" type="text" v-model="pseudo" />
-        <p>
+        <p class="form__detail--legende">
           Laissez un message court décrivant votre passion pour les cartes, vos
           recherches, etc...
         </p>
@@ -181,28 +171,28 @@
           type="textarea"
           v-model="message"
         />
-        <p>
+        <p class="form__detail--legende">
           Peut-on vous contacter via Twitter ? Si oui, précisez votre alias !
           (exemple : @panini)
         </p>
         <input class="subscribe__form--input" type="text" v-model="twitter" />
-        <p>
+        <p class="form__detail--legende">
           Peut-on vous contacter via Instagram ? Si oui, précisez votre alias !
           (exemple : @panini)
         </p>
         <input class="subscribe__form--input" type="text" v-model="instagram" />
-        <p>
+        <p class="form__detail--legende">
           Souhaitez-vous indiquer une autre façon de vous contacter ? (Ne
           laissez ni email, ni numéro de téléphone)
         </p>
         <input class="subscribe__form--input" type="text" v-model="contact" />
-        <p>
+        <p class="form__detail--legende">
           Quel est votre email ? (Il ne sera pas diffusé : il ne servira que
           pour vous envoyer le lien d'accès à l'annuaire)
         </p>
         <input class="subscribe__form--input" type="email" v-model="mail" />
         <div>
-          <button @click="createUser()" class="header__form--button">
+          <button @click="createUser()" class="subscribe__form--button">
             S'INSCRIRE
           </button>
         </div>
@@ -214,6 +204,7 @@
 <script>
 import axios from "axios";
 import Navigation from "../components/Navigation.vue";
+import VueMultiselect from "vue-multiselect";
 
 const instanceSports = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
@@ -225,12 +216,13 @@ export default {
   name: "Subscribe",
   data: function () {
     return {
-      teamsNba: {},
-      teamsNfl: {},
-      teamsNhl: {},
-      teamsMlb: {},
-      teamsSoccer: {},
-      sport: [],
+      sportSelected: [],
+      sport: ["NBA", "NFL", "NHL", "MLB", "Soccer"],
+      teamsNba: [],
+      teamsNfl: [],
+      teamsNhl: [],
+      teamsMlb: [],
+      teamsSoccer: [],
       equipeNba: [],
       equipeNfl: [],
       equipeNhl: [],
@@ -248,6 +240,29 @@ export default {
       instagram: "",
       contact: "",
       mail: "",
+      periode: [
+        "Avant 1986",
+        "Entre 1986 et 1990",
+        "Entre 1991 et 1995",
+        "Entre 1996 et 2000",
+        "Entre 2001 et 2005",
+        "Entre 2006 et 2010",
+        "Entre 2011 et 2015",
+        "Entre 2016 et 2020",
+        "Après 2020",
+      ],
+      listePays: [
+        "France",
+        "Belgique",
+        "Algérie",
+        "Canada",
+        "Etats Unis",
+        "Luxembourg",
+        "Maroc",
+        "Monaco",
+        "Suisse",
+        "Tunisie",
+      ],
     };
   },
   methods: {
@@ -274,8 +289,15 @@ export default {
       };
       instanceUser
         .post("/", dataForm)
-        .then((data) => console.log(data))
+        .then((data) => {
+          console.log(data);
+          this.$router.push("/");
+        })
         .catch((err) => console.log(err));
+    },
+
+    addTag(newTag) {
+      this.sport.push(newTag);
     },
   },
   beforeCreate() {
@@ -303,7 +325,7 @@ export default {
         error;
       });
   },
-  components: { Navigation },
+  components: { Navigation, VueMultiselect },
 };
 </script>
 
