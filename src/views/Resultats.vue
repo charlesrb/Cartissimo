@@ -50,13 +50,16 @@
         >
           <div v-if="use.twitter.toLowerCase() != 'non'">
             <img src="../assets/img/twitter_logo.png" alt="" />
-            <a :href="'https://twitter.com/' + use.twitter">
+            <a :href="'https://twitter.com/' + use.twitter" target="_blank">
               <p>{{ use.twitter }}</p>
             </a>
           </div>
           <div v-if="use.instagram.toLowerCase() != 'non'">
             <img src="../assets/img/instagram_logo.png" alt="" />
-            <a :href="'https://instagram.com/' + use.instagram.substr(1)">
+            <a
+              :href="'https://instagram.com/' + use.instagram.substr(1)"
+              target="_blank"
+            >
               <p>{{ use.instagram }}</p>
             </a>
           </div>
@@ -131,6 +134,7 @@ export default {
     //   })
     //   .catch((err) => console.log(err.message));
   },
+
   components: { Navigation },
 };
 </script>

@@ -89,7 +89,6 @@
           </option>
         </select>
       </div>
-      >
     </section>
     <section class="title-2">
       <p>Resultats pour</p>
@@ -119,13 +118,16 @@
         >
           <div v-if="use.twitter.toLowerCase() != 'non'">
             <img src="../assets/img/twitter_logo.png" alt="" />
-            <a :href="'https://twitter.com/' + use.twitter">
+            <a :href="'https://twitter.com/' + use.twitter" target="_blank">
               <p>{{ use.twitter }}</p>
             </a>
           </div>
           <div v-if="use.instagram.toLowerCase() != 'non'">
             <img src="../assets/img/instagram_logo.png" alt="" />
-            <a :href="'https://instagram.com/' + use.instagram.substr(1)">
+            <a
+              :href="'https://instagram.com/' + use.instagram.substr(1)"
+              target="_blank"
+            >
               <p>{{ use.instagram }}</p>
             </a>
           </div>
@@ -133,7 +135,7 @@
       </article>
     </section>
 
-    <section v-else-if="user == null || !user.length" class="resultats">
+    <section v-if="display == true" class="resultats">
       <article class="resultats__detail">
         <h3>Pas encore de collectionneurs !</h3>
         <p>
@@ -166,9 +168,8 @@ export default {
   name: "ResultatsTeam",
   data: function () {
     return {
-      user: JSON.parse(localStorage.getItem("users")),
-      select: localStorage.getItem("select"),
-
+      user: [],
+      select: this.$route.query.select,
       users: {},
       teamsNba: {},
       teamsNfl: {},
@@ -179,23 +180,31 @@ export default {
       selectNfl: "NFL",
       selectNhl: "NHL",
       selectMlb: "MLB",
-      selectSoccer: "Soccer",
+      selectSoccer: "SOCCER",
+      display: false,
     };
   },
   computed: {},
   methods: {
     selectTeamNba() {
       this.user = [];
-
       for (const user of this.users) {
         if (user.equipeNba.includes(this.selectNba)) {
           this.select = this.selectNba;
+          this.display = false;
           this.user.push(user);
         }
       }
       if (this.select != this.selectNba) {
         this.select = this.selectNba;
       }
+      if (this.user.length == 0) {
+        this.display = true;
+      }
+      this.$router.replace({
+        path: "/resultatsteam",
+        query: { sport: "NBA", select: `${this.select}` },
+      });
     },
 
     selectTeamNfl() {
@@ -205,11 +214,19 @@ export default {
         if (user.equipeNfl.includes(this.selectNfl)) {
           this.select = this.selectNfl;
           this.user.push(user);
+          this.display = false;
         }
       }
       if (this.select != this.selectNfl) {
         this.select = this.selectNfl;
       }
+      if (this.user.length == 0) {
+        this.display = true;
+      }
+      this.$router.replace({
+        path: "/resultatsteam",
+        query: { sport: "NFL", select: `${this.selectNfl}` },
+      });
     },
     selectTeamNhl() {
       this.user = [];
@@ -218,11 +235,19 @@ export default {
         if (user.equipeNhl.includes(this.selectNhl)) {
           this.select = this.selectNfl;
           this.user.push(user);
+          this.display = false;
         }
       }
       if (this.select != this.selectNhl) {
         this.select = this.selectNhl;
       }
+      if (this.user.length == 0) {
+        this.display = true;
+      }
+      this.$router.replace({
+        path: "/resultatsteam",
+        query: { sport: "NHL", select: `${this.selectNhl}` },
+      });
     },
     selectTeamMlb() {
       this.user = [];
@@ -231,11 +256,19 @@ export default {
         if (user.equipeMlb.includes(this.selectMlb)) {
           this.select = this.selectMlb;
           this.user.push(user);
+          this.display = false;
         }
       }
       if (this.select != this.selectMlb) {
         this.select = this.selectMlb;
       }
+      if (this.user.length == 0) {
+        this.display = true;
+      }
+      this.$router.replace({
+        path: "/resultatsteam",
+        query: { sport: "MLB", select: `${this.selectMlb}` },
+      });
     },
     selectTeamSoccer() {
       this.user = [];
@@ -244,11 +277,19 @@ export default {
         if (user.equipeSoccer.includes(this.selectSoccer)) {
           this.select = this.selectSoccer;
           this.user.push(user);
+          this.display = false;
         }
       }
       if (this.select != this.selectSoccer) {
         this.select = this.selectSoccer;
       }
+      if (this.user.length == 0) {
+        this.display = true;
+      }
+      this.$router.replace({
+        path: "/resultatsteam",
+        query: { sport: "SOCCER", select: `${this.selectSoccer}` },
+      });
     },
   },
   beforeCreate() {
@@ -280,12 +321,98 @@ export default {
       .get("/")
       .then((data) => {
         this.users = data.data.result;
-        console.log(data.data);
+
+        let sportQuery = this.$route.query.sport;
+        let teamQuery = this.$route.query.select;
+
+        if (sportQuery == "NBA") {
+          for (const user of this.users) {
+            if (user.equipeNba.includes(teamQuery)) {
+              this.select = teamQuery;
+              this.user.push(user);
+            }
+          }
+        } else if (sportQuery == "NFL") {
+          for (const user of this.users) {
+            if (user.equipeNfl.includes(teamQuery)) {
+              this.select = teamQuery;
+              this.user.push(user);
+            }
+          }
+        } else if (sportQuery == "NHL") {
+          for (const user of this.users) {
+            if (user.equipeNhl.includes(teamQuery)) {
+              this.select = teamQuery;
+              this.user.push(user);
+            }
+          }
+        } else if (sportQuery == "MLB") {
+          for (const user of this.users) {
+            if (user.equipeMlb.includes(teamQuery)) {
+              this.select = teamQuery;
+              this.user.push(user);
+            }
+          }
+        } else if (sportQuery == "SOCCER") {
+          for (const user of this.users) {
+            if (user.equipeSoccer.includes(teamQuery)) {
+              this.select = teamQuery;
+              this.user.push(user);
+            }
+          }
+        }
       })
       .catch((error) => {
         error;
       });
   },
+  // created() {
+  //   console.log(this.users);
+  //   this.user = [];
+  //   let sportQuery = this.$route.query.sport;
+  //   let teamQuery = this.$route.query.select;
+
+  //   if (sportQuery == "NBA") {
+  //     for (const user of this.users) {
+  //       if (user.equipeNba.includes(teamQuery)) {
+  //         this.select = teamQuery;
+  //         this.user.push(user);
+  //       }
+  //     }
+  //   } else if (sportQuery == "NFL") {
+  //     for (const user of this.users) {
+  //       if (user.equipeNfl.includes(teamQuery)) {
+  //         this.select = teamQuery;
+  //         this.user.push(user);
+  //         this.$router.replace({
+  //           path: "/resultatsteam",
+  //           query: { sport: "NFL", select: `${this.selectNfl}` },
+  //         });
+  //       }
+  //     }
+  //   } else if (sportQuery == "NHL") {
+  //     for (const user of this.users) {
+  //       if (user.equipeNhl.includes(teamQuery)) {
+  //         this.select = teamQuery;
+  //         this.user.push(user);
+  //       }
+  //     }
+  //   } else if (sportQuery == "MLB") {
+  //     for (const user of this.users) {
+  //       if (user.equipeMlb.includes(teamQuery)) {
+  //         this.select = teamQuery;
+  //         this.user.push(user);
+  //       }
+  //     }
+  //   } else if (sportQuery == "Soccer") {
+  //     for (const user of this.users) {
+  //       if (user.equipeSoccer.includes(teamQuery)) {
+  //         this.select = teamQuery;
+  //         this.user.push(user);
+  //       }
+  //     }
+  //   }
+  // },
   components: { Navigation },
 };
 </script>

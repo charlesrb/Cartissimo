@@ -102,7 +102,7 @@
           v-model="selectSoccer"
           @change="selectTeam()"
         >
-          <option value="Soccer" disabled>Soccer</option>
+          <option value="SOCCER" disabled>SOCCER</option>
           <option
             v-for="teamSoccer in teamsSoccer"
             :key="teamSoccer.id"
@@ -185,7 +185,7 @@ export default {
       selectNfl: "NFL",
       selectNhl: "NHL",
       selectMlb: "MLB",
-      selectSoccer: "Soccer",
+      selectSoccer: "SOCCER",
     };
   },
   computed: {},
@@ -208,6 +208,7 @@ export default {
         }
       }
       this.$router.push("/resultats");
+
       e.preventDefault();
     },
 
@@ -223,6 +224,15 @@ export default {
               if (use.includes(this.selectNba)) {
                 testUser.push(user);
                 localStorage.setItem("users", JSON.stringify(testUser));
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "NBA", select: `${this.selectNba}` },
+                });
+              } else {
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "NBA", select: `${this.selectNba}` },
+                });
               }
             }
           }
@@ -230,14 +240,22 @@ export default {
       } else if (this.selectNfl != "NFL") {
         localStorage.setItem("select", this.selectNfl);
         for (const user of this.users) {
-          for (const use of user.equipeNfl) {
-            if (use) {
-              if (use.includes(this.selectNfl)) {
-                testUser.push(user);
-                localStorage.setItem("users", JSON.stringify(testUser));
-              }
-            }
+          // for (const use of user.equipeNfl) {
+          if (user.equipeNfl.includes(this.selectNfl)) {
+            // if (use.includes(this.selectNfl)) {
+            testUser.push(user);
+            localStorage.setItem("users", JSON.stringify(testUser));
+            this.$router.push({
+              path: "/resultatsteam",
+              query: { sport: "NFL", select: `${this.selectNfl}` },
+            });
+          } else {
+            this.$router.push({
+              path: "/resultatsteam",
+              query: { sport: "NFL", select: `${this.selectNfl}` },
+            });
           }
+          // }
         }
       } else if (this.selectNhl != "NHL") {
         localStorage.setItem("select", this.selectNhl);
@@ -247,6 +265,15 @@ export default {
               if (use.includes(this.selectNhl)) {
                 testUser.push(user);
                 localStorage.setItem("users", JSON.stringify(testUser));
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "NHL", select: `${this.selectNhl}` },
+                });
+              } else {
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "NHL", select: `${this.selectNhl}` },
+                });
               }
             }
           }
@@ -259,11 +286,20 @@ export default {
               if (use.includes(this.selectMlb)) {
                 testUser.push(user);
                 localStorage.setItem("users", JSON.stringify(testUser));
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "MLB", select: `${this.selectMlb}` },
+                });
+              } else {
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "MLB", select: `${this.selectMlb}` },
+                });
               }
             }
           }
         }
-      } else if (this.selectSoccer != "Soccer") {
+      } else if (this.selectSoccer != "SOCCER") {
         localStorage.setItem("select", this.selectSoccer);
         for (const user of this.users) {
           for (const use of user.equipeSoccer) {
@@ -271,6 +307,15 @@ export default {
               if (use.includes(this.selectSoccer)) {
                 testUser.push(user);
                 localStorage.setItem("users", JSON.stringify(testUser));
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "SOCCER", select: `${this.selectSoccer}` },
+                });
+              } else {
+                this.$router.push({
+                  path: "/resultatsteam",
+                  query: { sport: "SOCCER", select: `${this.selectSoccer}` },
+                });
               }
             }
           }
@@ -291,7 +336,6 @@ export default {
       // }
 
       console.log(testUser);
-      this.$router.push("/resultatsteam");
 
       // e.preventDefault();
     },

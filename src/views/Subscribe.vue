@@ -245,7 +245,7 @@ export default {
   data: function () {
     return {
       sportSelected: [],
-      sport: ["NBA", "NFL", "NHL", "MLB", "Soccer"],
+      sport: ["NBA", "NFL", "NHL", "MLB", "SOCCER"],
       teamsNba: [],
       teamsNfl: [],
       teamsNhl: [],
