@@ -36,6 +36,7 @@
             select-label="Selectionner"
             deselect-label="Déselectionner"
             selected-label="Selectionné"
+            placeholder="Sélectionner une ou plusieurs équipes"
             :close-on-select="false"
           >
           </VueMultiselect>
@@ -52,6 +53,7 @@
             select-label="Selectionner"
             deselect-label="Déselectionner"
             selected-label="Selectionné"
+            placeholder="Sélectionner une ou plusieurs équipes"
             :close-on-select="false"
           >
           </VueMultiselect>
@@ -68,6 +70,7 @@
             select-label="Selectionner"
             deselect-label="Déselectionner"
             selected-label="Selectionné"
+            placeholder="Sélectionner une ou plusieurs équipes"
             :close-on-select="false"
           >
           </VueMultiselect>
@@ -84,6 +87,7 @@
             select-label="Selectionner"
             deselect-label="Déselectionner"
             selected-label="Selectionné"
+            placeholder="Sélectionner une ou plusieurs équipes"
             :close-on-select="false"
           >
           </VueMultiselect>
@@ -98,6 +102,7 @@
             :options="teamsSoccer"
             select-label="Selectionner"
             deselect-label="Déselectionner"
+            placeholder="Sélectionner une ou plusieurs équipes"
             selected-label="Selectionné"
             :close-on-select="false"
           >
@@ -111,86 +116,109 @@
           </p>
           <input class="subscribe__form--input" type="text" v-model="joueur" />
         </div>
-        <p class="form__detail--legende">
-          Avez-vous un autre type de collection (ni joueur, ni équipe, mais sur
-          d'autres thèmes...)
-        </p>
-        <input type="selec" class="subscribe__form--input" v-model="collec" />
+        <div>
+          <p class="form__detail--legende">
+            Avez-vous un autre type de collection (ni joueur, ni équipe, mais
+            sur d'autres thèmes...)
+          </p>
+          <input type="selec" class="subscribe__form--input" v-model="collec" />
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            En quelle année avez-vous acheté vos premières cartes ?
+          </p>
 
-        <p class="form__detail--legende">
-          En quelle année avez-vous acheté vos premières cartes ?
-        </p>
+          <VueMultiselect
+            v-model="premiereCarte"
+            :options="periode"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            placeholder="Sélectionner une période"
+          ></VueMultiselect>
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Depuis quand êtes vous actif sur votre collection actuelle ? (si
+            vous avez collectionné en 1995, puis arrêté, puis repris en 2020...
+            indiquez 2020 !)
+          </p>
 
-        <VueMultiselect
-          v-model="premiereCarte"
-          :options="periode"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-        ></VueMultiselect>
-
-        <p class="form__detail--legende">
-          Depuis quand êtes vous actif sur votre collection actuelle ? (si vous
-          avez collectionné en 1995, puis arrêté, puis repris en 2020...
-          indiquez 2020 !)
-        </p>
-
-        <VueMultiselect
-          v-model="actif"
-          :options="periode"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-        ></VueMultiselect>
-
-        <p class="form__detail--legende">Dans quel pays habitez-vous ?</p>
-        <VueMultiselect
-          v-model="pays"
-          :options="listePays"
-          :searchable="false"
-          :close-on-select="true"
-          :show-labels="false"
-        ></VueMultiselect>
-
-        <p class="form__detail--legende">
-          Quel est le code postal de la ville dans laquelle vous habitez ?
-        </p>
-        <input class="subscribe__form--input" type="text" v-model="cp" />
-
-        <p class="form__detail--legende">
-          Sous quel Nom ou Pseudonyme souhaitez-vous apparaître dans l'annuaire
-          ?
-        </p>
-        <input class="subscribe__form--input" type="text" v-model="pseudo" />
-        <p class="form__detail--legende">
-          Laissez un message court décrivant votre passion pour les cartes, vos
-          recherches, etc...
-        </p>
-        <input
-          class="subscribe__form--input"
-          type="textarea"
-          v-model="message"
-        />
-        <p class="form__detail--legende">
-          Peut-on vous contacter via Twitter ? Si oui, précisez votre alias !
-          (exemple : @panini)
-        </p>
-        <input class="subscribe__form--input" type="text" v-model="twitter" />
-        <p class="form__detail--legende">
-          Peut-on vous contacter via Instagram ? Si oui, précisez votre alias !
-          (exemple : @panini)
-        </p>
-        <input class="subscribe__form--input" type="text" v-model="instagram" />
-        <p class="form__detail--legende">
-          Souhaitez-vous indiquer une autre façon de vous contacter ? (Ne
-          laissez ni email, ni numéro de téléphone)
-        </p>
-        <input class="subscribe__form--input" type="text" v-model="contact" />
-        <p class="form__detail--legende">
-          Quel est votre email ? (Il ne sera pas diffusé : il ne servira que
-          pour vous envoyer le lien d'accès à l'annuaire)
-        </p>
-        <input class="subscribe__form--input" type="email" v-model="mail" />
+          <VueMultiselect
+            v-model="actif"
+            :options="periode"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            placeholder="Sélectionner une période"
+          ></VueMultiselect>
+        </div>
+        <div>
+          <p class="form__detail--legende">Dans quel pays habitez-vous ?</p>
+          <VueMultiselect
+            v-model="pays"
+            :options="listePays"
+            :searchable="false"
+            :close-on-select="true"
+            :show-labels="false"
+            placeholder="Sélectionner un pays"
+          ></VueMultiselect>
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Quel est le code postal de la ville dans laquelle vous habitez ?
+          </p>
+          <input class="subscribe__form--input" type="text" v-model="cp" />
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Sous quel Nom ou Pseudonyme souhaitez-vous apparaître dans
+            l'annuaire ?
+          </p>
+          <input class="subscribe__form--input" type="text" v-model="pseudo" />
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Laissez un message court décrivant votre passion pour les cartes,
+            vos recherches, etc...
+          </p>
+          <textarea
+            v-model="message"
+            class="subscribe__form--textarea"
+          ></textarea>
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Peut-on vous contacter via Twitter ? Si oui, précisez votre alias !
+            (exemple : @panini)
+          </p>
+          <input class="subscribe__form--input" type="text" v-model="twitter" />
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Peut-on vous contacter via Instagram ? Si oui, précisez votre alias
+            ! (exemple : @panini)
+          </p>
+          <input
+            class="subscribe__form--input"
+            type="text"
+            v-model="instagram"
+          />
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Souhaitez-vous indiquer une autre façon de vous contacter ? (Ne
+            laissez ni email, ni numéro de téléphone)
+          </p>
+          <input class="subscribe__form--input" type="text" v-model="contact" />
+        </div>
+        <div>
+          <p class="form__detail--legende">
+            Quel est votre email ? (Il ne sera pas diffusé : il ne servira que
+            pour vous envoyer le lien d'accès à l'annuaire)
+          </p>
+          <input class="subscribe__form--input" type="email" v-model="mail" />
+        </div>
         <div>
           <button @click="createUser()" class="subscribe__form--button">
             S'INSCRIRE
