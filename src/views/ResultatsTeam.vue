@@ -202,8 +202,7 @@ export default {
         this.display = true;
       }
       this.$router.replace({
-        path: "/resultatsteam",
-        query: { sport: "NBA", select: `${this.select}` },
+        params: { sport: "NBA", team: `${this.selectNba}` },
       });
     },
 
@@ -224,8 +223,7 @@ export default {
         this.display = true;
       }
       this.$router.replace({
-        path: "/resultatsteam",
-        query: { sport: "NFL", select: `${this.selectNfl}` },
+        params: { sport: "NFL", team: `${this.selectNfl}` },
       });
     },
     selectTeamNhl() {
@@ -245,8 +243,7 @@ export default {
         this.display = true;
       }
       this.$router.replace({
-        path: "/resultatsteam",
-        query: { sport: "NHL", select: `${this.selectNhl}` },
+        params: { sport: "NHL", team: `${this.selectNhl}` },
       });
     },
     selectTeamMlb() {
@@ -266,8 +263,7 @@ export default {
         this.display = true;
       }
       this.$router.replace({
-        path: "/resultatsteam",
-        query: { sport: "MLB", select: `${this.selectMlb}` },
+        params: { sport: "MLB", team: `${this.selectMlb}` },
       });
     },
     selectTeamSoccer() {
@@ -287,8 +283,7 @@ export default {
         this.display = true;
       }
       this.$router.replace({
-        path: "/resultatsteam",
-        query: { sport: "SOCCER", select: `${this.selectSoccer}` },
+        params: { sport: "SOCCER", team: `${this.selectSoccer}` },
       });
     },
   },
@@ -332,12 +327,18 @@ export default {
               this.user.push(user);
             }
           }
+          if (this.user.length == 0) {
+            this.display = true;
+          }
         } else if (sportQuery == "NFL") {
           for (const user of this.users) {
             if (user.equipeNfl.includes(teamQuery)) {
               this.select = teamQuery;
               this.user.push(user);
             }
+          }
+          if (this.user.length == 0) {
+            this.display = true;
           }
         } else if (sportQuery == "NHL") {
           for (const user of this.users) {
@@ -346,12 +347,18 @@ export default {
               this.user.push(user);
             }
           }
+          if (this.user.length == 0) {
+            this.display = true;
+          }
         } else if (sportQuery == "MLB") {
           for (const user of this.users) {
             if (user.equipeMlb.includes(teamQuery)) {
               this.select = teamQuery;
               this.user.push(user);
             }
+          }
+          if (this.user.length == 0) {
+            this.display = true;
           }
         } else if (sportQuery == "SOCCER") {
           for (const user of this.users) {
@@ -360,6 +367,9 @@ export default {
               this.user.push(user);
             }
           }
+        }
+        if (this.user.length == 0) {
+          this.display = true;
         }
       })
       .catch((error) => {
