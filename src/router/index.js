@@ -5,7 +5,6 @@ import Utilisateur from "../views/Utilisateur.vue";
 import ResultatsTeam from "../views/ResultatsTeam.vue";
 import Subscribe from "../views/Subscribe.vue";
 const router = createRouter({
-  mode: history,
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -42,6 +41,10 @@ const router = createRouter({
     //   component: () => import("../views/AboutView.vue"),
     // },
   ],
+  navigationFallback: {
+    rewrite: "/index.html",
+    exclude: ["/images/*.{png,jpg,gif}", "/css/*"],
+  },
 });
 
 export default router;
