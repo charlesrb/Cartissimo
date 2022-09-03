@@ -225,19 +225,22 @@ export default {
                 testUser.push(user);
                 localStorage.setItem("users", JSON.stringify(testUser));
                 this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "NBA", select: `${this.selectNba}` },
+                  name: "resultatsteam",
+                  path: "/resultatsteam/:sport/:team",
+                  params: { sport: "NBA", team: `${this.selectNba}` },
                 });
               } else {
                 this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "NBA", select: `${this.selectNba}` },
+                  name: "resultatsteam",
+                  path: "/resultatsteam/:sport/:team",
+                  params: { sport: "NBA", team: `${this.selectNba}` },
                 });
               }
             }
           }
         }
-      } else if (this.selectNfl != "NFL") {
+      }
+      if (this.selectNfl != "NFL") {
         localStorage.setItem("select", this.selectNfl);
         for (const user of this.users) {
           // for (const use of user.equipeNfl) {
@@ -246,78 +249,78 @@ export default {
             testUser.push(user);
             localStorage.setItem("users", JSON.stringify(testUser));
             this.$router.push({
-              path: "/resultatsteam",
-              query: { sport: "NFL", select: `${this.selectNfl}` },
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "NFL", team: `${this.selectNfl}` },
             });
           } else {
             this.$router.push({
-              path: "/resultatsteam",
-              query: { sport: "NFL", select: `${this.selectNfl}` },
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "NFL", team: `${this.selectNfl}` },
             });
           }
           // }
         }
-      } else if (this.selectNhl != "NHL") {
+      }
+      if (this.selectNhl != "NHL") {
         localStorage.setItem("select", this.selectNhl);
         for (const user of this.users) {
-          for (const use of user.equipeNhl) {
-            if (use) {
-              if (use.includes(this.selectNhl)) {
-                testUser.push(user);
-                localStorage.setItem("users", JSON.stringify(testUser));
-                this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "NHL", select: `${this.selectNhl}` },
-                });
-              } else {
-                this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "NHL", select: `${this.selectNhl}` },
-                });
-              }
-            }
+          if (user.equipeNhl.includes(this.selectNhl)) {
+            testUser.push(user);
+            localStorage.setItem("users", JSON.stringify(testUser));
+            this.$router.push({
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "NHL", team: `${this.selectNhl}` },
+            });
+          } else {
+            this.$router.push({
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "NHL", team: `${this.selectNhl}` },
+            });
           }
         }
-      } else if (this.selectMlb != "MLB") {
+      }
+      if (this.selectMlb != "MLB") {
         localStorage.setItem("select", this.selectMlb);
         for (const user of this.users) {
-          for (const use of user.equipeMlb) {
-            if (use) {
-              if (use.includes(this.selectMlb)) {
-                testUser.push(user);
-                localStorage.setItem("users", JSON.stringify(testUser));
-                this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "MLB", select: `${this.selectMlb}` },
-                });
-              } else {
-                this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "MLB", select: `${this.selectMlb}` },
-                });
-              }
-            }
+          if (user.equipeMlb.includes(this.selectMlb)) {
+            testUser.push(user);
+            localStorage.setItem("users", JSON.stringify(testUser));
+            this.$router.push({
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "MLB", team: `${this.selectMlb}` },
+            });
+          } else {
+            this.$router.push({
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "MLB", team: `${this.selectMlb}` },
+            });
           }
         }
-      } else if (this.selectSoccer != "SOCCER") {
+      }
+
+      if (this.selectSoccer != "SOCCER") {
         localStorage.setItem("select", this.selectSoccer);
         for (const user of this.users) {
-          for (const use of user.equipeSoccer) {
-            if (use) {
-              if (use.includes(this.selectSoccer)) {
-                testUser.push(user);
-                localStorage.setItem("users", JSON.stringify(testUser));
-                this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "SOCCER", select: `${this.selectSoccer}` },
-                });
-              } else {
-                this.$router.push({
-                  path: "/resultatsteam",
-                  query: { sport: "SOCCER", select: `${this.selectSoccer}` },
-                });
-              }
-            }
+          if (user.equipeSoccer.includes(this.selectSoccer)) {
+            testUser.push(user);
+            localStorage.setItem("users", JSON.stringify(testUser));
+            this.$router.push({
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "SOCCER", team: `${this.selectSoccer}` },
+            });
+          } else {
+            this.$router.push({
+              name: "resultatsteam",
+              path: "/resultatsteam/:sport/:team",
+              params: { sport: "SOCCER", team: `${this.selectSoccer}` },
+            });
           }
         }
       }

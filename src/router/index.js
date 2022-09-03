@@ -23,7 +23,7 @@ const router = createRouter({
       component: Utilisateur,
     },
     {
-      path: "/resultatsteam",
+      path: "/resultatsteam/:sport/:team",
       name: "resultatsteam",
       component: ResultatsTeam,
     },

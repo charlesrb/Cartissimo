@@ -169,7 +169,7 @@ export default {
   data: function () {
     return {
       user: [],
-      select: this.$route.query.select,
+      select: this.$route.params.team,
       users: {},
       teamsNba: {},
       teamsNfl: {},
@@ -322,8 +322,8 @@ export default {
       .then((data) => {
         this.users = data.data.result;
 
-        let sportQuery = this.$route.query.sport;
-        let teamQuery = this.$route.query.select;
+        let sportQuery = this.$route.params.sport;
+        let teamQuery = this.$route.params.team;
 
         if (sportQuery == "NBA") {
           for (const user of this.users) {
