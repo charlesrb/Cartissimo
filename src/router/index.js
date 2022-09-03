@@ -5,7 +5,8 @@ import Utilisateur from "../views/Utilisateur.vue";
 import ResultatsTeam from "../views/ResultatsTeam.vue";
 import Subscribe from "../views/Subscribe.vue";
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  mode: history,
+  // history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
