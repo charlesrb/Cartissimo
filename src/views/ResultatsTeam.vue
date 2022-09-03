@@ -204,6 +204,8 @@ export default {
       this.$router.replace({
         params: { sport: "NBA", team: `${this.selectNba}` },
       });
+      document.title =
+        "Cartissimo | Collectionneur de NBA " + " | " + this.select;
     },
 
     selectTeamNfl() {
@@ -225,6 +227,8 @@ export default {
       this.$router.replace({
         params: { sport: "NFL", team: `${this.selectNfl}` },
       });
+      document.title =
+        "Cartissimo | Collectionneur de NFL" + " | " + this.select;
     },
     selectTeamNhl() {
       this.user = [];
@@ -245,6 +249,8 @@ export default {
       this.$router.replace({
         params: { sport: "NHL", team: `${this.selectNhl}` },
       });
+      document.title =
+        "Cartissimo | Collectionneur de NHL" + " | " + this.select;
     },
     selectTeamMlb() {
       this.user = [];
@@ -265,6 +271,8 @@ export default {
       this.$router.replace({
         params: { sport: "MLB", team: `${this.selectMlb}` },
       });
+      document.title =
+        "Cartissimo | Collectionneur de MLB" + " | " + this.select;
     },
     selectTeamSoccer() {
       this.user = [];
@@ -285,6 +293,8 @@ export default {
       this.$router.replace({
         params: { sport: "SOCCER", team: `${this.selectSoccer}` },
       });
+      document.title =
+        "Cartissimo | Collectionneur de Soccer" + " | " + this.select;
     },
   },
   beforeCreate() {
@@ -376,53 +386,13 @@ export default {
         error;
       });
   },
-  // created() {
-  //   console.log(this.users);
-  //   this.user = [];
-  //   let sportQuery = this.$route.query.sport;
-  //   let teamQuery = this.$route.query.select;
-
-  //   if (sportQuery == "NBA") {
-  //     for (const user of this.users) {
-  //       if (user.equipeNba.includes(teamQuery)) {
-  //         this.select = teamQuery;
-  //         this.user.push(user);
-  //       }
-  //     }
-  //   } else if (sportQuery == "NFL") {
-  //     for (const user of this.users) {
-  //       if (user.equipeNfl.includes(teamQuery)) {
-  //         this.select = teamQuery;
-  //         this.user.push(user);
-  //         this.$router.replace({
-  //           path: "/resultatsteam",
-  //           query: { sport: "NFL", select: `${this.selectNfl}` },
-  //         });
-  //       }
-  //     }
-  //   } else if (sportQuery == "NHL") {
-  //     for (const user of this.users) {
-  //       if (user.equipeNhl.includes(teamQuery)) {
-  //         this.select = teamQuery;
-  //         this.user.push(user);
-  //       }
-  //     }
-  //   } else if (sportQuery == "MLB") {
-  //     for (const user of this.users) {
-  //       if (user.equipeMlb.includes(teamQuery)) {
-  //         this.select = teamQuery;
-  //         this.user.push(user);
-  //       }
-  //     }
-  //   } else if (sportQuery == "Soccer") {
-  //     for (const user of this.users) {
-  //       if (user.equipeSoccer.includes(teamQuery)) {
-  //         this.select = teamQuery;
-  //         this.user.push(user);
-  //       }
-  //     }
-  //   }
-  // },
+  mounted() {
+    document.title =
+      "Cartissimo | Collectionneur de " +
+      this.$route.params.sport +
+      " | " +
+      this.$route.params.team;
+  },
   components: { Navigation },
 };
 </script>

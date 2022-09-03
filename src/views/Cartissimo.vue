@@ -401,6 +401,9 @@ export default {
     //   })
     //   .catch((err) => console.log(err.message));
   },
+  mounted() {
+    document.title = "Cartissimo";
+  },
   components: {
     Navigation,
   },
