@@ -377,7 +377,6 @@ export default {
       .catch((error) => {
         error;
       });
-
     // fetch("https://www.balldontlie.io/api/v1/teams")
     //   .then((res) => res.json())
     //   .then((data) => {
