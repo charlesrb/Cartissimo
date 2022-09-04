@@ -66,12 +66,14 @@
         </div>
       </article>
     </section>
-    <section v-if="display == false || user == null" class="resultats">
+    <section v-if="display == true || user == null" class="resultats">
       <article class="resultats__detail">
         <h3>Pas encore de collectionneurs !</h3>
         <p>
-          Vous collectionnez cette équipe ?
-          <router-link :to="{ path: '/subscribe' }">Inscrivez-vous</router-link>
+          Vous collectionnez ce joueur ?
+          <router-link class="link__subscribe" :to="{ path: '/subscribe' }"
+            >Inscrivez-vous</router-link
+          >
           !
         </p>
       </article>
@@ -127,12 +129,6 @@ export default {
       .catch((error) => {
         error;
       });
-    // fetch("https://api.steinhq.com/v1/storages/630f2aebbc148508ba8ab7e3/sheet")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     this.users = data;
-    //   })
-    //   .catch((err) => console.log(err.message));
   },
 
   components: { Navigation },

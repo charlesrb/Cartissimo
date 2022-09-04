@@ -15,7 +15,7 @@
           <option :value="this.selectNba" disabled>NBA</option>
 
           <option
-            v-for="teamNba in teamsNba"
+            v-for="teamNba in teamsNba.teams"
             :key="teamNba.id"
             :value="teamNba"
           >
@@ -31,7 +31,7 @@
         >
           <option :value="this.selectNfl" disabled>NFL</option>
           <option
-            v-for="teamNfl in teamsNfl"
+            v-for="teamNfl in teamsNfl.teams"
             :key="teamNfl.id"
             :value="teamNfl"
           >
@@ -47,7 +47,7 @@
         >
           <option :value="this.selectNhl" disabled>NHL</option>
           <option
-            v-for="teamNhl in teamsNhl"
+            v-for="teamNhl in teamsNhl.teams"
             :key="teamNhl.id"
             :value="teamNhl"
           >
@@ -64,7 +64,7 @@
         >
           <option :value="this.selectMlb" disabled>MLB</option>
           <option
-            v-for="teamMlb in teamsMlb"
+            v-for="teamMlb in teamsMlb.teams"
             :key="teamMlb.id"
             :value="teamMlb"
           >
@@ -81,7 +81,7 @@
         >
           <option :value="this.selectSoccer" disabled>Soccer</option>
           <option
-            v-for="teamSoccer in teamsSoccer"
+            v-for="teamSoccer in teamsSoccer.teams"
             :key="teamSoccer.id"
             :value="teamSoccer"
           >
@@ -301,22 +301,21 @@ export default {
     instanceSports
       .get("/")
       .then((data) => {
-        console.log(data.data.result);
         let teams = data.data.result;
         for (const team of teams) {
-          if (team.league.name === "NBA") {
-            this.teamsNba = team.league.equipes.name;
-          } else if (team.league.name === "NFL") {
-            this.teamsNfl = team.league.equipes.name;
-          } else if (team.league.name === "NHL") {
-            this.teamsNhl = team.league.equipes.name;
-          } else if (team.league.name === "MLB") {
-            this.teamsMlb = team.league.equipes.name;
-          } else if (team.league.name === "Soccer") {
-            this.teamsSoccer = team.league.equipes.name;
+          console.log(team.name);
+          if (team.name == "NBA") {
+            this.teamsNba = team;
+          } else if (team.name == "NFL") {
+            this.teamsNfl = team;
+          } else if (team.name == "NHL") {
+            this.teamsNhl = team;
+          } else if (team.name == "MLB") {
+            this.teamsMlb = team;
+          } else if (team.name == "SOCCER") {
+            this.teamsSoccer = team;
           }
         }
-        // this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {
         error;

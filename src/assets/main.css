@@ -39,6 +39,9 @@ body {
   align-items: center;
   gap: 10px;
 }
+.header__form--detail ul {
+  list-style-type: none;
+}
 .header__form--input {
   height: 36px;
   width: 300px;

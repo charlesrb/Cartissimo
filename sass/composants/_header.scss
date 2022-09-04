@@ -24,6 +24,9 @@
             justify-content: center;
             align-items: center;
             gap:10px;
+            ul {
+                list-style-type:none;
+            }
            
         }
         &--input {
@@ -35,6 +38,7 @@
             font-size: 13px;
             font-weight:400;
             font-family:'Poppins', sans-serif;
+           
         }
         &--button {
             height:36px;

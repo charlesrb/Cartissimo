@@ -16,7 +16,21 @@
             placeholder="Joueur ou équipe collectionnée"
             class="header__form--input"
             v-model="search"
+            @input="searchTeamInput"
           />
+          <ul v-for="resultat in resultatRecherche" :key="resultat.id">
+            <li>
+              <router-link
+                :to="{
+                  name: 'resultatsteam',
+                  path: '/resultatsteam/:sport/:team',
+                  params: { sport: 'NBA', team: resultat },
+                }"
+                >{{ resultat }}</router-link
+              >
+            </li>
+          </ul>
+
           <button @click="searchPlayer()" class="header__form--button">
             CHERCHER
           </button>
@@ -38,7 +52,7 @@
           <option value="NBA" disabled>NBA</option>
 
           <option
-            v-for="teamNba in teamsNba"
+            v-for="teamNba in teamsNba.teams"
             :key="teamNba.id"
             :value="teamNba"
           >
@@ -54,7 +68,7 @@
         >
           <option value="NFL" disabled>NFL</option>
           <option
-            v-for="teamNfl in teamsNfl"
+            v-for="teamNfl in teamsNfl.teams"
             :key="teamNfl.id"
             :value="teamNfl"
           >
@@ -70,7 +84,7 @@
         >
           <option value="NHL" disabled>NHL</option>
           <option
-            v-for="teamNhl in teamsNhl"
+            v-for="teamNhl in teamsNhl.teams"
             :key="teamNhl.id"
             :value="teamNhl"
           >
@@ -87,7 +101,7 @@
         >
           <option value="MLB" disabled>MLB</option>
           <option
-            v-for="teamMlb in teamsMlb"
+            v-for="teamMlb in teamsMlb.teams"
             :key="teamMlb.id"
             :value="teamMlb"
           >
@@ -104,7 +118,7 @@
         >
           <option value="SOCCER" disabled>SOCCER</option>
           <option
-            v-for="teamSoccer in teamsSoccer"
+            v-for="teamSoccer in teamsSoccer.teams"
             :key="teamSoccer.id"
             :value="teamSoccer"
           >
@@ -175,22 +189,74 @@ export default {
     return {
       keys: {},
       users: {},
-      teamsNba: {},
-      teamsNfl: {},
-      teamsNhl: {},
-      teamsMlb: {},
-      teamsSoccer: {},
+      teamsNba: [],
+      teamsNfl: [],
+      teamsNhl: [],
+      teamsMlb: [],
+      teamsSoccer: [],
       search: "",
       selectNba: "NBA",
       selectNfl: "NFL",
       selectNhl: "NHL",
       selectMlb: "MLB",
       selectSoccer: "SOCCER",
+      resultatRecherche: "",
+      resultatRechercheSport: "",
     };
   },
   computed: {},
 
   methods: {
+    searchTeamInput() {
+      let listeEquipe = [];
+      if (this.search.length > 2) {
+        for (const equipe of this.teamsNba.teams) {
+          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
+            listeEquipe.push(this.teamsNba.name + " - " + equipe);
+          }
+          this.resultatRecherche = listeEquipe;
+        }
+
+        for (const equipe of this.teamsNfl.teams) {
+          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
+            listeEquipe.push(this.teamsNfl.name + " - " + equipe);
+          }
+          this.resultatRecherche = listeEquipe;
+        }
+
+        for (const equipe of this.teamsNhl.teams) {
+          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
+            listeEquipe.push(this.teamsNhl.name + " - " + equipe);
+          }
+          this.resultatRecherche = listeEquipe;
+        }
+
+        for (const equipe of this.teamsMlb.teams) {
+          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
+            listeEquipe.push(this.teamsMlb.name + " - " + equipe);
+          }
+          this.resultatRecherche = listeEquipe;
+        }
+
+        for (const equipe of this.teamsSoccer.teams) {
+          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
+            listeEquipe.push(this.teamsSoccer.name + " - " + equipe);
+          }
+          this.resultatRecherche = listeEquipe;
+        }
+      }
+      // for (const user of this.users) {
+      //   if (user.joueur) {
+      //     if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
+      //       console.log(user.joueur);
+      //     } else {
+      //       console.log("pas ok");
+      //     }
+      //   } else {
+      //     console.log("pas de joueur");
+      //   }
+      // }
+    },
     showMenu() {
       console.log("coucou");
     },
@@ -202,6 +268,10 @@ export default {
       for (const user of this.users) {
         if (user.joueur) {
           if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
+            usersSelected.push(user);
+            localStorage.setItem("users", JSON.stringify(usersSelected));
+          }
+          if (user.equipeNba.includes(this.search)) {
             usersSelected.push(user);
             localStorage.setItem("users", JSON.stringify(usersSelected));
           }
@@ -324,19 +394,6 @@ export default {
           }
         }
       }
-      // for (const user of this.users) {
-      //   for (const use of user.equipeNba) {
-      //     if (use) {
-      //       if (use.includes(this.selectNba)) {
-      //         testUser.push(user);
-      //         localStorage.setItem("users", JSON.stringify(testUser));
-      //       } else if (use.includes(this.selectNfl)) {
-      //         testUser.push(user);
-      //         localStorage.setItem("users", JSON.stringify(testUser));
-      //       }
-      //     }
-      //   }
-      // }
 
       console.log(testUser);
 
@@ -354,52 +411,28 @@ export default {
         error;
       });
 
+    // MODIFIER AVEC NOUVELLE BDD
     instanceSports
       .get("/")
       .then((data) => {
-        console.log(data.data.result);
         let teams = data.data.result;
         for (const team of teams) {
-          if (team.league.name === "NBA") {
-            this.teamsNba = team.league.equipes.name;
-          } else if (team.league.name === "NFL") {
-            this.teamsNfl = team.league.equipes.name;
-          } else if (team.league.name === "NHL") {
-            this.teamsNhl = team.league.equipes.name;
-          } else if (team.league.name === "MLB") {
-            this.teamsMlb = team.league.equipes.name;
-          } else if (team.league.name === "Soccer") {
-            this.teamsSoccer = team.league.equipes.name;
+          if (team.name == "NBA") {
+            this.teamsNba = team;
+          } else if (team.name == "NFL") {
+            this.teamsNfl = team;
+          } else if (team.name == "NHL") {
+            this.teamsNhl = team;
+          } else if (team.name == "MLB") {
+            this.teamsMlb = team;
+          } else if (team.name == "SOCCER") {
+            this.teamsSoccer = team;
           }
         }
-        // this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {
         error;
       });
-    // fetch("https://www.balldontlie.io/api/v1/teams")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     this.teamsNba = data.data;
-    //   })
-    //   .catch((err) => console.log(err.message));
-
-    // fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data.sports[0].leagues[0].teams);
-    //     this.teamsNfl = data.sports[0].leagues[0].teams;
-    //   })
-    //   .catch((err) => console.log(err.message));
-
-    // fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     this.teamsNfl = data.sports;
-    //     console.log(data.sports.leagues);
-    //   })
-    //   .catch((err) => console.log(err.message));
   },
   mounted() {
     document.title = "Cartissimo";
