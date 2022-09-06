@@ -17,16 +17,59 @@
     }
     &__form {
         font-family: 'Poppins', sans-serif;
-
+        position:relative;
         &--detail {
             display:flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap:10px;
+            
             ul {
                 list-style-type:none;
             }
+           
+        }
+        &--list {
+            background-color: #fff;
+            position:relative;
+            width:300px;
+            border-radius:20px;
+            z-index:50;
+            position:absolute;
+            top:36px;
+            max-height: 200px;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            
+            li {
+                padding:10px;
+                border-bottom:1px solid $tertiary-color-bis;
+                font-size: 13px;
+                padding-left:20px;
+                height:36px;
+               &:last-child {
+                border-bottom:none;
+               }
+            }
+           
+            li:hover {
+                background-color: $secondary-color;
+                cursor:pointer;
+                color:white;
+                a {
+                    color:white;
+                }
+                &:first-child {
+                    border-radius:20px 20px 0 0 ;
+                }
+                &:last-child {
+                    border-radius: 0 0 20px 20px;
+
+                }
+            }
+           
+            
            
         }
         &--input {
@@ -38,7 +81,9 @@
             font-size: 13px;
             font-weight:400;
             font-family:'Poppins', sans-serif;
-           
+            :focus {
+                border:none;
+            }
         }
         &--button {
             height:36px;
@@ -50,6 +95,7 @@
             font-size: 13px;
             font-weight:500;
             font-family:'Poppins', sans-serif;
+            cursor:pointer;
         
         }
     }

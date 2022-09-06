@@ -10,6 +10,7 @@
       <form action="" class="form__detail" @submit.prevent="onSubmit">
         <div>
           <p class="form__detail--legende">Quel sport collectionnez-vous ?</p>
+
           <VueMultiselect
             v-model="sportSelected"
             :multiple="true"
@@ -182,6 +183,7 @@
             Laissez un message court décrivant votre passion pour les cartes,
             vos recherches, etc...
           </p>
+          <!-- <textarea class="subscribe__form--textarea" v-model="message" placeholder="coucou"> -->
           <textarea
             v-model="message"
             class="subscribe__form--textarea"
@@ -245,7 +247,7 @@ export default {
   data: function () {
     return {
       sportSelected: [],
-      sport: ["NBA", "NFL", "NHL", "MLB", "SOCCER"],
+      sport: ["NBA", "NFL", "NHL", "MLB", "Soccer"],
       teamsNba: [],
       teamsNfl: [],
       teamsNhl: [],
@@ -332,22 +334,20 @@ export default {
     instanceSports
       .get("/")
       .then((data) => {
-        console.log(data.data.result);
         let teams = data.data.result;
         for (const team of teams) {
-          if (team.league.name === "NBA") {
-            this.teamsNba = team.league.equipes.name;
-          } else if (team.league.name === "NFL") {
-            this.teamsNfl = team.league.equipes.name;
-          } else if (team.league.name === "NHL") {
-            this.teamsNhl = team.league.equipes.name;
-          } else if (team.league.name === "MLB") {
-            this.teamsMlb = team.league.equipes.name;
-          } else if (team.league.name === "Soccer") {
-            this.teamsSoccer = team.league.equipes.name;
+          if (team.name == "NBA") {
+            this.teamsNba = team.teams;
+          } else if (team.name == "NFL") {
+            this.teamsNfl = team.teams;
+          } else if (team.name == "NHL") {
+            this.teamsNhl = team.teams;
+          } else if (team.name == "MLB") {
+            this.teamsMlb = team.teams;
+          } else if (team.name == "SOCCER") {
+            this.teamsSoccer = team.teams;
           }
         }
-        // this.teamsNba = data.data.result[0].league.equipes;
       })
       .catch((error) => {
         error;
@@ -356,6 +356,5 @@ export default {
   components: { Navigation, VueMultiselect },
 };
 </script>
-
 <style>
 </style>
