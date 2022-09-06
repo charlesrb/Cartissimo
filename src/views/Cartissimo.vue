@@ -169,6 +169,7 @@ export default {
       selectSoccer: "SOCCER",
       resultatRecherche: "",
       resultatRechercheSport: "",
+      test: "",
     };
   },
   computed: {},
