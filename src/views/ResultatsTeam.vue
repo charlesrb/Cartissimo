@@ -112,8 +112,8 @@
         <div
           class="resultats__detail--socialmedia"
           v-if="
-            use.twitter.toLowerCase() != non ||
-            use.instagram.toLowerCase() != non
+            use.twitter.toLowerCase() != 'non' ||
+            use.instagram.toLowerCase() != 'non'
           "
         >
           <div v-if="use.twitter.toLowerCase() != 'non'">

@@ -47,26 +47,11 @@
 </template>
 
 <script>
-import axios from "axios";
-
-const instanceSports = axios.create({
-  baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
-});
-const instanceUser = axios.create({
-  baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
-});
-
 export default {
   name: "Header",
   data: function () {
     return {
       keys: {},
-      users: {},
-      teamsNba: [],
-      teamsNfl: [],
-      teamsNhl: [],
-      teamsMlb: [],
-      teamsSoccer: [],
       search: "",
       selectNba: "NBA",
       selectNfl: "NFL",
@@ -77,6 +62,14 @@ export default {
       resultatRechercheSport: "",
     };
   },
+  props: [
+    "teamsNba",
+    "teamsNfl",
+    "teamsNhl",
+    "teamsMlb",
+    "teamsSoccer",
+    "users",
+  ],
   methods: {
     updateSearch(resultat) {
       this.search = resultat;
@@ -154,39 +147,39 @@ export default {
       e.preventDefault();
     },
   },
-  beforeCreate() {
-    instanceUser
-      .get("/")
-      .then((data) => {
-        this.users = data.data.result;
-        console.log(data.data.result);
-      })
-      .catch((error) => {
-        error;
-      });
+  //   beforeCreate() {
+  //     instanceUser
+  //       .get("/")
+  //       .then((data) => {
+  //         this.users = data.data.result;
+  //         console.log(data.data.result);
+  //       })
+  //       .catch((error) => {
+  //         error;
+  //       });
 
-    instanceSports
-      .get("/")
-      .then((data) => {
-        let teams = data.data.result;
-        for (const team of teams) {
-          if (team.name == "NBA") {
-            this.teamsNba = team;
-          } else if (team.name == "NFL") {
-            this.teamsNfl = team;
-          } else if (team.name == "NHL") {
-            this.teamsNhl = team;
-          } else if (team.name == "MLB") {
-            this.teamsMlb = team;
-          } else if (team.name == "SOCCER") {
-            this.teamsSoccer = team;
-          }
-        }
-      })
-      .catch((error) => {
-        error;
-      });
-  },
+  //     instanceSports
+  //       .get("/")
+  //       .then((data) => {
+  //         let teams = data.data.result;
+  //         for (const team of teams) {
+  //           if (team.name == "NBA") {
+  //             this.teamsNba = team;
+  //           } else if (team.name == "NFL") {
+  //             this.teamsNfl = team;
+  //           } else if (team.name == "NHL") {
+  //             this.teamsNhl = team;
+  //           } else if (team.name == "MLB") {
+  //             this.teamsMlb = team;
+  //           } else if (team.name == "SOCCER") {
+  //             this.teamsSoccer = team;
+  //           }
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         error;
+  //       });
+  //   },
 };
 </script>
 
