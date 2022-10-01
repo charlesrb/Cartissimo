@@ -331,7 +331,7 @@ export default {
 
         if (sportQuery == "NBA") {
           for (const user of this.users) {
-            if (user.equipeNba.includes(teamQuery)) {
+            if (user.NBA.includes(teamQuery)) {
               this.select = teamQuery;
               this.user.push(user);
             }
@@ -341,7 +341,7 @@ export default {
           }
         } else if (sportQuery == "NFL") {
           for (const user of this.users) {
-            if (user.equipeNfl.includes(teamQuery)) {
+            if (user.NFL.includes(teamQuery)) {
               this.select = teamQuery;
               this.user.push(user);
             }
@@ -351,7 +351,7 @@ export default {
           }
         } else if (sportQuery == "NHL") {
           for (const user of this.users) {
-            if (user.equipeNhl.includes(teamQuery)) {
+            if (user.NHL.includes(teamQuery)) {
               this.select = teamQuery;
               this.user.push(user);
             }
@@ -361,7 +361,7 @@ export default {
           }
         } else if (sportQuery == "MLB") {
           for (const user of this.users) {
-            if (user.equipeMlb.includes(teamQuery)) {
+            if (user.MLB.includes(teamQuery)) {
               this.select = teamQuery;
               this.user.push(user);
             }
@@ -371,7 +371,7 @@ export default {
           }
         } else if (sportQuery == "SOCCER") {
           for (const user of this.users) {
-            if (user.equipeSoccer.includes(teamQuery)) {
+            if (user.SOCCER.includes(teamQuery)) {
               this.select = teamQuery;
               this.user.push(user);
             }
