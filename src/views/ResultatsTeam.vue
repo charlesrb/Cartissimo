@@ -9,7 +9,7 @@
           name="NBA"
           id="NBA"
           class="collection__form--select"
-          @change="selectTeamNba()"
+          @change="selectTeamByLeague('NBA', selectNba)"
           v-model="selectNba"
         >
           <option :value="this.selectNba" disabled>NBA</option>
@@ -27,7 +27,7 @@
           id=""
           class="collection__form--select"
           v-model="selectNfl"
-          @change.prevent="selectTeamNfl()"
+          @change="selectTeamByLeague('NFL', selectNfl)"
         >
           <option :value="this.selectNfl" disabled>NFL</option>
           <option
@@ -43,7 +43,7 @@
           id=""
           class="collection__form--select"
           v-model="selectNhl"
-          @change="selectTeamNhl()"
+          @change="selectTeamByLeague('NHL', selectNhl)"
         >
           <option :value="this.selectNhl" disabled>NHL</option>
           <option
@@ -60,7 +60,7 @@
           id=""
           class="collection__form--select"
           v-model="selectMlb"
-          @change="selectTeamMlb()"
+          @change="selectTeamByLeague('MLB', selectMlb)"
         >
           <option :value="this.selectMlb" disabled>MLB</option>
           <option
@@ -77,7 +77,7 @@
           id=""
           class="collection__form--select"
           v-model="selectSoccer"
-          @change="selectTeamSoccer()"
+          @change="selectTeamByLeague('SOCCER', selectSoccer)"
         >
           <option :value="this.selectSoccer" disabled>Soccer</option>
           <option
@@ -186,115 +186,21 @@ export default {
   },
   computed: {},
   methods: {
-    selectTeamNba() {
+    selectTeamByLeague(league, selectedTeam) {
       this.user = [];
-      for (const user of this.users) {
-        if (user.equipeNba.includes(this.selectNba)) {
-          this.select = this.selectNba;
-          this.display = false;
-          this.user.push(user);
-        }
-      }
-      if (this.select != this.selectNba) {
-        this.select = this.selectNba;
-      }
-      if (this.user.length == 0) {
+      this.select = selectedTeam;
+
+      this.users
+        .filter((user) => user[league].includes(selectedTeam))
+        .forEach((user) => this.user.push(user));
+      if (this.user.length != 0) {
+        this.display = false;
+      } else if (this.user.length === 0) {
         this.display = true;
       }
       this.$router.replace({
-        params: { sport: "NBA", team: `${this.selectNba}` },
+        params: { sport: league, team: `${selectedTeam}` },
       });
-      document.title =
-        "Cartissimo | Collectionneur de NBA " + " | " + this.select;
-    },
-
-    selectTeamNfl() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeNfl.includes(this.selectNfl)) {
-          this.select = this.selectNfl;
-          this.user.push(user);
-          this.display = false;
-        }
-      }
-      if (this.select != this.selectNfl) {
-        this.select = this.selectNfl;
-      }
-      if (this.user.length == 0) {
-        this.display = true;
-      }
-      this.$router.replace({
-        params: { sport: "NFL", team: `${this.selectNfl}` },
-      });
-      document.title =
-        "Cartissimo | Collectionneur de NFL" + " | " + this.select;
-    },
-    selectTeamNhl() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeNhl.includes(this.selectNhl)) {
-          this.select = this.selectNfl;
-          this.user.push(user);
-          this.display = false;
-        }
-      }
-      if (this.select != this.selectNhl) {
-        this.select = this.selectNhl;
-      }
-      if (this.user.length == 0) {
-        this.display = true;
-      }
-      this.$router.replace({
-        params: { sport: "NHL", team: `${this.selectNhl}` },
-      });
-      document.title =
-        "Cartissimo | Collectionneur de NHL" + " | " + this.select;
-    },
-    selectTeamMlb() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeMlb.includes(this.selectMlb)) {
-          this.select = this.selectMlb;
-          this.user.push(user);
-          this.display = false;
-        }
-      }
-      if (this.select != this.selectMlb) {
-        this.select = this.selectMlb;
-      }
-      if (this.user.length == 0) {
-        this.display = true;
-      }
-      this.$router.replace({
-        params: { sport: "MLB", team: `${this.selectMlb}` },
-      });
-      document.title =
-        "Cartissimo | Collectionneur de MLB" + " | " + this.select;
-    },
-    selectTeamSoccer() {
-      this.user = [];
-
-      for (const user of this.users) {
-        if (user.equipeSoccer.includes(this.selectSoccer)) {
-          this.select = this.selectSoccer;
-          this.user.push(user);
-          this.display = false;
-        }
-      }
-      if (this.select != this.selectSoccer) {
-        this.select = this.selectSoccer;
-      }
-      if (this.user.length == 0) {
-        this.display = true;
-      }
-      this.$router.replace({
-        params: { sport: "SOCCER", team: `${this.selectSoccer}` },
-      });
-      document.title =
-        "Cartissimo | Collectionneur de Soccer" + " | " + this.select;
     },
   },
   beforeCreate() {

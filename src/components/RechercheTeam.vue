@@ -105,7 +105,9 @@ export default {
       localStorage.setItem("select", selectedTeam);
       console.log(selectedTeam);
       // TODO : Modifier l'api pour qu'au lieu d equipe Nba on renvoie juste NBA
-      this.users.filter((user) => user[league].includes(selectedTeam));
+      this.users
+        .filter((user) => user[league].includes(selectedTeam))
+        .forEach((user) => testUser.push(user));
 
       localStorage.setItem("users", JSON.stringify(testUser));
       this.$router.push({
