@@ -405,7 +405,6 @@ export default {
       instanceUser
         .post("/", dataForm)
         .then((data) => {
-          console.log(data);
           this.$router.push("/");
         })
         .catch((err) => console.log(err));
