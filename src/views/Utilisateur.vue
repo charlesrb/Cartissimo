@@ -12,34 +12,36 @@
     </section>
     <div class="test2">
       <section v-for="use in user" :key="use.id">
-        <div v-if="use.equipeNba != 0">
+        <div v-if="use.NBA != 0">
           <h4>Equipe NBA :</h4>
-          <p v-for="team in use.equipeNba" :key="team.id" class="box">
-            {{ team }}
+          <p v-for="team in use.NBA" :key="team.id" class="box">
+            <router-link :to="{ path: `/NBA/${team}` }">{{ team }}</router-link>
           </p>
         </div>
-        <div v-if="use.equipeNfl != 0">
+        <div v-if="use.NFL != 0">
           <h4>Equipe NFL :</h4>
-          <p v-for="team in use.equipeNfl" :key="team.id" class="box">
-            {{ team }}
+          <p v-for="team in use.NFL" :key="team.id" class="box">
+            <router-link :to="{ path: `/NFL/${team}` }">{{ team }}</router-link>
           </p>
         </div>
-        <div v-if="use.equipeNhl != 0">
+        <div v-if="use.NHL != 0">
           <h4>Equipe NHL :</h4>
-          <p v-for="team in use.equipeNhl" :key="team.id" class="box">
-            {{ team }}
+          <p v-for="team in use.NHL" :key="team.id" class="box">
+            <router-link :to="{ path: `/NHL/${team}` }">{{ team }}</router-link>
           </p>
         </div>
-        <div v-if="use.equipeMlb != 0">
+        <div v-if="use.MLB != 0">
           <h4>Equipe MLB :</h4>
-          <p v-for="team in use.equipeMlb" :key="team.id" class="box">
-            {{ team }}
+          <p v-for="team in use.MLB" :key="team.id" class="box">
+            <router-link :to="{ path: `/MLB/${team}` }">{{ team }}</router-link>
           </p>
         </div>
-        <div v-if="use.equipeSoccer != 0">
+        <div v-if="use.SOCCER != 0">
           <h4>Equipe Soccer :</h4>
-          <p v-for="team in use.equipeSoccer" :key="team.id" class="box">
-            {{ team }}
+          <p v-for="team in use.SOCCER" :key="team.id" class="box">
+            <router-link :to="{ path: `/SOCCER/${team}` }">{{
+              team
+            }}</router-link>
           </p>
         </div>
       </section>
@@ -81,7 +83,6 @@ export default {
         this.user = data.data.result.filter(
           (user) => user.pseudo == this.$route.query.user
         );
-        console.log(data.data.result);
       })
       .catch((error) => {
         error;
@@ -91,7 +92,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .collection-detail {
   font-size: 13px;
 }
@@ -100,6 +101,10 @@ export default {
   color: white;
   font-size: 13px;
   padding: 10px;
+}
+
+a {
+  color: white !important;
 }
 
 .test2 {
