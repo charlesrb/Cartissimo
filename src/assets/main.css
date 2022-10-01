@@ -458,4 +458,14 @@ a {
 }
 .user__header i {
   font-size: 50px;
+}
+
+.box {
+  background-color: #C22C25;
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  display: inline-block;
+  border-radius: 10px;
+  margin-right: 5px;
 }/*# sourceMappingURL=main.css.map */
