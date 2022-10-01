@@ -18,6 +18,9 @@
       :teamsSoccer="teamsSoccer"
       :users="users"
     ></RechercheTeam>
+    <!-- <p v-for="player in teamsNba.players" :key="player.id">
+      {{ player.surname }} {{ player.name }}
+    </p> -->
     <Videos></Videos>
     <footer class="footer">
       <img src="../assets/img/logo-cartissimo-gris-sans-texte.png" alt="" />
@@ -30,7 +33,6 @@ import Navigation from "../components/Navigation.vue";
 import Header from "../components/Header.vue";
 import RechercheTeam from "../components/RechercheTeam.vue";
 import Videos from "../components/Videos.vue";
-
 import axios from "axios";
 
 const instanceSports = axios.create({
@@ -68,6 +70,7 @@ export default {
     RechercheTeam,
     Videos,
   },
+
   beforeCreate() {
     instanceUser
       .get("/")
@@ -85,15 +88,15 @@ export default {
         let teams = data.data.result;
         for (const team of teams) {
           if (team.name == "NBA") {
-            this.teamsNba = team;
+            this.teamsNba = team.teams;
           } else if (team.name == "NFL") {
-            this.teamsNfl = team;
+            this.teamsNfl = team.teams;
           } else if (team.name == "NHL") {
-            this.teamsNhl = team;
+            this.teamsNhl = team.teams;
           } else if (team.name == "MLB") {
-            this.teamsMlb = team;
+            this.teamsMlb = team.teams;
           } else if (team.name == "SOCCER") {
-            this.teamsSoccer = team;
+            this.teamsSoccer = team.teams;
           }
         }
       })

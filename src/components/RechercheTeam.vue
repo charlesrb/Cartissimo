@@ -12,11 +12,7 @@
       >
         <option value="NBA" disabled>NBA</option>
 
-        <option
-          v-for="teamNba in teamsNba.teams"
-          :key="teamNba.id"
-          :value="teamNba"
-        >
+        <option v-for="teamNba in teamsNba" :key="teamNba.id" :value="teamNba">
           {{ teamNba }}
         </option>
       </select>
@@ -28,11 +24,7 @@
         @change="selectTeam()"
       >
         <option value="NFL" disabled>NFL</option>
-        <option
-          v-for="teamNfl in teamsNfl.teams"
-          :key="teamNfl.id"
-          :value="teamNfl"
-        >
+        <option v-for="teamNfl in teamsNfl" :key="teamNfl.id" :value="teamNfl">
           {{ teamNfl }}
         </option>
       </select>
@@ -44,11 +36,7 @@
         @change="selectTeam()"
       >
         <option value="NHL" disabled>NHL</option>
-        <option
-          v-for="teamNhl in teamsNhl.teams"
-          :key="teamNhl.id"
-          :value="teamNhl"
-        >
+        <option v-for="teamNhl in teamsNhl" :key="teamNhl.id" :value="teamNhl">
           {{ teamNhl }}
         </option>
       </select>
@@ -61,11 +49,7 @@
         @change="selectTeam()"
       >
         <option value="MLB" disabled>MLB</option>
-        <option
-          v-for="teamMlb in teamsMlb.teams"
-          :key="teamMlb.id"
-          :value="teamMlb"
-        >
+        <option v-for="teamMlb in teamsMlb" :key="teamMlb.id" :value="teamMlb">
           {{ teamMlb }}
         </option>
       </select>
@@ -79,7 +63,7 @@
       >
         <option value="SOCCER" disabled>SOCCER</option>
         <option
-          v-for="teamSoccer in teamsSoccer.teams"
+          v-for="teamSoccer in teamsSoccer"
           :key="teamSoccer.id"
           :value="teamSoccer"
         >
