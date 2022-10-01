@@ -10,7 +10,7 @@
       <form action="" class="header__form--detail" @submit.prevent="onSubmit">
         <input
           type="text"
-          placeholder="Equipe collectionnée"
+          placeholder="Equipe ou joueur collectionné"
           class="header__form--input"
           v-model="search"
           @input="searchTeamInput"
@@ -102,16 +102,9 @@ export default {
 
       if (this.search.length > 2) {
         instanceSports
-          .get("/")
+          .get(`/${this.search}`)
           .then((data) => {
-            for (const sport of data.data.result) {
-              for (const equipe of sport.teams) {
-                if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-                  listeEquipe.push(sport.name + " - " + equipe);
-                }
-                this.resultatRecherche = listeEquipe;
-              }
-            }
+            this.resultatRecherche = data.data;
           })
           .catch((error) => {
             error;
@@ -138,7 +131,6 @@ export default {
                   listeJoueur.push(sport.name + " - " + joueur);
                 }
                 this.resultatRecherche = listeJoueur;
-                console.log(this.resultatRecherche);
               }
             }
           })
@@ -170,11 +162,11 @@ export default {
         }
 
         if (
-          user.equipeNba.includes(this.search.substring(6)) ||
-          user.equipeNhl.includes(this.search.substring(6)) ||
-          user.equipeNfl.includes(this.search.substring(6)) ||
-          user.equipeMlb.includes(this.search.substring(6)) ||
-          user.equipeSoccer.includes(this.search.substring(6))
+          user.NBA.includes(this.search.substring(6)) ||
+          user.NHL.includes(this.search.substring(6)) ||
+          user.NFL.includes(this.search.substring(6)) ||
+          user.MLB.includes(this.search.substring(6)) ||
+          user.SOCCER.includes(this.search.substring(6))
         ) {
           usersSelected.push(user);
           localStorage.setItem("users", JSON.stringify(usersSelected));
