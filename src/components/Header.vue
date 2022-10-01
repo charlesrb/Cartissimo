@@ -10,12 +10,12 @@
       <form action="" class="header__form--detail" @submit.prevent="onSubmit">
         <input
           type="text"
-          placeholder="Joueur ou équipe collectionnée"
+          placeholder="Equipe collectionnée"
           class="header__form--input"
           v-model="search"
           @input="searchTeamInput"
         />
-        <div class="header__form--list" id="testliste">
+        <div class="header__form--list" id="listeEquipes">
           <ul>
             <li
               v-for="resultat in resultatRecherche"
@@ -23,20 +23,27 @@
               @click="updateSearch(resultat)"
             >
               {{ resultat }}
-              <!-- <router-link
-                  :to="{
-                    name: 'resultatsteam',
-                    path: '/resultatsteam/:sport/:team',
-                    params: {
-                      sport: resultat.substring(0, 3),
-                      team: resultat.substring(6),
-                    },
-                  }"
-                  >{{ resultat }}</router-link
-                > -->
             </li>
           </ul>
         </div>
+        <!-- <input
+          type="text"
+          placeholder="Joueur collectionné"
+          class="header__form--input"
+          v-model="searchJoueur"
+          @input="searchPlayerInput"
+        />
+        <div class="header__form--list" id="listeJoueurs">
+          <ul>
+            <li
+              v-for="resultat in resultatRecherche"
+              :key="resultat.id"
+              @click="updateSearchPlayer(resultat)"
+            >
+              {{ resultat }}
+            </li>
+          </ul>
+        </div> -->
 
         <button @click="searchPlayer()" class="header__form--button">
           CHERCHER
@@ -47,12 +54,19 @@
 </template>
 
 <script>
+import axios from "axios";
+
+const instanceSports = axios.create({
+  baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
+});
+
 export default {
   name: "Header",
   data: function () {
     return {
       keys: {},
       search: "",
+      searchJoueur: "",
       selectNba: "NBA",
       selectNfl: "NFL",
       selectNhl: "NHL",
@@ -73,48 +87,65 @@ export default {
   methods: {
     updateSearch(resultat) {
       this.search = resultat;
-      document.getElementById("testliste").style.display = "none";
+      document.getElementById("listeEquipes").style.display = "none";
+    },
+
+    updateSearchPlayer(resultat) {
+      this.searchPlayer = resultat;
+      document.getElementById("listeJoueurs").style.display = "none";
     },
 
     searchTeamInput() {
       let listeEquipe = [];
-      document.getElementById("testliste").style.display = "block";
+
+      document.getElementById("listeEquipes").style.display = "block";
+
       if (this.search.length > 2) {
-        for (const equipe of this.teamsNba.teams) {
-          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-            listeEquipe.push(this.teamsNba.name + " - " + equipe);
-          }
-          this.resultatRecherche = listeEquipe;
-        }
-
-        for (const equipe of this.teamsNfl.teams) {
-          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-            listeEquipe.push(this.teamsNfl.name + " - " + equipe);
-          }
-          this.resultatRecherche = listeEquipe;
-        }
-
-        for (const equipe of this.teamsNhl.teams) {
-          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-            listeEquipe.push(this.teamsNhl.name + " - " + equipe);
-          }
-          this.resultatRecherche = listeEquipe;
-        }
-
-        for (const equipe of this.teamsMlb.teams) {
-          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-            listeEquipe.push(this.teamsMlb.name + " - " + equipe);
-          }
-          this.resultatRecherche = listeEquipe;
-        }
-
-        for (const equipe of this.teamsSoccer.teams) {
-          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-            listeEquipe.push(this.teamsSoccer.name + " - " + equipe);
-          }
-          this.resultatRecherche = listeEquipe;
-        }
+        instanceSports
+          .get("/")
+          .then((data) => {
+            for (const sport of data.data.result) {
+              for (const equipe of sport.teams) {
+                if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
+                  listeEquipe.push(sport.name + " - " + equipe);
+                }
+                this.resultatRecherche = listeEquipe;
+              }
+            }
+          })
+          .catch((error) => {
+            error;
+          });
       } else if (this.search.length < 2) {
+        this.resultatRecherche = [];
+      }
+    },
+
+    searchPlayerInput() {
+      let listeJoueur = [];
+
+      document.getElementById("listeJoueurs").style.display = "block";
+
+      if (this.searchJoueur.length > 2) {
+        instanceSports
+          .get("/")
+          .then((data) => {
+            for (const sport of data.data.result) {
+              for (const joueur of sport.players) {
+                if (
+                  joueur.toLowerCase().includes(this.searchJoueur.toLowerCase())
+                ) {
+                  listeJoueur.push(sport.name + " - " + joueur);
+                }
+                this.resultatRecherche = listeJoueur;
+                console.log(this.resultatRecherche);
+              }
+            }
+          })
+          .catch((error) => {
+            error;
+          });
+      } else if (this.searchJoueur.length < 2) {
         this.resultatRecherche = [];
       }
     },
@@ -126,22 +157,30 @@ export default {
       localStorage.setItem("search", this.search);
       for (const user of this.users) {
         if (user.joueur) {
-          if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
-            usersSelected.push(user);
-            localStorage.setItem("users", JSON.stringify(usersSelected));
-          }
-          if (
-            user.equipeNba.includes(this.search.substring(6)) ||
-            user.equipeNhl.includes(this.search.substring(6)) ||
-            user.equipeNfl.includes(this.search.substring(6)) ||
-            user.equipeMlb.includes(this.search.substring(6)) ||
-            user.equipeSoccer.includes(this.search.substring(6))
-          ) {
-            usersSelected.push(user);
-            localStorage.setItem("users", JSON.stringify(usersSelected));
+          for (const player of user.joueur) {
+            if (
+              player
+                .toLowerCase()
+                .includes(this.search.substring(6).toLowerCase())
+            ) {
+              usersSelected.push(user);
+              localStorage.setItem("users", JSON.stringify(usersSelected));
+            }
           }
         }
+
+        if (
+          user.equipeNba.includes(this.search.substring(6)) ||
+          user.equipeNhl.includes(this.search.substring(6)) ||
+          user.equipeNfl.includes(this.search.substring(6)) ||
+          user.equipeMlb.includes(this.search.substring(6)) ||
+          user.equipeSoccer.includes(this.search.substring(6))
+        ) {
+          usersSelected.push(user);
+          localStorage.setItem("users", JSON.stringify(usersSelected));
+        }
       }
+
       this.$router.push("/resultats");
 
       e.preventDefault();
