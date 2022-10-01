@@ -1,7 +1,8 @@
 <template>
   <main>
     <Navigation></Navigation>
-    <section class="header">
+    <Header></Header>
+    <!-- <section class="header">
       <div class="header__text">
         <p>
           Trouvez d’autres collectionneurs et partagez ensemble votre passion
@@ -21,7 +22,7 @@
           </button>
         </form>
       </div>
-    </section>
+    </section> -->
     <section class="title">
       <p>Resultats pour</p>
       <p>"{{ search }}"</p>
@@ -87,18 +88,27 @@
 <script>
 import axios from "axios";
 import Navigation from "../components/Navigation.vue";
-
+import Header from "../components/Header.vue";
 const instanceUser = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
+});
+
+const instanceSports = axios.create({
+  baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
 });
 export default {
   name: "Resultats",
   data: function () {
     return {
       user: JSON.parse(localStorage.getItem("users")),
-      search: localStorage.getItem("search"),
+      search: this.$route.params.team,
       users: {},
       display: false,
+      teamsNba: [],
+      teamsNfl: [],
+      teamsNhl: [],
+      teamsMlb: [],
+      teamsSoccer: [],
     };
   },
   computed: {},
@@ -109,8 +119,6 @@ export default {
       for (const user of this.users) {
         if (user.joueur != null) {
           if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
-            console.log(user.joueur);
-
             this.user.push(user);
           }
         } else if (!user.joueur) {
@@ -124,14 +132,35 @@ export default {
       .get("/")
       .then((data) => {
         this.users = data.data.result;
-        console.log(data.data);
+      })
+      .catch((error) => {
+        error;
+      });
+
+    instanceSports
+      .get("/")
+      .then((data) => {
+        let teams = data.data.result;
+        for (const team of teams) {
+          if (team.name == "NBA") {
+            this.teamsNba = team.teams;
+          } else if (team.name == "NFL") {
+            this.teamsNfl = team.teams;
+          } else if (team.name == "NHL") {
+            this.teamsNhl = team.teams;
+          } else if (team.name == "MLB") {
+            this.teamsMlb = team.teams;
+          } else if (team.name == "SOCCER") {
+            this.teamsSoccer = team.teams;
+          }
+        }
       })
       .catch((error) => {
         error;
       });
   },
 
-  components: { Navigation },
+  components: { Navigation, Header },
 };
 </script>
 
