@@ -172,8 +172,14 @@ export default {
           localStorage.setItem("users", JSON.stringify(usersSelected));
         }
       }
-
-      this.$router.push("/resultats");
+      this.$router.push({
+        name: "resultats",
+        path: "/:sport/:team",
+        params: {
+          sport: `${this.search.substring(0, 3)}`,
+          team: `${this.search.substring(6)}`,
+        },
+      });
 
       e.preventDefault();
     },
