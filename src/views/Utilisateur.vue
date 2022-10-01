@@ -14,28 +14,40 @@
       <section v-for="use in user" :key="use.id">
         <div v-if="use.equipeNba != 0">
           <h4>Equipe NBA :</h4>
-          <p v-for="team in use.equipeNba" :key="team.id">{{ team }}</p>
+          <p v-for="team in use.equipeNba" :key="team.id" class="box">
+            {{ team }}
+          </p>
         </div>
         <div v-if="use.equipeNfl != 0">
           <h4>Equipe NFL :</h4>
-          <p v-for="team in use.equipeNfl" :key="team.id">{{ team }}</p>
+          <p v-for="team in use.equipeNfl" :key="team.id" class="box">
+            {{ team }}
+          </p>
         </div>
         <div v-if="use.equipeNhl != 0">
           <h4>Equipe NHL :</h4>
-          <p v-for="team in use.equipeNhl" :key="team.id">{{ team }}</p>
+          <p v-for="team in use.equipeNhl" :key="team.id" class="box">
+            {{ team }}
+          </p>
         </div>
         <div v-if="use.equipeMlb != 0">
           <h4>Equipe MLB :</h4>
-          <p v-for="team in use.equipeMlb" :key="team.id">{{ team }}</p>
+          <p v-for="team in use.equipeMlb" :key="team.id" class="box">
+            {{ team }}
+          </p>
         </div>
         <div v-if="use.equipeSoccer != 0">
           <h4>Equipe Soccer :</h4>
-          <p v-for="team in use.equipeSoccer" :key="team.id">{{ team }}</p>
+          <p v-for="team in use.equipeSoccer" :key="team.id" class="box">
+            {{ team }}
+          </p>
         </div>
       </section>
       <section v-for="use in user" :key="use.id">
         <h4>Joueurs :</h4>
-        <p>{{ use.joueur }}</p>
+        <p v-for="joueur in use.joueur" :key="joueur.id" class="box">
+          {{ joueur }}
+        </p>
       </section>
       <section v-for="use in user" :key="use.id">
         <h4>Collection :</h4>
