@@ -11,10 +11,12 @@
     </div>
   </nav>
   <div v-if="isOpen" class="dropdownMenu">
-    <div class="menuArrow">
+    <!-- <div class="menuArrow">
       <router-link to="/subscribe">S'inscrire</router-link>
+    </div> -->
+    <div class="menuArrow">
+      <router-link to="/inscription">S'inscrire</router-link>
     </div>
-    <div class="menuArrow">Comment protéger mes cartes ?</div>
     <div class="menuArrow">Comment envoyer mes cartes ?</div>
     <div class="menuArrow">Les cartes Cartissimo</div>
   </div>
