@@ -11,20 +11,6 @@
         <div>
           <p class="form__detail--legende">Quel sport collectionnez-vous ?</p>
 
-          <!-- <VueMultiselect
-            v-model="sportSelected"
-            :multiple="true"
-            :options="sport"
-            select-label="Selectionner"
-            deselect-label="Déselectionner"
-            selected-label="Selectionné"
-            :close-on-select="false"
-            tag-placeholder="Ajouter ce sport"
-            placeholder="Chercher ou sélectionner un sport"
-            :taggable="true"
-            @tag="addTag"
-          >
-          </VueMultiselect> -->
           <div class="inline-block">
             <div>
               <input
@@ -77,29 +63,22 @@
           </select> -->
           <p>{{ sportSelected }}</p>
         </div>
+        <Multiselect v-model="sportSelected" :options="sport" />
+
         <div>
           <p class="form__detail--legende">
             Collectionnez-vous une (des ?) équipe NBA ?
           </p>
-          <!-- <VueMultiselect
-            v-model="equipeNba"
-            :multiple="true"
-            :options="teamsNba"
-            select-label="Selectionner"
-            deselect-label="Déselectionner"
-            selected-label="Selectionné"
-            placeholder="Sélectionner une ou plusieurs équipes"
-            :close-on-select="false"
-          >
-          </VueMultiselect> -->
+
           <input
             type="text"
             placeholder="Joueur ou équipe collectionnée"
             class="header__form--input"
-            v-model="search"
-            @input="searchTeamInput"
+            v-model="searchNba"
+            @input="searchTeamInput('NBA', searchNba)"
           />
-          <div class="test-input" id="testliste">
+
+          <div class="header__form--list" id="listeEquipesNba">
             <ul>
               <li
                 v-for="resultat in resultatRecherche"
@@ -107,37 +86,34 @@
                 @click="updateSearch(resultat)"
               >
                 {{ resultat }}
-                <!-- <router-link
-                  :to="{
-                    name: 'resultatsteam',
-                    path: '/resultatsteam/:sport/:team',
-                    params: {
-                      sport: resultat.substring(0, 3),
-                      team: resultat.substring(6),
-                    },
-                  }"
-                  >{{ resultat }}</router-link
-                > -->
               </li>
             </ul>
           </div>
+          <p>{{ equipeNba }}</p>
         </div>
 
         <div>
           <p class="form__detail--legende">
             Collectionnez-vous une (des ?) équipe NFL ?
           </p>
-          <VueMultiselect
-            v-model="equipeNfl"
-            :multiple="true"
-            :options="teamsNfl"
-            select-label="Selectionner"
-            deselect-label="Déselectionner"
-            selected-label="Selectionné"
-            placeholder="Sélectionner une ou plusieurs équipes"
-            :close-on-select="false"
-          >
-          </VueMultiselect>
+          <input
+            type="text"
+            placeholder="Joueur ou équipe collectionnée"
+            class="header__form--input"
+            v-model="searchNfl"
+            @input="searchTeamInput('NFL', searchNfl)"
+          />
+          <div class="header__form--list" id="listeEquipesNfl">
+            <ul>
+              <li
+                v-for="resultat in resultatRecherche"
+                :key="resultat.id"
+                @click="updateSearch(resultat)"
+              >
+                {{ resultat }}
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div>
@@ -327,6 +303,7 @@ export default {
   data: function () {
     return {
       sportSelected: [],
+      display: false,
       sport: ["NBA", "NFL", "NHL", "MLB", "Soccer"],
       teamsNba: [],
       teamsNfl: [],
@@ -334,6 +311,9 @@ export default {
       teamsMlb: [],
       teamsSoccer: [],
       search: "",
+      searchNba: "",
+      searchNfl: "",
+      NBA: [],
       equipeNba: [],
       equipeNfl: [],
       equipeNhl: [],
@@ -409,80 +389,51 @@ export default {
         })
         .catch((err) => console.log(err));
     },
+
     updateSearch(resultat) {
       this.search = resultat;
-      document.getElementById("testliste").style.display = "none";
+      this.equipeNba.push(resultat);
+      document.getElementById("listeEquipesNba").style.display = "none";
     },
-    searchTeamInput() {
+
+    searchTeamInput(league, selectedTeam) {
       let listeEquipe = [];
+      // this.search = selectedTeam;
 
-      document.getElementById("testliste").style.display = "block";
-      if (this.search.length > 2) {
-        for (const equipe of this.teamsNba.teams) {
-          if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-            listeEquipe.push(this.teamsNba.name + " - " + equipe);
-          }
-          this.resultatRecherche = listeEquipe;
-        }
+      document.getElementById("listeEquipesNba").style.display = "block";
 
-        // for (const player of this.teamsNba.players) {
-        //   if (player.toLowerCase().includes(this.search.toLowerCase())) {
-        //     listeEquipe.push(this.teamsNba.name + " - " + player);
-        //   }
-        //   this.resultatRecherche = listeEquipe;
-        // }
-      } else if (this.search.length < 2) {
+      if (selectedTeam.length > 2) {
+        instanceSports
+          .get(`/${league}/${selectedTeam}`)
+          .then((data) => {
+            this.resultatRecherche = data.data;
+            console.log(data.data);
+          })
+          .catch((error) => {
+            error;
+          });
+      } else if (selectedTeam.length < 2) {
         this.resultatRecherche = [];
       }
+      event.preventDefault();
     },
-
-    // updateSearch(resultat) {
-    //   this.search = resultat;
-    //   document.getElementById("testliste").style.display = "none";
-    // },
-    // searchTeamInput() {
-    //   let listeEquipe = [];
-
-    //   document.getElementById("testliste").style.display = "block";
-    //   if (this.search.length > 2) {
-    //     for (const equipe of this.teamsNba.teams) {
-    //       if (equipe.toLowerCase().includes(this.search.toLowerCase())) {
-    //         listeEquipe.push(this.teamsNba.name + " - " + equipe);
-    //       }
-    //       this.resultatRecherche = listeEquipe;
-    //     }
-
-    //     // for (const player of this.teamsNba.players) {
-    //     //   if (player.toLowerCase().includes(this.search.toLowerCase())) {
-    //     //     listeEquipe.push(this.teamsNba.name + " - " + player);
-    //     //   }
-    //     //   this.resultatRecherche = listeEquipe;
-    //     // }
-    //   } else if (this.search.length < 2) {
-    //     this.resultatRecherche = [];
-    //   }
-    // },
-
-    // addTag(event) {
-    //   this.sportSelected.push(event.target.value);
-    // },
   },
-  mounted() {
+  beforeCreate() {
     instanceSports
       .get("/")
       .then((data) => {
         let teams = data.data.result;
         for (const team of teams) {
           if (team.name == "NBA") {
-            this.teamsNba = team;
+            this.teamsNba = team.teams;
           } else if (team.name == "NFL") {
-            this.teamsNfl = team;
+            this.teamsNfl = team.teams;
           } else if (team.name == "NHL") {
-            this.teamsNhl = team;
+            this.teamsNhl = team.teams;
           } else if (team.name == "MLB") {
-            this.teamsMlb = team;
+            this.teamsMlb = team.team;
           } else if (team.name == "SOCCER") {
-            this.teamsSoccer = team;
+            this.teamsSoccer = team.team;
           }
         }
       })
@@ -493,7 +444,7 @@ export default {
   components: { Navigation, VueMultiselect },
 };
 </script>
-<style>
+<style >
 .inline-block {
   display: flex !important;
   flex-direction: row !important;
