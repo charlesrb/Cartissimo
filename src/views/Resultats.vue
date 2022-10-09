@@ -1,8 +1,15 @@
 <template>
   <main>
     <Navigation></Navigation>
-    <Header></Header>
-    <!-- <section class="header">
+    <!-- <Header
+      :teamsNba="teamsNba"
+      :teamsNfl="teamsNfl"
+      :teamsNhl="teamsNhl"
+      :teamsMlb="teamsMlb"
+      :teamsSoccer="teamsSoccer"
+      :users="users"
+    ></Header> -->
+    <section class="header">
       <div class="header__text">
         <p>
           Trouvez d’autres collectionneurs et partagez ensemble votre passion
@@ -16,13 +23,25 @@
             placeholder="Joueur ou équipe collectionnée"
             class="header__form--input"
             v-model="search"
+            @input="searchTeamInput"
           />
+          <div class="header__form--list" id="listeEquipes">
+            <ul>
+              <li
+                v-for="resultat in resultatRecherche"
+                :key="resultat.id"
+                @click="updateSearch(resultat)"
+              >
+                {{ resultat }}
+              </li>
+            </ul>
+          </div>
           <button @click="searchPlayer()" class="header__form--button">
             CHERCHER
           </button>
         </form>
       </div>
-    </section> -->
+    </section>
     <section class="title">
       <p>Resultats pour</p>
       <p>"{{ search }}"</p>
@@ -45,8 +64,8 @@
         <div
           class="resultats__detail--socialmedia"
           v-if="
-            use.twitter.toLowerCase() != non ||
-            use.instagram.toLowerCase() != non
+            use.twitter.toLowerCase() != 'non' ||
+            use.instagram.toLowerCase() != 'non'
           "
         >
           <div v-if="use.twitter.toLowerCase() != 'non'">
@@ -109,22 +128,85 @@ export default {
       teamsNhl: [],
       teamsMlb: [],
       teamsSoccer: [],
+      resultatRecherche: "",
     };
   },
   computed: {},
   methods: {
+    updateSearch(resultat) {
+      this.search = resultat;
+      document.getElementById("listeEquipes").style.display = "none";
+    },
+
+    searchTeamInput() {
+      let listeEquipe = [];
+
+      document.getElementById("listeEquipes").style.display = "block";
+
+      if (this.search.length > 2) {
+        instanceSports
+          .get(`/${this.search}`)
+          .then((data) => {
+            this.resultatRecherche = data.data;
+          })
+          .catch((error) => {
+            error;
+          });
+      } else if (this.search.length < 2) {
+        this.resultatRecherche = [];
+      }
+    },
+
+    // searchPlayer() {
+    //   this.user = [];
+
+    //   for (const user of this.users) {
+    //     if (user.joueur != null) {
+    //       if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
+    //         this.user.push(user);
+    //       }
+    //     } else if (!user.joueur) {
+    //       this.display = !this.display;
+    //     }
+    //   }
+    // },
+
     searchPlayer() {
-      this.user = [];
+      let usersSelected = [];
 
       for (const user of this.users) {
-        if (user.joueur != null) {
-          if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
-            this.user.push(user);
+        if (user.joueur) {
+          for (const player of user.joueur) {
+            if (
+              player
+                .toLowerCase()
+                .includes(this.search.substring(6).toLowerCase())
+            ) {
+              usersSelected.push(user);
+              localStorage.setItem("users", JSON.stringify(usersSelected));
+            }
           }
-        } else if (!user.joueur) {
-          this.display = !this.display;
+        }
+
+        if (
+          user.NBA.includes(this.search.substring(6)) ||
+          user.NHL.includes(this.search.substring(6)) ||
+          user.NFL.includes(this.search.substring(6)) ||
+          user.MLB.includes(this.search.substring(6)) ||
+          user.SOCCER.includes(this.search.substring(6))
+        ) {
+          usersSelected.push(user);
         }
       }
+
+      this.$router.replace({
+        params: {
+          sport: `${this.search.substring(0, 3)}`,
+          team: `${this.search.substring(6)}`,
+        },
+      });
+
+      // e.preventDefault();
     },
   },
   beforeCreate() {
