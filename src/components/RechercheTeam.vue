@@ -101,7 +101,7 @@ export default {
   methods: {
     selectTeamByLeague(league, selectedTeam) {
       let testUser = [];
-      localStorage.clear();
+
       localStorage.setItem("select", selectedTeam);
       this.users
         .filter((user) => user[league].includes(selectedTeam))
