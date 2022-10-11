@@ -2,9 +2,24 @@
     background-color: $secondary-color;
     display:flex;
     align-items: center;
+    justify-content: space-between;
     color:white;
     height: 50px;
     gap:10px;
+    &__icon {
+        margin-right:20px;
+        color:white;
+        & a {
+            color:white;
+        }
+    }
+    &__top {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        height:50px;
+        
+    }
     &__button {
         background-color: $primary-color;
         height: 100%;

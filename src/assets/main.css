@@ -109,9 +109,23 @@ body {
   background-color: #8B2621;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: white;
   height: 50px;
   gap: 10px;
+}
+.menu__icon {
+  margin-right: 20px;
+  color: white;
+}
+.menu__icon a {
+  color: white;
+}
+.menu__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
 }
 .menu__button {
   background-color: #C22C25;
