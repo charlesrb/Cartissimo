@@ -1,5 +1,5 @@
 <template>
-  <Navigation></Navigation>
+  <Navigation :isLogged="isLogged"></Navigation>
   <div v-if="mode == 'login'">
     <p>Vous n'avez pas de compte ?</p>
     <span class="card__action" @click="SwitchToCreateAccount()"
@@ -78,6 +78,7 @@ export default {
   data: function () {
     return {
       mode: "login",
+      isLogged: "-1",
       user: {
         pseudo: "",
         mail: "",
@@ -119,7 +120,7 @@ export default {
         .then((data) => {
           localStorage.setItem("token", data.data.token);
           localStorage.setItem("userId", data.data.userId);
-          console.log(data.data);
+          this.isLogged = data.data.userId;
           if (data.status === 200) {
             this.$router.push("/");
           }

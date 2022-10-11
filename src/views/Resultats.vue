@@ -120,7 +120,7 @@ export default {
   data: function () {
     return {
       user: JSON.parse(localStorage.getItem("users")),
-      search: this.$route.params.team,
+      search: this.$route.params.player,
       users: {},
       display: false,
       teamsNba: [],
