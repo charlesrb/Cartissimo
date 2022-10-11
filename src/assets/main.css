@@ -482,4 +482,8 @@ a {
   display: inline-block;
   border-radius: 10px;
   margin-right: 5px;
-}/*# sourceMappingURL=main.css.map */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;/*# sourceMappingURL=main.css.map */
