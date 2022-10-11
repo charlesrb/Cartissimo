@@ -15,7 +15,7 @@ const router = createRouter({
       component: Cartissimo,
     },
     {
-      path: "/:sport/:team",
+      path: "/:sport/:player",
       name: "resultats",
       component: Resultats,
     },
