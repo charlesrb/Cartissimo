@@ -1,13 +1,23 @@
 <template>
   <nav class="menu">
-    <div class="menu__button">
-      <!-- <router-link to="/subscribe"> -->
-      <i @click="openClose()" class="fas fa-bars"></i>
-      <!-- </router-link> -->
-      <!-- <button @click="openClose()">Coucou</button> -->
+    <div class="menu__top">
+      <div class="menu__button">
+        <!-- <router-link to="/subscribe"> -->
+        <i @click="openClose()" class="fas fa-bars"></i>
+        <!-- </router-link> -->
+        <!-- <button @click="openClose()">Coucou</button> -->
+      </div>
+      <div class="menu__title">
+        <router-link to="/">Cartissimo.fr</router-link>
+      </div>
     </div>
-    <div class="menu__title">
-      <router-link to="/">Cartissimo.fr</router-link>
+    <div v-if="isLogged != '-1' && isLogged != null" class="menu__icon">
+      <router-link to="/profile"><i class="fa-solid fa-user"></i></router-link>
+    </div>
+    <div v-if="isLogged == '-1' || isLogged == null" class="menu__icon">
+      <router-link to="/inscription"
+        ><i class="fa-solid fa-power-off"></i
+      ></router-link>
     </div>
   </nav>
   <div v-if="isOpen" class="dropdownMenu">
@@ -15,7 +25,10 @@
       <router-link to="/subscribe">S'inscrire</router-link>
     </div> -->
     <div class="menuArrow">
-      <router-link to="/inscription">S'inscrire</router-link>
+      <router-link to="/inscription" v-if="isLogged == '-1'"
+        >S'inscrire</router-link
+      >
+      <span @click="logout()" v-if="isLogged != '-1'">Se déconnecter</span>
     </div>
     <div class="menuArrow">Comment envoyer mes cartes ?</div>
     <div class="menuArrow">Les cartes Cartissimo</div>
@@ -28,11 +41,17 @@ export default {
   data() {
     return {
       isOpen: false,
+      isLogged: localStorage.getItem("userId"),
     };
   },
   methods: {
     openClose() {
       this.isOpen = !this.isOpen;
+    },
+    logout() {
+      localStorage.clear();
+      this.isLogged = "-1";
+      this.$router.push("/");
     },
   },
 };
