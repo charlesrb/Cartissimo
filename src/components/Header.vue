@@ -145,7 +145,6 @@ export default {
     searchPlayer() {
       let usersSelected = [];
 
-      localStorage.clear();
       localStorage.setItem("search", this.search);
       for (const user of this.users) {
         if (user.joueur) {
@@ -174,10 +173,10 @@ export default {
       }
       this.$router.push({
         name: "resultats",
-        path: "/:sport/:team",
+        path: "/:sport/:player",
         params: {
           sport: `${this.search.substring(0, 3)}`,
-          team: `${this.search.substring(6)}`,
+          player: `${this.search.substring(6)}`,
         },
       });
 
