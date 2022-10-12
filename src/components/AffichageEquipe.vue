@@ -16,7 +16,7 @@
       <span v-if="mode == ''"
         ><i class="fa fa-pen text-primary" @click="changeMode('Nba')"></i
       ></span>
-      <span v-if="mode == 'editNba'"
+      <span v-if="mode == 'edit'"
         ><i class="fa fa-xmark text-primary" @click="changeMode('close')"></i
       ></span>
     </div>
@@ -56,8 +56,8 @@
     </div>
     <div v-if="mode == 'edit'">
       <select
-        v-model="selectNba"
-        @change="addTeam(league, selectNba)"
+        v-model="select"
+        @change="addTeam(league, select)"
         class="
           block
           h-10
@@ -71,7 +71,9 @@
           mb-2
         "
       >
-        <option value="NBA" disabled class="font-small">{{ league }}</option>
+        <option :value="league" disabled class="font-small">
+          {{ league }}
+        </option>
         <option
           v-for="teamNba in teams"
           :key="teamNba.id"
@@ -121,7 +123,7 @@ export default {
       } else {
         document.getElementById("err").innerHTML = "";
         this.user[league].push(selectedTeam);
-        this.selectNba = "NBA";
+        this.select = league;
       }
     },
 
@@ -145,6 +147,7 @@ export default {
     teams: {},
     userTeam: {},
     league: String,
+    select: String,
   },
 };
 </script>
