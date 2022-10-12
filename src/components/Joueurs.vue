@@ -47,7 +47,13 @@
           },
         }"
         >{{ joueur }}</router-link
-      >
+      ><span
+        ><i
+          class="fa-solid fa-xmark"
+          v-if="mode == 'edit'"
+          @click="deleteTeam(joueur)"
+        ></i
+      ></span>
     </p>
   </div>
   <input
@@ -105,6 +111,11 @@ export default {
       } else {
         this.mode = "edit";
       }
+    },
+
+    deleteTeam(selectedPlayer) {
+      const pos = this.user.joueur.indexOf(selectedPlayer);
+      this.user.joueur.splice(pos, 1);
     },
 
     updateSearch(resultat) {
