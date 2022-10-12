@@ -8,10 +8,77 @@
     </div>
   </section>
   <section class="p-2">
-    Email : {{ user.mail }}
+    <div
+      class="
+        p-2
+        rounded-lg
+        shadow-lg
+        border border-tertiaryBis border-opacity-10
+        flex
+        justify-between
+      "
+    >
+      <div class="flex-1 pr-2">
+        <p class="flex flex-col">
+          <span class="font-bold">Email :</span>
+          <span v-if="mode == ''">{{ user.mail }}</span>
+          <input
+            type="text"
+            class="border border-primary w-full mb-4 rounded-lg px-2"
+            v-if="mode == 'edit'"
+            v-model="user.mail"
+          />
+        </p>
+        <p class="flex flex-col">
+          <span class="font-bold">Twitter :</span>
+          <span v-if="mode == ''">{{ user.twitter }}</span>
+          <input
+            type="text"
+            class="border border-primary w-full mb-4 rounded-lg px-2"
+            v-if="mode == 'edit'"
+            v-model="user.twitter"
+          />
+        </p>
+        <p class="flex flex-col">
+          <span class="font-bold">Instagram : </span>
+          <span v-if="mode == ''">{{ user.instagram }}</span>
+          <input
+            type="text"
+            class="border border-primary w-full mb-4 rounded-lg px-2"
+            v-if="mode == 'edit'"
+            v-model="user.instagram"
+          />
+        </p>
+        <button
+          v-if="mode == 'edit'"
+          @click="modifyAccount()"
+          class="
+            bg-tertiary
+            rounded-lg
+            pt-1
+            pb-1
+            px-2
+            py-2
+            text-white
+            justify-self-end
+          "
+        >
+          Modifier
+        </button>
+      </div>
+      <div>
+        <span v-if="mode == ''"
+          ><i class="fa fa-pen text-primary" @click="changeMode('Nba')"></i
+        ></span>
+        <span v-if="mode == 'edit'"
+          ><i class="fa fa-xmark text-primary" @click="changeMode('close')"></i
+        ></span>
+      </div>
+    </div>
     <AffichageEquipe
       :user="user"
       :userTeam="user.NBA"
+      select="NBA"
       league="NBA"
       :teams="teamsNba"
     ></AffichageEquipe>
@@ -19,33 +86,34 @@
       :user="user"
       :userTeam="user.NFL"
       league="NFL"
+      select="NFL"
       :teams="teamsNfl"
     ></AffichageEquipe>
     <AffichageEquipe
       :user="user"
       :userTeam="user.NHL"
       league="NHL"
+      select="NHL"
       :teams="teamsNhl"
     ></AffichageEquipe>
     <AffichageEquipe
       :user="user"
       :userTeam="user.MLB"
       league="MLB"
+      select="MLB"
       :teams="teamsMlb"
     ></AffichageEquipe>
     <AffichageEquipe
       :user="user"
       :userTeam="user.SOCCER"
       league="SOCCER"
+      select="SOCCER"
       :teams="teamsSoccer"
     ></AffichageEquipe>
 
-    <!-- <h4>Joueurs :</h4>
-    <p v-for="joueur in user.joueur" :key="joueur.id" class="box">
-      {{ joueur }}
-    </p>
+    <Joueurs :user="user"></Joueurs>
 
-    <h4>Collection :</h4>
+    <!-- <h4>Collection :</h4>
     <p>{{ user.collec }}</p> -->
   </section>
 </template>
@@ -54,6 +122,7 @@
 import Navigation from "../components/Navigation.vue";
 import axios from "axios";
 import AffichageEquipe from "../components/AffichageEquipe.vue";
+import Joueurs from "../components/Joueurs.vue";
 
 const instanceUser = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
@@ -65,7 +134,7 @@ const instanceSports = axios.create({
 
 export default {
   name: "profile",
-  components: { Navigation, AffichageEquipe },
+  components: { Navigation, AffichageEquipe, Joueurs },
   data() {
     return {
       user: {},
@@ -99,7 +168,7 @@ export default {
       if (league == "close") {
         this.mode = "";
       } else {
-        this.mode = "edit" + league;
+        this.mode = "edit";
       }
     },
 
