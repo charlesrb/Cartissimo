@@ -70,6 +70,7 @@ const instanceUser = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
 });
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Utilisateur",
   data: function () {
     return {
@@ -83,6 +84,7 @@ export default {
         this.user = data.data.result.filter(
           (user) => user.pseudo == this.$route.query.user
         );
+        console.log(this.user);
       })
       .catch((error) => {
         error;

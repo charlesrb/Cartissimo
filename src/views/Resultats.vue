@@ -1,14 +1,6 @@
 <template>
   <main>
     <Navigation></Navigation>
-    <!-- <Header
-      :teamsNba="teamsNba"
-      :teamsNfl="teamsNfl"
-      :teamsNhl="teamsNhl"
-      :teamsMlb="teamsMlb"
-      :teamsSoccer="teamsSoccer"
-      :users="users"
-    ></Header> -->
     <section class="header">
       <div class="header__text">
         <p>
@@ -30,15 +22,15 @@
               <li
                 v-for="resultat in resultatRecherche"
                 :key="resultat.id"
-                @click="updateSearch(resultat)"
+                @click="searchPlayer(resultat)"
               >
                 {{ resultat }}
               </li>
             </ul>
           </div>
-          <button @click="searchPlayer()" class="header__form--button">
+          <!-- <button @click="searchPlayer()" class="header__form--button">
             CHERCHER
-          </button>
+          </button> -->
         </form>
       </div>
     </section>
@@ -107,7 +99,6 @@
 <script>
 import axios from "axios";
 import Navigation from "../components/Navigation.vue";
-import Header from "../components/Header.vue";
 const instanceUser = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
 });
@@ -116,18 +107,267 @@ const instanceSports = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
 });
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Resultats",
   data: function () {
     return {
-      user: JSON.parse(localStorage.getItem("users")),
+      user: [],
       search: this.$route.params.player,
       users: {},
       display: false,
-      teamsNba: [],
-      teamsNfl: [],
-      teamsNhl: [],
-      teamsMlb: [],
-      teamsSoccer: [],
+      teamsNba: [
+        "Atlanta Hawks",
+        "Boston Celtics",
+        "Brooklyn Nets",
+        "Charlotte Hornets",
+        "Chicago Bulls",
+        "Cleveland Cavaliers",
+        "Dallas Mavericks",
+        "Denver Nuggets",
+        "Detroit Pistons",
+        "Golden State Warriors",
+        "Houston Rockets",
+        "Indiana Pacers",
+        "Los Angeles Clippers",
+        "Los Angeles Lakers",
+        "Memphis Grizzlies",
+        "Miami Heat",
+        "Milwaukee Bucks",
+        "Minnesota Timberwolves",
+        "New Orleans Pelicans",
+        "New York Knicks",
+        "Oklahoma City Thunder",
+        "Orlando Magic",
+        "Philadelphia 76ers",
+        "Phoenix Suns",
+        "Portland Trail Blazers",
+        "Sacramento Kings",
+        "San Antonio Spurs",
+        "Seattle Supersonics",
+        "Toronto Raptors",
+        "Utah Jazz",
+        "Washington Wizards",
+      ],
+      teamsNfl: [
+        "Arizona Cardinals",
+        "Atlanta Falcons",
+        "Baltimore Ravens",
+        "Buffalo Bills",
+        "Carolina Panthers",
+        "Chicago Bears",
+        "Cincinnati Bengals",
+        "Cleveland Browns",
+        "Dallas Cowboys",
+        "Denver Broncos",
+        "Detroit Lions",
+        "Green Bay Packers",
+        "Houston Texans",
+        "Indianapolis Colts",
+        "Jacksonville Jaguars",
+        "Kansas City Chiefs",
+        "Las Vegas Raiders",
+        "Los Angeles Chargers",
+        "Los Angeles Rams",
+        "Miami Dolphins",
+        "Minnesota Vikings",
+        "New England Patriots",
+        "New Orleans Saints",
+        "New York Giants",
+        "New York Jets",
+        "Philadelphia Eagles",
+        "Pittsburgh Steelers",
+        "San Francisco 49ers",
+        "Seattle Seahawks",
+        "Tampa Bay Buccaneers",
+        "Tennessee Titans",
+        "Washington Commanders",
+      ],
+      teamsNhl: [
+        "Anaheim Ducks",
+        "Arizona Coyotes",
+        "Boston Bruins",
+        "Buffalo Sabres",
+        "Calgary Flames",
+        "Carolina Hurricanes",
+        "Chicago Blackhawks",
+        "Colorado Avalanche",
+        "Columbus Blue Jackets",
+        "Dallas Stars",
+        "Detroit Red Wings",
+        "Edmonton Oilers",
+        "Florida Panthers",
+        "Los Angeles Kings",
+        "Minnesota Wild",
+        "Montreal Canadiens",
+        "Nashville Predators",
+        "New Jersey Devils",
+        "New York Islanders",
+        "New York Rangers",
+        "Ottawa Senators",
+        "Philadelphia Flyers",
+        "Pittsburgh Penguins",
+        "San Jose Sharks",
+        "Seattle Kraken",
+        "St. Louis Blues",
+        "Tampa Bay Lightning",
+        "Toronto Maple Leafs",
+        "Vancouver Canucks",
+        "Vegas Golden Knights",
+        "Washington Capitals",
+        "Winnipeg Jets",
+      ],
+      teamsMlb: [
+        "Arizona Diamondbacks",
+        "Atlanta Braves",
+        "Baltimore Orioles",
+        "Boston Red Sox",
+        "Chicago Cubs",
+        "Chicago White Sox",
+        "Cincinnati Reds",
+        "Cleveland Guardians",
+        "Colorado Rockies",
+        "Detroit Tigers",
+        "Houston Astros",
+        "Kansas City Royals",
+        "Los Angeles Angels",
+        "Los Angeles Dodgers",
+        "Miami Marlins",
+        "Milwaukee Brewers",
+        "Minnesota Twins",
+        "New York Mets",
+        "New York Yankees",
+        "Oakland Athletics",
+        "Philadelphia Phillies",
+        "Pittsburgh Pirates",
+        "San Diego Padres",
+        "San Francisco Giants",
+        "Seattle Mariners",
+        "St. Louis Cardinals",
+        "Tampa Bay Rays",
+        "Texas Rangers",
+        "Toronto Blue Jays",
+        "Washington Nationals",
+      ],
+      teamsSoccer: [
+        "ACF Fiorentina",
+        "AFC Ajax",
+        "AFC Bournemouth",
+        "Argentina",
+        "Arsenal",
+        "AS Roma",
+        "Aston Villa",
+        "Atalanta BC",
+        "Athletic Club",
+        "Atlético de Madrid",
+        "Australia",
+        "Austria",
+        "Belgium",
+        "Bologna FC",
+        "Borussia Dortmund",
+        "Bosnia-Herzegovina",
+        "Brazil",
+        "Brentford",
+        "Brescia Calcio",
+        "Brighton & Hove Albion",
+        "Burnley",
+        "CA Osasuna",
+        "Cagliari Calcio",
+        "CD Leganes",
+        "Chelsea FC",
+        "Chile",
+        "Colombia",
+        "Costa Rica",
+        "Croatia",
+        "Crystal Palace",
+        "Czech Republic",
+        "Denmark",
+        "Deportivo Alaves",
+        "Egypt",
+        "Empoli FC",
+        "England",
+        "Everton",
+        "FC Barcelona",
+        "FC Bayern München",
+        "FC Internazionale Milano",
+        "France",
+        "Genoa CFC",
+        "Germany",
+        "Getafe CF",
+        "Granada CF",
+        "Hellas Verona FC",
+        "Hungary",
+        "Iceland",
+        "Ireland",
+        "Islamic Republic of Iran",
+        "Italy",
+        "Ivory Coast",
+        "Japan",
+        "Juventus",
+        "Korea Republic",
+        "Leeds United",
+        "Leicester City",
+        "Levante UD",
+        "Liverpool FC",
+        "Manchester City",
+        "Manchester United",
+        "Mexico",
+        "Morocco",
+        "Netherlands",
+        "New Zealand",
+        "Newcastle United",
+        "Nigeria",
+        "Northern Ireland",
+        "Norway",
+        "Norwich City",
+        "Panama",
+        "Paraguay",
+        "Paris Saint-Germain",
+        "Parma Calcio 1913",
+        "Peru",
+        "Poland",
+        "Portugal",
+        "PSV Eindhoven",
+        "RC Celta de Vigo",
+        "RCD Espanyol",
+        "RCD Mallorca",
+        "Real Betis Balompie",
+        "Real Madrid CF",
+        "Real Sociedad de Futbol",
+        "Real Valladolid CF",
+        "Russia",
+        "Saudi Arabia",
+        "SD Eibar",
+        "Senegal",
+        "Serbia",
+        "Sevilla FC",
+        "Sheffield United",
+        "Southampton",
+        "Spain",
+        "SPAL",
+        "Spezia Calcio",
+        "SS Lazio",
+        "SSC Napoli",
+        "Sweden",
+        "Switzerland",
+        "Torino FC",
+        "Tottenham Hotspur",
+        "Tunisia",
+        "Turkey",
+        "UC Sampdoria",
+        "Udinese Calcio",
+        "United States",
+        "Uruguay",
+        "US Lecce",
+        "US Salernitana",
+        "US Sassuolo Calcio",
+        "Valencia CF",
+        "Venezia FC",
+        "Villarreal CF",
+        "Wales",
+        "Watford",
+        "West Ham United",
+        "Wolverhampton Wanderers",
+      ],
       resultatRecherche: "",
     };
   },
@@ -139,8 +379,6 @@ export default {
     },
 
     searchTeamInput() {
-      let listeEquipe = [];
-
       document.getElementById("listeEquipes").style.display = "block";
 
       if (this.search.length > 2) {
@@ -157,37 +395,21 @@ export default {
       }
     },
 
-    // searchPlayer() {
-    //   this.user = [];
+    searchPlayer(resultat) {
+      this.user = [];
+      this.search = resultat;
 
-    //   for (const user of this.users) {
-    //     if (user.joueur != null) {
-    //       if (user.joueur.toLowerCase().includes(this.search.toLowerCase())) {
-    //         this.user.push(user);
-    //       }
-    //     } else if (!user.joueur) {
-    //       this.display = !this.display;
-    //     }
-    //   }
-    // },
-
-    searchPlayer() {
-      let usersSelected = [];
+      document.getElementById("listeEquipes").style.display = "none";
 
       for (const user of this.users) {
         if (user.joueur) {
-          for (const player of user.joueur) {
-            if (
-              player
-                .toLowerCase()
-                .includes(this.search.substring(6).toLowerCase())
-            ) {
-              usersSelected.push(user);
-              localStorage.setItem("users", JSON.stringify(usersSelected));
-            }
+          let res = user.joueur.findIndex((element) =>
+            element.includes(this.search.substring(6))
+          );
+          if (res != -1) {
+            this.user.push(user);
           }
         }
-
         if (
           user.NBA.includes(this.search.substring(6)) ||
           user.NHL.includes(this.search.substring(6)) ||
@@ -195,14 +417,16 @@ export default {
           user.MLB.includes(this.search.substring(6)) ||
           user.SOCCER.includes(this.search.substring(6))
         ) {
-          usersSelected.push(user);
+          this.user.push(user);
         }
       }
-
+      if (this.user.length == 0) {
+        this.display = true;
+      }
       this.$router.replace({
         params: {
           sport: `${this.search.substring(0, 3)}`,
-          team: `${this.search.substring(6)}`,
+          player: `${this.search.substring(6)}`,
         },
       });
 
@@ -214,6 +438,81 @@ export default {
       .get("/")
       .then((data) => {
         this.users = data.data.result;
+
+        let sportQuery = this.$route.params.sport;
+        let playerQuery = this.$route.params.player;
+
+        if (sportQuery == "NBA") {
+          for (const user of this.users) {
+            let res = user.joueur.findIndex((element) =>
+              element.includes(playerQuery)
+            );
+            if (res != -1) {
+              console.log(user.joueur[res]);
+              this.search = playerQuery;
+              this.user.push(user);
+            }
+          }
+          if (this.user.length == 0) {
+            this.display = true;
+          }
+        } else if (sportQuery == "NFL") {
+          for (const user of this.users) {
+            let res = user.joueur.findIndex((element) =>
+              element.includes(playerQuery)
+            );
+            if (res != -1) {
+              console.log(user.joueur[res]);
+              this.search = playerQuery;
+              this.user.push(user);
+            }
+          }
+          if (this.user.length == 0) {
+            this.display = true;
+          }
+        } else if (sportQuery == "NHL") {
+          for (const user of this.users) {
+            let res = user.joueur.findIndex((element) =>
+              element.includes(playerQuery)
+            );
+            if (res != -1) {
+              console.log(user.joueur[res]);
+              this.search = playerQuery;
+              this.user.push(user);
+            }
+          }
+          if (this.user.length == 0) {
+            this.display = true;
+          }
+        } else if (sportQuery == "MLB") {
+          for (const user of this.users) {
+            let res = user.joueur.findIndex((element) =>
+              element.includes(playerQuery)
+            );
+            if (res != -1) {
+              console.log(user.joueur[res]);
+              this.search = playerQuery;
+              this.user.push(user);
+            }
+          }
+          if (this.user.length == 0) {
+            this.display = true;
+          }
+        } else if (sportQuery == "SOCCER") {
+          for (const user of this.users) {
+            let res = user.joueur.findIndex((element) =>
+              element.includes(playerQuery)
+            );
+            if (res != -1) {
+              console.log(user.joueur[res]);
+              this.search = playerQuery;
+              this.user.push(user);
+            }
+          }
+        }
+        if (this.user.length == 0) {
+          this.display = true;
+        }
       })
       .catch((error) => {
         error;
@@ -242,7 +541,7 @@ export default {
       });
   },
 
-  components: { Navigation, Header },
+  components: { Navigation },
 };
 </script>
 
