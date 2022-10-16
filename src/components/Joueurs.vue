@@ -1,15 +1,6 @@
 <template>
   <div
-    class="
-      flex
-      align-middle
-      gap-2
-      justify-between
-      border-solid border-b border-b-tertiaryBis
-      mb-2
-      pb-2
-      mt-3
-    "
+    class="flex align-middle gap-2 justify-between border-solid border-b border-b-tertiaryBis mb-2 pb-2 mt-3"
   >
     <h4 class="font-bold">Joueurs :</h4>
     <span v-if="mode == ''"
@@ -23,20 +14,7 @@
     <p
       v-for="joueur in user.joueur"
       :key="joueur.id"
-      class="
-        text-white
-        bg-primary
-        rounded-lg
-        flex
-        gap-2
-        pt-1
-        pb-1
-        px-2
-        py-2
-        align-middle
-        font-small
-        text-sm
-      "
+      class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
     >
       <router-link
         :to="{
@@ -103,6 +81,7 @@ export default {
       resultatRecherche: "",
     };
   },
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Joueurs",
   methods: {
     changeMode(league) {
@@ -130,8 +109,6 @@ export default {
     },
 
     searchTeamInput() {
-      let listeJoueur = [];
-
       document.getElementById("listeJoueurs").style.display = "block";
 
       if (this.select.length > 2) {
@@ -152,7 +129,7 @@ export default {
       const user = { ...this.user };
       instanceUser
         .put(`/${userId}`, user)
-        .then((res) => (this.mode = ""))
+        .then(() => (this.mode = ""))
         .catch((error) => error);
     },
   },
@@ -162,5 +139,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
