@@ -15,33 +15,61 @@
         <div v-if="use.NBA != 0">
           <h4>Equipe NBA :</h4>
           <p v-for="team in use.NBA" :key="team.id" class="box">
-            <router-link :to="{ path: `/NBA/${team}` }">{{ team }}</router-link>
+            <router-link
+              :to="{
+                name: 'resultatsteam',
+                params: { sport: 'NBA', team: `${team}` },
+              }"
+              >{{ team }}</router-link
+            >
           </p>
         </div>
         <div v-if="use.NFL != 0">
           <h4>Equipe NFL :</h4>
           <p v-for="team in use.NFL" :key="team.id" class="box">
-            <router-link :to="{ path: `/NFL/${team}` }">{{ team }}</router-link>
+            <router-link
+              :to="{
+                name: 'resultatsteam',
+                params: { sport: 'NFL', team: `${team}` },
+              }"
+              >{{ team }}</router-link
+            >
           </p>
         </div>
         <div v-if="use.NHL != 0">
           <h4>Equipe NHL :</h4>
           <p v-for="team in use.NHL" :key="team.id" class="box">
-            <router-link :to="{ path: `/NHL/${team}` }">{{ team }}</router-link>
+            <router-link
+              :to="{
+                name: 'resultatsteam',
+                params: { sport: 'NHL', team: `${team}` },
+              }"
+              >{{ team }}</router-link
+            >
           </p>
         </div>
         <div v-if="use.MLB != 0">
           <h4>Equipe MLB :</h4>
           <p v-for="team in use.MLB" :key="team.id" class="box">
-            <router-link :to="{ path: `/MLB/${team}` }">{{ team }}</router-link>
+            <router-link
+              :to="{
+                name: 'resultatsteam',
+                params: { sport: 'MLB', team: `${team}` },
+              }"
+              >{{ team }}</router-link
+            >
           </p>
         </div>
         <div v-if="use.SOCCER != 0">
           <h4>Equipe Soccer :</h4>
           <p v-for="team in use.SOCCER" :key="team.id" class="box">
-            <router-link :to="{ path: `/SOCCER/${team}` }">{{
-              team
-            }}</router-link>
+            <router-link
+              :to="{
+                name: 'resultatsteam',
+                params: { sport: 'SOCCER', team: `${team}` },
+              }"
+              >{{ team }}</router-link
+            >
           </p>
         </div>
       </section>

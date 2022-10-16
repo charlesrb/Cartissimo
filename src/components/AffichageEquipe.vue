@@ -1,16 +1,7 @@
 <template>
   <div>
     <div
-      class="
-        flex
-        align-middle
-        gap-2
-        justify-between
-        border-solid border-b border-b-tertiaryBis
-        mb-2
-        pb-2
-        mt-3
-      "
+      class="flex align-middle gap-2 justify-between border-solid border-b border-b-tertiaryBis mb-2 pb-2 mt-3"
     >
       <h4 class="font-bold">Equipes {{ league }} :</h4>
       <span v-if="mode == ''"
@@ -24,20 +15,7 @@
       <p
         v-for="team in userTeam"
         :key="team.id"
-        class="
-          text-white
-          bg-primary
-          rounded-lg
-          flex
-          gap-2
-          pt-1
-          pb-1
-          px-2
-          py-2
-          align-middle
-          font-small
-          text-sm
-        "
+        class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
       >
         <router-link
           :to="{
@@ -58,18 +36,7 @@
       <select
         v-model="select"
         @change="addTeam(league, select)"
-        class="
-          block
-          h-10
-          py-2
-          px-3
-          border border-gray-300
-          bg-white
-          rounded-md
-          shadow-sm
-          text-sm
-          mb-2
-        "
+        class="block h-10 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-sm mb-2"
       >
         <option :value="league" disabled class="font-small">
           {{ league }}
@@ -137,7 +104,7 @@ export default {
       const user = { ...this.user };
       instanceUser
         .put(`/${userId}`, user)
-        .then((res) => (this.mode = ""))
+        .then(() => (this.mode = ""))
         .catch((error) => error);
     },
   },
@@ -152,5 +119,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
