@@ -9,14 +9,7 @@
   </section>
   <section class="p-2">
     <div
-      class="
-        p-2
-        rounded-lg
-        shadow-lg
-        border border-tertiaryBis border-opacity-10
-        flex
-        justify-between
-      "
+      class="p-2 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex justify-between"
     >
       <div class="flex-1 pr-2">
         <p class="flex flex-col">
@@ -52,16 +45,7 @@
         <button
           v-if="mode == 'edit'"
           @click="modifyAccount()"
-          class="
-            bg-tertiary
-            rounded-lg
-            pt-1
-            pb-1
-            px-2
-            py-2
-            text-white
-            justify-self-end
-          "
+          class="bg-tertiary rounded-lg pt-1 pb-1 px-2 py-2 text-white justify-self-end"
         >
           Modifier
         </button>
@@ -133,6 +117,7 @@ const instanceSports = axios.create({
 });
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "profile",
   components: { Navigation, AffichageEquipe, Joueurs },
   data() {
@@ -177,7 +162,7 @@ export default {
       const user = { ...this.user };
       instanceUser
         .put(`/${userId}`, user)
-        .then((res) => (this.mode = ""))
+        .then(() => (this.mode = ""))
         .catch((error) => error);
     },
   },
