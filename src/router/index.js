@@ -6,6 +6,7 @@ import ResultatsTeam from "../views/ResultatsTeam.vue";
 import Subscribe from "../views/Subscribe.vue";
 import Inscription from "../views/Inscription.vue";
 import Profile from "../views/Profile.vue";
+import Abonnement from "../views/Abonnement.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +24,11 @@ const router = createRouter({
       path: "/utilisateur",
       name: "utilisateur",
       component: Utilisateur,
+    },
+    {
+      path: "/abonnement",
+      name: "abonnement",
+      component: Abonnement,
     },
     {
       path: "/:sport/:team",
