@@ -108,6 +108,7 @@ export default {
 
           // localStorage.setItem("token", data.data.token);
           localStorage.setItem("userId", data.data.result._id);
+          this.$router.push("/profile");
           // localStorage.setItem("isAdmin", data.data.isAdmin);
         })
         .catch((err) => console.log(err));
@@ -122,7 +123,7 @@ export default {
           localStorage.setItem("userId", data.data.userId);
           this.isLogged = data.data.userId;
           if (data.status === 200) {
-            this.$router.push("/");
+            this.$router.push("/profile");
           }
         })
         .catch((error) => {
