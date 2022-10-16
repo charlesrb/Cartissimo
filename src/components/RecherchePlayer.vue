@@ -26,25 +26,6 @@
             </li>
           </ul>
         </div>
-        <!-- <input
-          type="text"
-          placeholder="Joueur collectionné"
-          class="header__form--input"
-          v-model="searchJoueur"
-          @input="searchPlayerInput"
-        />
-        <div class="header__form--list" id="listeJoueurs">
-          <ul>
-            <li
-              v-for="resultat in resultatRecherche"
-              :key="resultat.id"
-              @click="updateSearchPlayer(resultat)"
-            >
-              {{ resultat }}
-            </li>
-          </ul>
-        </div> -->
-
         <button @click="searchPlayer()" class="header__form--button">
           CHERCHER
         </button>
@@ -61,7 +42,7 @@ const instanceSports = axios.create({
 });
 
 export default {
-  name: "Header",
+  name: "RecherchePlayer",
   data: function () {
     return {
       keys: {},
@@ -96,8 +77,6 @@ export default {
     },
 
     searchTeamInput() {
-      let listeEquipe = [];
-
       document.getElementById("listeEquipes").style.display = "block";
 
       if (this.search.length > 2) {
@@ -179,8 +158,6 @@ export default {
           player: `${this.search.substring(6)}`,
         },
       });
-
-      e.preventDefault();
     },
   },
   //   beforeCreate() {
@@ -219,5 +196,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
