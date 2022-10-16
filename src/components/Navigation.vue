@@ -30,13 +30,16 @@
       >
       <span @click="logout()" v-if="isLogged != '-1'">Se déconnecter</span>
     </div>
-    <div class="menuArrow">Comment envoyer mes cartes ?</div>
+    <div class="menuArrow">
+      <router-link to="/abonnement">S'abonner à la newsletter</router-link>
+    </div>
     <div class="menuArrow">Les cartes Cartissimo</div>
   </div>
 </template>
 
 <script>
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Navigation",
   data() {
     return {
@@ -57,5 +60,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
