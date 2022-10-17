@@ -44,7 +44,10 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'NBA', team: `${team.replace(' ', '-')}` },
+                  params: {
+                    sport: 'NBA',
+                    team: `${team.replaceAll(' ', '-')}`,
+                  },
                 }"
                 >{{ team }}</router-link
               >
@@ -62,7 +65,10 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'NFL', team: `${team.replace(' ', '-')}` },
+                  params: {
+                    sport: 'NFL',
+                    team: `${team.replaceAll(' ', '-')}`,
+                  },
                 }"
                 >{{ team }}</router-link
               >
@@ -80,7 +86,10 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'NHL', team: `${team.replace(' ', '-')}` },
+                  params: {
+                    sport: 'NHL',
+                    team: `${team.replaceAll(' ', '-')}`,
+                  },
                 }"
                 >{{ team }}</router-link
               >
@@ -98,7 +107,10 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'MLB', team: `${team.replace(' ', '-')}` },
+                  params: {
+                    sport: 'MLB',
+                    team: `${team.replaceAll(' ', '-')}`,
+                  },
                 }"
                 >{{ team }}</router-link
               >
@@ -118,7 +130,7 @@
                   name: 'resultatsteam',
                   params: {
                     sport: 'SOCCER',
-                    team: `${team.replace(' ', '-')}`,
+                    team: `${team.replaceAll(' ', '-')}`,
                   },
                 }"
                 >{{ team }}</router-link

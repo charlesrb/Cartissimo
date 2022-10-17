@@ -111,12 +111,14 @@ export default {
       this.$router.push({
         name: "resultatsteam",
         path: "/:sport/:team",
-        params: { sport: league, team: `${selectedTeam.replace(" ", "-")}` },
+        params: {
+          sport: league.toLowerCase(),
+          team: `${selectedTeam.replaceAll(" ", "-")}`,
+        },
       });
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

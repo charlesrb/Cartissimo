@@ -440,7 +440,7 @@ export default {
         this.users = data.data.result;
 
         let sportQuery = this.$route.params.sport;
-        let playerQuery = this.$route.params.player.replace("-", " ");
+        let playerQuery = this.$route.params.player.replaceAll("-", " ");
 
         if (sportQuery == "NBA") {
           for (const user of this.users) {
@@ -512,28 +512,6 @@ export default {
         }
         if (this.user.length == 0) {
           this.display = true;
-        }
-      })
-      .catch((error) => {
-        error;
-      });
-
-    instanceSports
-      .get("/")
-      .then((data) => {
-        let teams = data.data.result;
-        for (const team of teams) {
-          if (team.name == "NBA") {
-            this.teamsNba = team.teams;
-          } else if (team.name == "NFL") {
-            this.teamsNfl = team.teams;
-          } else if (team.name == "NHL") {
-            this.teamsNhl = team.teams;
-          } else if (team.name == "MLB") {
-            this.teamsMlb = team.teams;
-          } else if (team.name == "SOCCER") {
-            this.teamsSoccer = team.teams;
-          }
         }
       })
       .catch((error) => {

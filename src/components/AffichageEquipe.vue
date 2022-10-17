@@ -20,15 +20,11 @@
         <router-link
           :to="{
             name: 'resultatsteam',
-            params: { sport: league, team: `${team.replace(' ', '-')}` },
+            params: { sport: league, team: `${team.replaceAll(' ', '-')}` },
           }"
           >{{ team }}</router-link
-        ><span
-          ><i
-            class="fa-solid fa-xmark"
-            v-if="mode == 'edit'"
-            @click="deleteTeam(league, team)"
-          ></i
+        ><span v-if="mode == 'edit'"
+          ><i class="fa-solid fa-xmark" @click="deleteTeam(league, team)"></i
         ></span>
       </p>
     </div>
