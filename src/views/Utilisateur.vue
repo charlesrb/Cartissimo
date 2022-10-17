@@ -7,81 +7,134 @@
         <h1>{{ this.$route.query.user }}</h1>
       </div>
     </section>
-    <section class="test" v-for="use in user" :key="use.id">
-      {{ use.message }}
+    <section class="p-3">
+      <p class="flex flex-col" v-if="user[0].twitter.toLowerCase() != 'non'">
+        <span class="font-normal"
+          >Twitter :
+          <a
+            :href="'https://twitter.com/' + user[0].twitter"
+            target="_blank"
+            class="font-small cursor-pointer"
+            >{{ user[0].twitter }}</a
+          ></span
+        >
+      </p>
+      <p class="flex flex-col" v-if="user[0].instagram.toLowerCase() != 'non'">
+        <span class="font-bold"
+          >Instagram :
+          <a
+            :href="'https://instagram.com/' + user[0].instagram.substr(1)"
+            target="_blank"
+            class="font-normal cursor-pointer"
+            >{{ user[0].instagram }}</a
+          ></span
+        >
+      </p>
     </section>
     <div class="test2">
       <section v-for="use in user" :key="use.id">
         <div v-if="use.NBA != 0">
-          <h4>Equipe NBA :</h4>
-          <p v-for="team in use.NBA" :key="team.id" class="box">
-            <router-link
-              :to="{
-                name: 'resultatsteam',
-                params: { sport: 'NBA', team: `${team}` },
-              }"
-              >{{ team }}</router-link
+          <h4 class="font-bold">Equipe NBA :</h4>
+          <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
+            <p
+              v-for="team in use.NBA"
+              :key="team.id"
+              class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
             >
-          </p>
+              <router-link
+                :to="{
+                  name: 'resultatsteam',
+                  params: { sport: 'NBA', team: `${team}` },
+                }"
+                >{{ team }}</router-link
+              >
+            </p>
+          </div>
         </div>
         <div v-if="use.NFL != 0">
-          <h4>Equipe NFL :</h4>
-          <p v-for="team in use.NFL" :key="team.id" class="box">
-            <router-link
-              :to="{
-                name: 'resultatsteam',
-                params: { sport: 'NFL', team: `${team}` },
-              }"
-              >{{ team }}</router-link
+          <h4 class="font-bold">Equipe NFL :</h4>
+          <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
+            <p
+              v-for="team in use.NFL"
+              :key="team.id"
+              class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
             >
-          </p>
+              <router-link
+                :to="{
+                  name: 'resultatsteam',
+                  params: { sport: 'NFL', team: `${team}` },
+                }"
+                >{{ team }}</router-link
+              >
+            </p>
+          </div>
         </div>
         <div v-if="use.NHL != 0">
-          <h4>Equipe NHL :</h4>
-          <p v-for="team in use.NHL" :key="team.id" class="box">
-            <router-link
-              :to="{
-                name: 'resultatsteam',
-                params: { sport: 'NHL', team: `${team}` },
-              }"
-              >{{ team }}</router-link
+          <h4 class="font-bold">Equipe NHL :</h4>
+          <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
+            <p
+              v-for="team in use.NHL"
+              :key="team.id"
+              class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
             >
-          </p>
+              <router-link
+                :to="{
+                  name: 'resultatsteam',
+                  params: { sport: 'NHL', team: `${team}` },
+                }"
+                >{{ team }}</router-link
+              >
+            </p>
+          </div>
         </div>
         <div v-if="use.MLB != 0">
-          <h4>Equipe MLB :</h4>
-          <p v-for="team in use.MLB" :key="team.id" class="box">
-            <router-link
-              :to="{
-                name: 'resultatsteam',
-                params: { sport: 'MLB', team: `${team}` },
-              }"
-              >{{ team }}</router-link
+          <h4 class="font-bold">Equipe MLB :</h4>
+          <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
+            <p
+              v-for="team in use.MLB"
+              :key="team.id"
+              class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
             >
-          </p>
+              <router-link
+                :to="{
+                  name: 'resultatsteam',
+                  params: { sport: 'MLB', team: `${team}` },
+                }"
+                >{{ team }}</router-link
+              >
+            </p>
+          </div>
         </div>
         <div v-if="use.SOCCER != 0">
-          <h4>Equipe Soccer :</h4>
-          <p v-for="team in use.SOCCER" :key="team.id" class="box">
-            <router-link
-              :to="{
-                name: 'resultatsteam',
-                params: { sport: 'SOCCER', team: `${team}` },
-              }"
-              >{{ team }}</router-link
+          <h4 class="font-bold">Equipe Soccer :</h4>
+          <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
+            <p
+              v-for="team in use.SOCCER"
+              :key="team.id"
+              class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
             >
-          </p>
+              <router-link
+                :to="{
+                  name: 'resultatsteam',
+                  params: { sport: 'SOCCER', team: `${team}` },
+                }"
+                >{{ team }}</router-link
+              >
+            </p>
+          </div>
         </div>
       </section>
       <section v-for="use in user" :key="use.id">
-        <h4>Joueurs :</h4>
-        <p v-for="joueur in use.joueur" :key="joueur.id" class="box">
-          {{ joueur }}
-        </p>
-      </section>
-      <section v-for="use in user" :key="use.id">
-        <h4>Collection :</h4>
-        <p>{{ use.collec }}</p>
+        <h4 class="font-bold">Joueurs :</h4>
+        <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
+          <p
+            v-for="joueur in use.joueur"
+            :key="joueur.id"
+            class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
+          >
+            {{ joueur }}
+          </p>
+        </div>
       </section>
     </div>
     <footer class="footer">
@@ -131,10 +184,6 @@ export default {
   color: white;
   font-size: 13px;
   padding: 10px;
-}
-
-a {
-  color: white !important;
 }
 
 .test2 {
