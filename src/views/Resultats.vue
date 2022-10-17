@@ -440,7 +440,7 @@ export default {
         this.users = data.data.result;
 
         let sportQuery = this.$route.params.sport;
-        let playerQuery = this.$route.params.player;
+        let playerQuery = this.$route.params.player.replace("-", " ");
 
         if (sportQuery == "NBA") {
           for (const user of this.users) {

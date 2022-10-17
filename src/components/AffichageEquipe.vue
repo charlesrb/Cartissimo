@@ -20,7 +20,7 @@
         <router-link
           :to="{
             name: 'resultatsteam',
-            params: { sport: league, team: `${team}` },
+            params: { sport: league, team: `${team.replace(' ', '-')}` },
           }"
           >{{ team }}</router-link
         ><span

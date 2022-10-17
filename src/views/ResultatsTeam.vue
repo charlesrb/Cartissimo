@@ -169,7 +169,7 @@ export default {
   data: function () {
     return {
       user: [],
-      select: this.$route.params.team,
+      select: this.$route.params.team.replace("-", " "),
       users: {},
       teamsNba: {},
       teamsNfl: {},
@@ -233,7 +233,7 @@ export default {
         this.users = data.data.result;
 
         let sportQuery = this.$route.params.sport;
-        let teamQuery = this.$route.params.team;
+        let teamQuery = this.$route.params.team.replace("-", " ");
 
         if (sportQuery == "NBA") {
           for (const user of this.users) {

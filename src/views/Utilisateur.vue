@@ -44,7 +44,7 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'NBA', team: `${team}` },
+                  params: { sport: 'NBA', team: `${team.replace(' ', '-')}` },
                 }"
                 >{{ team }}</router-link
               >
@@ -62,7 +62,7 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'NFL', team: `${team}` },
+                  params: { sport: 'NFL', team: `${team.replace(' ', '-')}` },
                 }"
                 >{{ team }}</router-link
               >
@@ -80,7 +80,7 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'NHL', team: `${team}` },
+                  params: { sport: 'NHL', team: `${team.replace(' ', '-')}` },
                 }"
                 >{{ team }}</router-link
               >
@@ -98,7 +98,7 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'MLB', team: `${team}` },
+                  params: { sport: 'MLB', team: `${team.replace(' ', '-')}` },
                 }"
                 >{{ team }}</router-link
               >
@@ -116,7 +116,10 @@
               <router-link
                 :to="{
                   name: 'resultatsteam',
-                  params: { sport: 'SOCCER', team: `${team}` },
+                  params: {
+                    sport: 'SOCCER',
+                    team: `${team.replace(' ', '-')}`,
+                  },
                 }"
                 >{{ team }}</router-link
               >
