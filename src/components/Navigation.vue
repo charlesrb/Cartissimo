@@ -25,10 +25,10 @@
       <router-link to="/subscribe">S'inscrire</router-link>
     </div> -->
     <div class="menuArrow">
-      <router-link to="/inscription" v-if="isLogged == '-1'"
-        >S'inscrire</router-link
+      <router-link to="/inscription" v-if="isLogged == '-1' || isLogged == null"
+        >S'inscrire / Se connecter</router-link
       >
-      <span @click="logout()" v-if="isLogged != '-1'">Se déconnecter</span>
+      <span @click="logout()" v-if="isLogged != '-1' && isLogged != null">Se déconnecter</span>
     </div>
     <div class="menuArrow">
       <router-link to="/abonnement">S'abonner à la newsletter</router-link>
