@@ -38,6 +38,6 @@ main {
   background-color: #f1f1f1;
 }
 iframe {
-  padding-top:50px;
+  padding-top: 50px;
 }
 </style>

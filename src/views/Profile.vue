@@ -96,9 +96,6 @@
     ></AffichageEquipe>
 
     <Joueurs :user="user"></Joueurs>
-
-    <!-- <h4>Collection :</h4>
-    <p>{{ user.collec }}</p> -->
   </section>
 </template>
 

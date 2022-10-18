@@ -1,17 +1,10 @@
 <template>
   <Navigation :isLogged="isLogged"></Navigation>
-  <div v-if="mode == 'login'">
-    <p>Vous n'avez pas de compte ?</p>
-    <span class="card__action" @click="SwitchToCreateAccount()"
-      >Inscrivez-vous</span
-    >
-  </div>
-  <div v-if="mode == 'create'">
-    <p>Déjà inscrit ?</p>
-    <span class="card__action" @click="SwitchToLogin()">Connectez-vous</span>
-  </div>
+  
   <div class="header__form" v-if="mode == 'create'">
     <div class="header__form--detail">
+      <h1 class="font-bold text-lg pt-4">S'inscrire</h1>
+
       <label for="pseudo">Votre pseudo</label>
       <input
         type="text"
@@ -33,7 +26,7 @@
         name="password"
         v-model="user.password"
       />
-      <button class="header__form--button" @click="createUser()">
+      <button class="bg-secondary text-white rounded-3xl py-2 px-4 my-2" type="submit" @click.stop.prevent="createUser()">
         S'inscrire
       </button>
     </div>
@@ -41,25 +34,42 @@
 
   <div class="header__form" v-if="mode == 'login'">
     <div class="header__form--detail">
-      <label for="email">Votre email</label>
-      <input
-        type="email"
-        class="header__form--input"
-        name="email"
-        v-model="user.mail"
-      />
-      <label for="password">Votre mot de passe</label>
-      <input
-        type="password"
-        class="header__form--input"
-        name="password"
-        v-model="user.password"
-      />
-      <button class="header__form--button" @click="login()">
-        Se connecter
-      </button>
+      <h1 class="font-bold text-lg pt-4">Se connecter</h1>
+      <form class="header__form--detail">
+        <label for="email">Votre email</label>
+        <input
+          type="email"
+          class="header__form--input"
+          name="email"
+          v-model="user.mail"
+        />
+        <label for="password">Votre mot de passe</label>
+        <input
+          type="password"
+          class="header__form--input"
+          name="password"
+          v-model="user.password"
+        />
+        <button class="bg-secondary text-white rounded-3xl py-2 px-4 my-2" type="submit" @click.stop.prevent="login()">
+          Se connecter
+        </button>
+      </form>
     </div>
   </div>
+  <div class="flex justify-center align-middle mt-2 text-sm">
+  <div v-if="mode == 'login'">
+    <p class="text-center">Vous n'avez pas de compte ?</p>
+    <p class="flex align-middle justify-center"><span class="card__action text-primary" @click="SwitchToCreateAccount()"
+      >Inscrivez-vous</span
+    ></p>
+  </div>
+</div>
+<div class="flex justify-center align-middle mt-2 text-sm">
+  <div v-if="mode == 'create'">
+    <p class="text-center">Déjà inscrit ?</p>
+    <p class="flex align-middle justify-center"><span class="card__action text-primary" @click="SwitchToLogin()">Connectez-vous</span></p>
+  </div>
+</div>
 </template>
 
 <script>
