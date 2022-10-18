@@ -112,7 +112,7 @@ export default {
   data: function () {
     return {
       user: [],
-      search: this.$route.params.player,
+      search: this.$route.params.player.replaceAll('-', ' '),
       users: {},
       display: false,
       teamsNba: [
@@ -439,7 +439,7 @@ export default {
       .then((data) => {
         this.users = data.data.result;
 
-        let sportQuery = this.$route.params.sport;
+        let sportQuery = this.$route.params.sport.toUpperCase();
         let playerQuery = this.$route.params.player.replaceAll("-", " ");
 
         if (sportQuery == "NBA") {

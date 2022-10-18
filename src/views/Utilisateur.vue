@@ -147,7 +147,16 @@
             :key="joueur.id"
             class="text-white bg-primary rounded-lg flex gap-2 pt-1 pb-1 px-2 py-2 align-middle font-small text-sm"
           >
-            {{ joueur }}
+            <router-link
+              :to="{
+                name: 'resultats',
+                params: {
+                  sport: `${joueur.substring(0, 3).toLowerCase()}`,
+                  player: `${joueur.substring(6).replaceAll(' ', '-')}`,
+                },
+              }"
+              >{{ joueur }}
+            </router-link>
           </p>
         </div>
       </section>

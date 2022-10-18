@@ -20,8 +20,8 @@
         :to="{
           name: 'resultats',
           params: {
-            sport: `${joueur.substring(0, 3)}`,
-            player: `${joueur.substring(6)}`,
+            sport: `${joueur.substring(0, 3).toLowerCase()}`,
+            player: `${joueur.substring(6).replaceAll(' ', '-')}`,
           },
         }"
         >{{ joueur }}</router-link
