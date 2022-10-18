@@ -30,8 +30,11 @@
             class="border border-primary w-full mb-4 rounded-lg px-2"
             v-if="mode == 'edit'"
             v-model="user.twitter"
+            pattern="[@].*"
           />
         </p>
+      
+
         <p class="flex flex-col">
           <span class="font-bold">Instagram : </span>
           <span v-if="mode == ''">{{ user.instagram }}</span>
@@ -40,8 +43,10 @@
             class="border border-primary w-full mb-4 rounded-lg px-2"
             v-if="mode == 'edit'"
             v-model="user.instagram"
+            pattern="[@].*"
           />
         </p>
+        <p id="err" class="text-primary my-2 text-sm"></p>
         <button
           v-if="mode == 'edit'"
           @click="modifyAccount()"
@@ -157,6 +162,23 @@ export default {
     modifyAccount() {
       const userId = localStorage.getItem("userId");
       const user = { ...this.user };
+      document.getElementById("err").innerHTML = "";
+      const regexSocial = /[@].*/;
+      const regexEmail = /^[\w-.]{2,32}@([\w-]+\.)+[\w-]{2,4}$/g;
+
+      // Test des Regex
+      if (!regexSocial.test(user.twitter)) {
+        document.getElementById("err").innerHTML = "Votre profil Twitter doit commencer par @";
+        return;
+      }
+      if (!regexSocial.test(user.instagram)) {
+        document.getElementById("err").innerHTML = "Votre profil Instagram doit commencer par @";
+        return;
+      }
+      if (!regexEmail.test(user.mail)) {
+        document.getElementById("err").innerHTML = "Votre adresse email doit être de la forme exemple@mail.com";
+        return;
+      }
       instanceUser
         .put(`/${userId}`, user)
         .then(() => (this.mode = ""))
@@ -201,5 +223,9 @@ export default {
 <style scoped>
 a {
   color: white !important;
+}
+
+input:invalid {
+  border: red solid 3px;
 }
 </style>
