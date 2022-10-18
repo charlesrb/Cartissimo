@@ -1,6 +1,6 @@
 <template>
   <Navigation :isLogged="isLogged"></Navigation>
-  
+
   <div class="header__form" v-if="mode == 'create'">
     <div class="header__form--detail">
       <h1 class="font-bold text-lg pt-4">S'inscrire</h1>
@@ -11,6 +11,7 @@
         class="header__form--input"
         name="pseudo"
         v-model="user.pseudo"
+        required
       />
       <label for="email">Votre email</label>
       <input
@@ -18,6 +19,7 @@
         class="header__form--input"
         name="email"
         v-model="user.mail"
+        required
       />
       <label for="password">Votre mot de passe</label>
       <input
@@ -25,8 +27,13 @@
         class="header__form--input"
         name="password"
         v-model="user.password"
+        required
       />
-      <button class="bg-secondary text-white rounded-3xl py-2 px-4 my-2" type="submit" @click.stop.prevent="createUser()">
+      <button
+        class="bg-secondary text-white rounded-3xl py-2 px-4 my-2"
+        type="submit"
+        @click.stop.prevent="createUser()"
+      >
         S'inscrire
       </button>
     </div>
@@ -42,6 +49,7 @@
           class="header__form--input"
           name="email"
           v-model="user.mail"
+          required
         />
         <label for="password">Votre mot de passe</label>
         <input
@@ -49,27 +57,38 @@
           class="header__form--input"
           name="password"
           v-model="user.password"
+          required
         />
-        <button class="bg-secondary text-white rounded-3xl py-2 px-4 my-2" type="submit" @click.stop.prevent="login()">
+        <button
+          class="bg-secondary text-white rounded-3xl py-2 px-4 my-2"
+          type="submit"
+          @click.stop.prevent="login()"
+        >
           Se connecter
         </button>
       </form>
     </div>
   </div>
   <div class="flex justify-center align-middle mt-2 text-sm">
-  <div v-if="mode == 'login'">
-    <p class="text-center">Vous n'avez pas de compte ?</p>
-    <p class="flex align-middle justify-center"><span class="card__action text-primary" @click="SwitchToCreateAccount()"
-      >Inscrivez-vous</span
-    ></p>
+    <div v-if="mode == 'login'">
+      <p class="text-center">Vous n'avez pas de compte ?</p>
+      <p class="flex align-middle justify-center">
+        <span class="card__action text-primary" @click="SwitchToCreateAccount()"
+          >Inscrivez-vous</span
+        >
+      </p>
+    </div>
   </div>
-</div>
-<div class="flex justify-center align-middle mt-2 text-sm">
-  <div v-if="mode == 'create'">
-    <p class="text-center">Déjà inscrit ?</p>
-    <p class="flex align-middle justify-center"><span class="card__action text-primary" @click="SwitchToLogin()">Connectez-vous</span></p>
+  <div class="flex justify-center align-middle mt-2 text-sm">
+    <div v-if="mode == 'create'">
+      <p class="text-center">Déjà inscrit ?</p>
+      <p class="flex align-middle justify-center">
+        <span class="card__action text-primary" @click="SwitchToLogin()"
+          >Connectez-vous</span
+        >
+      </p>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
