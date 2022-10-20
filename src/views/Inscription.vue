@@ -5,7 +5,7 @@
     <div class="header__form--detail">
       <h1 class="font-bold text-lg pt-4">S'inscrire</h1>
       <form class="header__form--detail">
-        <label for="pseudo">Votre pseudo</label>
+        <label class="mt-4" for="pseudo">Votre pseudo</label>
         <input
           type="text"
           class="header__form--input"
@@ -13,7 +13,7 @@
           v-model="user.pseudo"
           required
         />
-        <label for="email">Votre email</label>
+        <label class="mt-4" for="email">Votre email</label>
         <input
           type="email"
           class="header__form--input"
@@ -21,7 +21,8 @@
           v-model="user.mail"
           required
         />
-        <label for="password">Votre mot de passe</label>
+        <p id="mail" class="my text-xs px-4 text-center">Votre adresse email doit être de la forme exemple@mail.com</p>
+        <label class="mt-4" for="password">Votre mot de passe</label>
         <input
           type="password"
           class="header__form--input"
@@ -30,7 +31,7 @@
           required
         />
         <div class="flex flex-col justify-center align-middle">
-          <p id="err" class="text-primary my-2 text-sm px-4 text-center"></p>
+          <p id="password" class="my text-xs px-4 text-center">Votre mot de passe doit faire entre 8 et 32 caractères + 1 minuscule min + 1 maj min + 1 caractère spécial</p>
         </div>
         <button
           class="bg-secondary text-white rounded-3xl py-2 px-4 my-2"
@@ -96,6 +97,7 @@
       </p>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -141,16 +143,21 @@ export default {
       const user = { ...this.user };
       const regexPassword = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,32})/;
       const regexEmail = /^[\w-.]{2,32}@([\w-]+\.)+[\w-]{2,4}$/g;
+      const errPass = document.getElementById("password");
+      const errMail = document.getElementById("mail");
+      errPass.classList.remove("text-primary", "font-bold")
+      errMail.classList.remove("text-primary", "font-bold")
 
-      document.getElementById("err").innerHTML = "";
-      if (!regexPassword.test(user.password)) {
-        document.getElementById("err").innerHTML = "Votre mot de passe doit faire entre 8 et 32 caractères + 1 minuscule min + 1 maj min + 1 caractère spécial";
-        return;
-      }
       if (!regexEmail.test(user.mail)) {
-        document.getElementById("err").innerHTML = "Votre adresse email doit être de la forme exemple@mail.com";
+        errMail.classList.add("text-primary", "font-bold")
         return;
       }
+
+      if (!regexPassword.test(user.password)) {
+        errPass.classList.add("text-primary", "font-bold")
+        return;
+      }
+      
       instanceUser
         .post("/", user)
         .then((data) => {

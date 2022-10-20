@@ -16,7 +16,7 @@
     </div>
     <div v-if="isLogged == '-1' || isLogged == null" class="menu__icon">
       <router-link to="/inscription"
-        ><i class="fa-solid fa-power-off"></i
+        ><i class="fa-solid fa-sign-in"></i
       ></router-link>
     </div>
   </nav>
