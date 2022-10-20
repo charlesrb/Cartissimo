@@ -519,7 +519,7 @@ export default {
   mounted() {
     document.title =
       "Cartissimo | Collectionneur de " +
-      this.$route.params.sport +
+      this.$route.params.sport.toUpperCase() +
       " | " +
       this.$route.params.team;
   },

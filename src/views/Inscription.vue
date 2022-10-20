@@ -30,10 +30,7 @@
           required
         />
         <div class="flex flex-col justify-center align-middle">
-          <p
-            id="err"
-            class="text-primary my-2 text-sm px-4 text-center"
-          ></p>
+          <p id="err" class="text-primary my-2 text-sm px-4 text-center"></p>
         </div>
         <button
           class="bg-secondary text-white rounded-3xl py-2 px-4 my-2"
@@ -67,10 +64,7 @@
           required
         />
         <div class="flex flex-col justify-center align-middle">
-          <p
-            id="err"
-            class="text-primary my-2 text-sm px-4 text-center"
-          ></p>
+          <p id="err" class="text-primary my-2 text-sm px-4 text-center"></p>
         </div>
         <button
           class="bg-secondary text-white rounded-3xl py-2 px-4 my-2"

@@ -112,7 +112,7 @@ export default {
   data: function () {
     return {
       user: [],
-      search: this.$route.params.player.replaceAll('-', ' '),
+      search: this.$route.params.player.replaceAll("-", " "),
       users: {},
       display: false,
       teamsNba: [
@@ -518,7 +518,13 @@ export default {
         error;
       });
   },
-
+  mounted() {
+    document.title =
+      "Cartissimo | Collectionneur de " +
+      this.$route.params.sport.toUpperCase() +
+      " | " +
+      this.$route.params.player;
+  },
   components: { Navigation },
 };
 </script>
