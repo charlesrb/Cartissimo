@@ -315,7 +315,9 @@ export default {
     RechercheTeam,
     Videos,
   },
-
+  mounted() {
+  document.title = "Cartissimo - Collectionneurs de cartes";
+},
   beforeCreate() {
     instanceUser
       .get("/")
