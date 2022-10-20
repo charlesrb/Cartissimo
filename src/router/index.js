@@ -7,6 +7,8 @@ import Subscribe from "../views/Subscribe.vue";
 import Inscription from "../views/Inscription.vue";
 import Profile from "../views/Profile.vue";
 import Abonnement from "../views/Abonnement.vue";
+import Contact from "../views/Contact.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -44,6 +46,11 @@ const router = createRouter({
       path: "/inscription",
       name: "inscription",
       component: Inscription,
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: Contact,
     },
     {
       path: "/profile",

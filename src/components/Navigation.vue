@@ -33,7 +33,7 @@
     <div class="menuArrow">
       <router-link to="/abonnement">S'abonner à la newsletter</router-link>
     </div>
-    <div class="menuArrow" v-if="isLogged != '-1' && isLogged != null">Nous contacter</div>
+    <div class="menuArrow" v-if="isLogged != '-1' && isLogged != null"><router-link to="/contact">Nous contacter</router-link></div>
   </div>
 </template>
 
