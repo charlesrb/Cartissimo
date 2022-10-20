@@ -32,7 +32,7 @@
       <select
         v-model="select"
         @change="addTeam(league, select)"
-        class="block h-10 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-sm mb-2"
+        class="block h-10 py-2 px-4 border border-gray-300 bg-white rounded-3xl shadow-sm text-sm my-6"
       >
         <option :value="league" disabled class="font-small">
           {{ league }}
@@ -49,7 +49,7 @@
       <p class="text-primary font-bold" id="errEquipe"></p>
       <button
         @click="modifyAccount()"
-        class="bg-tertiary rounded-lg pt-1 pb-1 px-2 py-2 text-white"
+        class="bg-tertiary rounded-3xl h-10 pt-1 pb-1 px-4 py-2 text-white justify-self-end"
       >
         Modifier
       </button>

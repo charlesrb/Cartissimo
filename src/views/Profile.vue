@@ -18,7 +18,7 @@
           <span v-if="mode == '' || mode == 'a-propos'">{{ user.mail }}</span>
           <input
             type="text"
-            class="border border-primary w-full mb-4 rounded-lg px-2"
+            class="border border-tertiaryBis h-10 outline-none w-full mb-4 rounded-3xl px-4 mt-4"
             v-if="mode == 'social'"
             v-model="user.mail"
           />
@@ -30,7 +30,7 @@
           }}</span>
           <input
             type="text"
-            class="border border-primary w-full mb-4 rounded-lg px-2"
+            class="border border-tertiaryBis h-10 outline-none w-full mb-4 rounded-3xl px-4 mt-4"
             v-if="mode == 'social'"
             v-model="user.twitter"
             pattern="[@].*"
@@ -43,7 +43,7 @@
           }}</span>
           <input
             type="text"
-            class="border border-primary w-full mb-4 rounded-lg px-2"
+            class="border border-tertiaryBis h-10 outline-none w-full mb-4 rounded-3xl px-4 mt-4"
             v-if="mode == 'social'"
             v-model="user.instagram"
             pattern="[@].*"
@@ -53,7 +53,7 @@
         <button
           v-if="mode == 'social'"
           @click="modifyAccount()"
-          class="bg-tertiary rounded-lg pt-1 pb-1 px-2 py-2 text-white justify-self-end"
+          class="bg-tertiary rounded-3xl h-10 pt-1 pb-1 px-4 py-2 text-white justify-self-end"
         >
           Modifier
         </button>
@@ -100,7 +100,7 @@
       <button
         v-if="mode == 'a-propos'"
         @click="modifyAccount()"
-        class="bg-tertiary rounded-lg mt-2 pt-1 pb-1 px-2 py-2 w-1/3 text-white justify-self-end"
+        class="bg-tertiary rounded-3xl h-10 pt-1 pb-1 px-4 py-2 w-1/3 mt-4 text-white justify-self-end"
       >
         Modifier
       </button>
