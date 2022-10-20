@@ -58,6 +58,7 @@
                   name: 'resultatsteam',
                   params: {
                     sport: 'NBA',
+                    equipe: 'equipe',
                     team: `${team.replaceAll(' ', '-')}`,
                   },
                 }"
@@ -79,6 +80,7 @@
                   name: 'resultatsteam',
                   params: {
                     sport: 'NFL',
+                    equipe: 'equipe',
                     team: `${team.replaceAll(' ', '-')}`,
                   },
                 }"
@@ -100,6 +102,7 @@
                   name: 'resultatsteam',
                   params: {
                     sport: 'NHL',
+                    equipe: 'equipe',
                     team: `${team.replaceAll(' ', '-')}`,
                   },
                 }"
@@ -121,6 +124,7 @@
                   name: 'resultatsteam',
                   params: {
                     sport: 'MLB',
+                    equipe: 'equipe',
                     team: `${team.replaceAll(' ', '-')}`,
                   },
                 }"
@@ -142,6 +146,7 @@
                   name: 'resultatsteam',
                   params: {
                     sport: 'SOCCER',
+                    equipe: 'equipe',
                     team: `${team.replaceAll(' ', '-')}`,
                   },
                 }"
@@ -164,6 +169,7 @@
                 name: 'resultats',
                 params: {
                   sport: `${joueur.substring(0, 3).toLowerCase()}`,
+                  joueur: 'joueur',
                   player: `${joueur.substring(6).replaceAll(' ', '-')}`,
                 },
               }"

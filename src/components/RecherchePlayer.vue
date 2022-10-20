@@ -152,10 +152,11 @@ export default {
       }
       this.$router.push({
         name: "resultats",
-        path: "/:sport/:player",
+        path: "/:sport/joueur/:player",
         params: {
-          sport: `${this.search.substring(0, 3)}`,
-          player: `${this.search.substring(6)}`,
+          sport: `${this.search.substring(0, 3).toLowerCase()}`,
+          joueur:'joueur',
+          player: `${this.search.substring(6).replaceAll(" ", "-")}`,
         },
       });
     },
