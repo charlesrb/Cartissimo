@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-10">
     <div
       class="flex align-middle gap-2 justify-between border-solid border-b border-b-tertiaryBis mb-2 pb-2 mt-3"
     >
@@ -46,7 +46,7 @@
           {{ teamNba }}
         </option>
       </select>
-      <p class="text-primary font-bold" id="err"></p>
+      <p class="text-primary font-bold" id="errEquipe"></p>
       <button
         @click="modifyAccount()"
         class="bg-tertiary rounded-lg pt-1 pb-1 px-2 py-2 text-white"
@@ -81,10 +81,10 @@ export default {
 
     addTeam(league, selectedTeam) {
       if (this.user[league].includes(selectedTeam)) {
-        document.getElementById("err").innerHTML =
+        document.getElementById("errEquipe").innerHTML =
           "Vous collectionnez déjà cette équipe !";
       } else {
-        document.getElementById("err").innerHTML = "";
+        document.getElementById("errEquipe").innerHTML = "";
         this.user[league].push(selectedTeam);
         this.select = league;
       }
