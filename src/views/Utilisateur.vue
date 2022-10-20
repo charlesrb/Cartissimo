@@ -8,18 +8,25 @@
       </div>
     </section>
     <section class="p-3">
-      <p class="flex flex-col" v-if="user[0].twitter.toLowerCase() != 'non'">
-        <span class="font-normal"
+      <h2 class="font-bold text-2xl text-start">Je suis...</h2>
+      <p
+        class="flex flex-col mt-2"
+        v-if="user[0].twitter.toLowerCase() != 'non'"
+      >
+        <span class="font-bold"
           >Twitter :
           <a
             :href="'https://twitter.com/' + user[0].twitter"
             target="_blank"
-            class="font-small cursor-pointer"
+            class="font-small font-normal cursor-pointer"
             >{{ user[0].twitter }}</a
           ></span
         >
       </p>
-      <p class="flex flex-col" v-if="user[0].instagram.toLowerCase() != 'non'">
+      <p
+        class="flex flex-col mt-2"
+        v-if="user[0].instagram.toLowerCase() != 'non'"
+      >
         <span class="font-bold"
           >Instagram :
           <a
@@ -30,10 +37,15 @@
           ></span
         >
       </p>
+      <p class="font-bold mt-2">A propos de moi</p>
+      <p>{{ user[0].message }}</p>
     </section>
+
     <div class="test2">
+      <h2 class="font-bold text-2xl text-start">Je collectionne...</h2>
+
       <section v-for="use in user" :key="use.id">
-        <div v-if="use.NBA != 0">
+        <div class="my-4" v-if="use.NBA != 0">
           <h4 class="font-bold">Equipe NBA :</h4>
           <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
             <p
@@ -54,7 +66,7 @@
             </p>
           </div>
         </div>
-        <div v-if="use.NFL != 0">
+        <div class="my-6" v-if="use.NFL != 0">
           <h4 class="font-bold">Equipe NFL :</h4>
           <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
             <p
@@ -75,7 +87,7 @@
             </p>
           </div>
         </div>
-        <div v-if="use.NHL != 0">
+        <div class="my-6" v-if="use.NHL != 0">
           <h4 class="font-bold">Equipe NHL :</h4>
           <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
             <p
@@ -96,7 +108,7 @@
             </p>
           </div>
         </div>
-        <div v-if="use.MLB != 0">
+        <div class="my-6" v-if="use.MLB != 0">
           <h4 class="font-bold">Equipe MLB :</h4>
           <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
             <p
@@ -117,7 +129,7 @@
             </p>
           </div>
         </div>
-        <div v-if="use.SOCCER != 0">
+        <div class="my-6" v-if="use.SOCCER != 0">
           <h4 class="font-bold">Equipe Soccer :</h4>
           <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
             <p
@@ -139,7 +151,7 @@
           </div>
         </div>
       </section>
-      <section v-for="use in user" :key="use.id">
+      <section class="my-6" v-for="use in user" :key="use.id">
         <h4 class="font-bold">Joueurs :</h4>
         <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
           <p

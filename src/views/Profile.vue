@@ -7,48 +7,51 @@
       <h1>{{ user.pseudo }}</h1>
     </div>
   </section>
-  <section class="p-2">
+  <section class="p-4">
+    <h2 class="font-bold text-2xl text-start">Je suis...</h2>
     <div
-      class="p-2 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex justify-between"
+      class="p-2 my-6 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex justify-between"
     >
       <div class="flex-1 pr-2">
         <p class="flex flex-col">
           <span class="font-bold">Email :</span>
-          <span v-if="mode == ''">{{ user.mail }}</span>
+          <span v-if="mode == '' || mode == 'a-propos'">{{ user.mail }}</span>
           <input
             type="text"
             class="border border-primary w-full mb-4 rounded-lg px-2"
-            v-if="mode == 'edit'"
+            v-if="mode == 'social'"
             v-model="user.mail"
           />
         </p>
         <p class="flex flex-col">
           <span class="font-bold">Twitter :</span>
-          <span v-if="mode == ''">{{ user.twitter }}</span>
+          <span v-if="mode == '' || mode == 'a-propos'">{{
+            user.twitter
+          }}</span>
           <input
             type="text"
             class="border border-primary w-full mb-4 rounded-lg px-2"
-            v-if="mode == 'edit'"
+            v-if="mode == 'social'"
             v-model="user.twitter"
             pattern="[@].*"
           />
         </p>
-      
-
         <p class="flex flex-col">
           <span class="font-bold">Instagram : </span>
-          <span v-if="mode == ''">{{ user.instagram }}</span>
+          <span v-if="mode == '' || mode == 'a-propos'">{{
+            user.instagram
+          }}</span>
           <input
             type="text"
             class="border border-primary w-full mb-4 rounded-lg px-2"
-            v-if="mode == 'edit'"
+            v-if="mode == 'social'"
             v-model="user.instagram"
             pattern="[@].*"
           />
         </p>
         <p id="err" class="text-primary my-2 text-sm"></p>
         <button
-          v-if="mode == 'edit'"
+          v-if="mode == 'social'"
           @click="modifyAccount()"
           class="bg-tertiary rounded-lg pt-1 pb-1 px-2 py-2 text-white justify-self-end"
         >
@@ -56,14 +59,55 @@
         </button>
       </div>
       <div>
-        <span v-if="mode == ''"
-          ><i class="fa fa-pen text-primary" @click="changeMode('Nba')"></i
+        <span v-if="mode == '' || mode == 'a-propos'"
+          ><i class="fa fa-pen text-primary" @click="changeMode('social')"></i
         ></span>
-        <span v-if="mode == 'edit'"
+        <span v-if="mode == 'social'"
           ><i class="fa fa-xmark text-primary" @click="changeMode('close')"></i
         ></span>
       </div>
     </div>
+    <div
+      class="my-6 p-2 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex flex-col"
+    >
+      <div class="flex justify-between">
+        <h3 class="font-bold text-start mb-2">A propos de moi</h3>
+        <div>
+          <span v-if="mode == '' || mode == 'social'"
+            ><i
+              class="fa fa-pen text-primary"
+              @click="changeMode('a-propos')"
+            ></i
+          ></span>
+          <span v-if="mode == 'a-propos'"
+            ><i
+              class="fa fa-xmark text-primary"
+              @click="changeMode('close')"
+            ></i
+          ></span>
+        </div>
+      </div>
+      <p v-if="mode == '' || mode == 'social'">
+        {{ user.message }}
+      </p>
+      <div class="flex w-full" v-if="mode == 'a-propos'">
+        <textarea
+          class="border border-tertiaryBis border-opacity-50 rounded-lg w-full outline-none p-2"
+          rows="5"
+          v-model="user.message"
+        ></textarea>
+      </div>
+      <button
+        v-if="mode == 'a-propos'"
+        @click="modifyAccount()"
+        class="bg-tertiary rounded-lg mt-2 pt-1 pb-1 px-2 py-2 w-1/3 text-white justify-self-end"
+      >
+        Modifier
+      </button>
+    </div>
+
+    <h2 class="font-bold text-2xl text-start">Je collectionne...</h2>
+
     <AffichageEquipe
       :user="user"
       :userTeam="user.NBA"
@@ -137,10 +181,10 @@ export default {
   methods: {
     addTeam(league, selectedTeam) {
       if (this.user[league].includes(selectedTeam)) {
-        document.getElementById("err").innerHTML =
+        document.getElementById("errEquipe").innerHTML =
           "Vous collectionnez déjà cette équipe !";
       } else {
-        document.getElementById("err").innerHTML = "";
+        document.getElementById("errEquipe").innerHTML = "";
         this.user[league].push(selectedTeam);
         this.selectNba = "NBA";
       }
@@ -154,6 +198,10 @@ export default {
     changeMode(league) {
       if (league == "close") {
         this.mode = "";
+      } else if (league == "a-propos") {
+        this.mode = "a-propos";
+      } else if (league == "social") {
+        this.mode = "social";
       } else {
         this.mode = "edit";
       }
@@ -165,18 +213,28 @@ export default {
       document.getElementById("err").innerHTML = "";
       const regexSocial = /[@].*/;
       const regexEmail = /^[\w-.]{2,32}@([\w-]+\.)+[\w-]{2,4}$/g;
-
       // Test des Regex
-      if (!regexSocial.test(user.twitter)) {
-        document.getElementById("err").innerHTML = "Votre profil Twitter doit commencer par @";
+      if (
+        !regexSocial.test(user.twitter) &&
+        user.twitter != "non" &&
+        user.twitter != ""
+      ) {
+        document.getElementById("err").innerHTML =
+          "Votre profil Twitter doit commencer par @";
         return;
       }
-      if (!regexSocial.test(user.instagram)) {
-        document.getElementById("err").innerHTML = "Votre profil Instagram doit commencer par @";
+      if (
+        !regexSocial.test(user.instagram) &&
+        user.instagram != "non" &&
+        user.instagram != ""
+      ) {
+        document.getElementById("err").innerHTML =
+          "Votre profil Instagram doit commencer par @";
         return;
       }
       if (!regexEmail.test(user.mail)) {
-        document.getElementById("err").innerHTML = "Votre adresse email doit être de la forme exemple@mail.com";
+        document.getElementById("err").innerHTML =
+          "Votre adresse email doit être de la forme exemple@mail.com";
         return;
       }
       instanceUser
