@@ -10,7 +10,7 @@
   <section class="p-4">
     <h2 class="font-bold text-2xl text-start">Je suis...</h2>
     <div
-      class="p-2 my-6 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex justify-between"
+      class="p-3 my-6 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex justify-between"
     >
       <div class="flex-1 pr-2">
         <p class="flex flex-col">
@@ -68,7 +68,7 @@
       </div>
     </div>
     <div
-      class="my-6 p-2 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex flex-col"
+      class="my-6 p-3 rounded-lg shadow-lg border border-tertiaryBis border-opacity-10 flex flex-col"
     >
       <div class="flex justify-between">
         <h3 class="font-bold text-start mb-2">A propos de moi</h3>
