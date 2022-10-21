@@ -59,6 +59,10 @@ export default {
         error;
       });
   },
+  beforeCreate() {
+    document.title = "Cartissimo - Collectionneurs de cartes";
+
+  }
 };
 </script>
 

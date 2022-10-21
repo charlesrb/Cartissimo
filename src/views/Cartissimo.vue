@@ -315,10 +315,10 @@ export default {
     RechercheTeam,
     Videos,
   },
-  mounted() {
-  document.title = "Cartissimo - Collectionneurs de cartes";
-},
+ 
   beforeCreate() {
+    document.title = "Cartissimo - Collectionneurs de cartes";
+
     instanceUser
       .get("/")
       .then((data) => {

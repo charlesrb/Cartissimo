@@ -452,6 +452,11 @@ export default {
     },
   },
   beforeCreate() {
+    document.title =
+      "Cartissimo | Collectionneur de " +
+      this.$route.params.sport.toUpperCase() +
+      " | " +
+      this.$route.params.team;
     instanceUser
       .get("/")
       .then((data) => {
@@ -516,13 +521,7 @@ export default {
         error;
       });
   },
-  mounted() {
-    document.title =
-      "Cartissimo | Collectionneur de " +
-      this.$route.params.sport.toUpperCase() +
-      " | " +
-      this.$route.params.team;
-  },
+
   components: { Navigation },
 };
 </script>
