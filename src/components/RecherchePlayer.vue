@@ -13,7 +13,7 @@
           placeholder="Equipe ou joueur collectionné"
           class="header__form--input"
           v-model="search"
-          @input="searchTeamInput"
+          @input="searchTeamInput(search)"
         />
         <div class="header__form--list" id="listeEquipes">
           <ul>
@@ -36,6 +36,7 @@
 
 <script>
 import axios from "axios";
+import { debounce } from "lodash";
 
 const instanceSports = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
@@ -47,6 +48,7 @@ export default {
     return {
       keys: {},
       search: "",
+      test: "",
       searchJoueur: "",
       selectNba: "NBA",
       selectNfl: "NFL",
@@ -65,6 +67,7 @@ export default {
     "teamsSoccer",
     "users",
   ],
+
   methods: {
     updateSearch(resultat) {
       this.search = resultat;
@@ -76,22 +79,23 @@ export default {
       document.getElementById("listeJoueurs").style.display = "none";
     },
 
-    searchTeamInput() {
+    searchTeamInput: debounce(function (search){
       document.getElementById("listeEquipes").style.display = "block";
-
-      if (this.search.length > 2) {
+      const self = this;
+      if (search.length > 2) {
         instanceSports
-          .get(`/${this.search}`)
+          .get(`/${search}`)
           .then((data) => {
-            this.resultatRecherche = data.data;
+            self.resultatRecherche = data.data;
+            
           })
           .catch((error) => {
             error;
           });
-      } else if (this.search.length < 2) {
-        this.resultatRecherche = [];
+      } else if (search.length < 2) {
+        self.resultatRecherche = [];
       }
-    },
+    }, 300),
 
     searchPlayerInput() {
       let listeJoueur = [];
@@ -155,7 +159,7 @@ export default {
         path: "/:sport/joueur/:player",
         params: {
           sport: `${this.search.substring(0, 3).toLowerCase()}`,
-          joueur:'joueur',
+          joueur: "joueur",
           player: `${this.search.substring(6).replaceAll(" ", "-")}`,
         },
       });

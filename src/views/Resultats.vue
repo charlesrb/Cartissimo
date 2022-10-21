@@ -15,7 +15,7 @@
             placeholder="Joueur ou équipe collectionnée"
             class="header__form--input"
             v-model="search"
-            @input="searchTeamInput"
+            @input="searchTeamInput(search)"
           />
           <div class="header__form--list" id="listeEquipes">
             <ul>
@@ -99,6 +99,8 @@
 <script>
 import axios from "axios";
 import Navigation from "../components/Navigation.vue";
+import { debounce } from "lodash";
+
 const instanceUser = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/user",
 });
@@ -378,22 +380,22 @@ export default {
       document.getElementById("listeEquipes").style.display = "none";
     },
 
-    searchTeamInput() {
+    searchTeamInput: debounce(function (search) {
       document.getElementById("listeEquipes").style.display = "block";
-
-      if (this.search.length > 2) {
+      const self = this;
+      if (search.length > 2) {
         instanceSports
-          .get(`/${this.search}`)
+          .get(`/${search}`)
           .then((data) => {
-            this.resultatRecherche = data.data;
+            self.resultatRecherche = data.data;
           })
           .catch((error) => {
             error;
           });
-      } else if (this.search.length < 2) {
-        this.resultatRecherche = [];
+      } else if (search.length < 2) {
+        self.resultatRecherche = [];
       }
-    },
+    }, 300),
 
     searchPlayer(resultat) {
       this.user = [];
@@ -408,6 +410,7 @@ export default {
           );
           if (res != -1) {
             this.user.push(user);
+            this.display=false;
           }
         }
         if (
@@ -434,6 +437,12 @@ export default {
     },
   },
   beforeCreate() {
+    document.title =
+      "Cartissimo | Collectionneur de " +
+      this.$route.params.sport.toUpperCase() +
+      " | " +
+      this.$route.params.player;
+
     instanceUser
       .get("/")
       .then((data) => {
@@ -518,13 +527,7 @@ export default {
         error;
       });
   },
-  mounted() {
-    document.title =
-      "Cartissimo | Collectionneur de " +
-      this.$route.params.sport.toUpperCase() +
-      " | " +
-      this.$route.params.player;
-  },
+
   components: { Navigation },
 };
 </script>
