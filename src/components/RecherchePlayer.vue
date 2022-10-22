@@ -95,7 +95,7 @@ export default {
       } else if (search.length < 2) {
         self.resultatRecherche = [];
       }
-    }, 300),
+    }, 200),
 
     searchPlayerInput() {
       let listeJoueur = [];

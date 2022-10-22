@@ -21,6 +21,7 @@
           name: 'resultats',
           params: {
             sport: `${joueur.substring(0, 3).toLowerCase()}`,
+            joueur: 'joueur',
             player: `${joueur.substring(6).replaceAll(' ', '-')}`,
           },
         }"
@@ -32,10 +33,10 @@
   </div>
   <input
     type="text"
-    class="border border-primary w-full mb-4 rounded-lg px-2"
+    class="border border-tertiaryBis h-10 outline-none w-full mb-4 rounded-3xl px-4 mt-4"
     v-if="mode == 'edit'"
     v-model="select"
-    @input="searchTeamInput"
+    @input="searchTeamInput(select)"
   />
   <p id="err" class="font-bold text-primary"></p>
   <div id="listeJoueurs">
@@ -52,7 +53,7 @@
   <button
     v-if="mode == 'edit'"
     @click="modifyAccount()"
-    class="bg-tertiary rounded-lg pt-1 pb-1 px-2 py-2 text-white"
+    class="bg-tertiary rounded-3xl h-10 pt-1 pb-1 px-4 py-2 w-1/3 mt-4 text-white justify-self-end"
   >
     Modifier
   </button>
@@ -60,6 +61,7 @@
 
 <script>
 import axios from "axios";
+import { debounce } from "lodash";
 
 const instanceSports = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT + "/api/sports",
@@ -104,28 +106,32 @@ export default {
       document.getElementById("listeJoueurs").style.display = "none";
     },
 
-    searchTeamInput() {
+    searchTeamInput: debounce(function (search) {
       document.getElementById("listeJoueurs").style.display = "block";
-
-      if (this.select.length > 2) {
+      const self = this;
+      if (search.length > 2) {
         instanceSports
-          .get(`/${this.select}`)
+          .get(`/${search}`)
           .then((data) => {
-            this.resultatRecherche = data.data;
+            self.resultatRecherche = data.data;
           })
           .catch((error) => {
             error;
           });
-      } else if (this.select.length < 2) {
-        this.resultatRecherche = [];
+      } else if (search.length < 2) {
+        self.resultatRecherche = [];
       }
-    },
+    }, 200),
+
     modifyAccount() {
       const userId = localStorage.getItem("userId");
       const user = { ...this.user };
       instanceUser
         .put(`/${userId}`, user)
-        .then(() => (this.mode = ""))
+        .then(() => {
+          this.mode = "";
+          this.select = "";
+        })
         .catch((error) => error);
     },
   },
