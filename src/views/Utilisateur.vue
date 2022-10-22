@@ -37,8 +37,8 @@
           ></span
         >
       </p>
-      <p class="font-bold mt-2">A propos de moi</p>
-      <p>{{ user[0].message }}</p>
+      <p class="font-bold mt-2" v-if="user[0].message">A propos de moi</p>
+      <p v-if="user[0].message">{{ user[0].message }}</p>
     </section>
 
     <div class="test2">
@@ -157,8 +157,8 @@
         </div>
       </section>
       <section class="my-6" v-for="use in user" :key="use.id">
-        <h4 class="font-bold">Joueurs :</h4>
-        <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2">
+        <h4 class="font-bold" v-if="use.joueur.length != 0">Joueurs :</h4>
+        <div class="flex flex-row flex-wrap gap-2 mb-3 mt-2" v-if="use.joueur.length != 0">
           <p
             v-for="joueur in use.joueur"
             :key="joueur.id"
