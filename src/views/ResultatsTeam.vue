@@ -140,7 +140,7 @@
         <h3>Pas encore de collectionneurs !</h3>
         <p>
           Vous collectionnez cette équipe ?
-          <router-link class="link__subscribe" :to="{ path: '/subscribe' }"
+          <router-link class="link__subscribe" :to="{ path: '/inscription' }"
             >Inscrivez-vous</router-link
           >
           !
