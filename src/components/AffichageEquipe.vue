@@ -55,7 +55,7 @@
         @click="modifyAccount()"
         class="bg-tertiary rounded-3xl h-10 pt-1 pb-1 px-4 py-2 text-white justify-self-end"
       >
-        Modifier
+        Enregistrer
       </button>
     </div>
   </div>
