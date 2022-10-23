@@ -3,7 +3,6 @@ import Cartissimo from "../views/Cartissimo.vue";
 import Resultats from "../views/Resultats.vue";
 import Utilisateur from "../views/Utilisateur.vue";
 import ResultatsTeam from "../views/ResultatsTeam.vue";
-import Subscribe from "../views/Subscribe.vue";
 import Inscription from "../views/Inscription.vue";
 import Profile from "../views/Profile.vue";
 import Abonnement from "../views/Abonnement.vue";
@@ -36,11 +35,6 @@ const router = createRouter({
       path: "/:sport/equipe/:team",
       name: "resultatsteam",
       component: ResultatsTeam,
-    },
-    {
-      path: "/subscribe",
-      name: "subscribe",
-      component: Subscribe,
     },
     {
       path: "/inscription",
