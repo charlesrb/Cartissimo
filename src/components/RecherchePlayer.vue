@@ -165,39 +165,6 @@ export default {
       });
     },
   },
-  //   beforeCreate() {
-  //     instanceUser
-  //       .get("/")
-  //       .then((data) => {
-  //         this.users = data.data.result;
-  //         console.log(data.data.result);
-  //       })
-  //       .catch((error) => {
-  //         error;
-  //       });
-
-  //     instanceSports
-  //       .get("/")
-  //       .then((data) => {
-  //         let teams = data.data.result;
-  //         for (const team of teams) {
-  //           if (team.name == "NBA") {
-  //             this.teamsNba = team;
-  //           } else if (team.name == "NFL") {
-  //             this.teamsNfl = team;
-  //           } else if (team.name == "NHL") {
-  //             this.teamsNhl = team;
-  //           } else if (team.name == "MLB") {
-  //             this.teamsMlb = team;
-  //           } else if (team.name == "SOCCER") {
-  //             this.teamsSoccer = team;
-  //           }
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         error;
-  //       });
-  //   },
 };
 </script>
 

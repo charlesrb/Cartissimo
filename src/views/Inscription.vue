@@ -186,7 +186,6 @@ export default {
         })
         .catch((error) => {
           error;
-          console.log(error)
           document.getElementById("err").innerHTML = error.response.data.error;          
         });
     },
