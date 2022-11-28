@@ -457,7 +457,6 @@ export default {
               element.includes(playerQuery)
             );
             if (res != -1) {
-              console.log(user.joueur[res]);
               this.search = playerQuery;
               this.user.push(user);
             }
@@ -471,7 +470,6 @@ export default {
               element.includes(playerQuery)
             );
             if (res != -1) {
-              console.log(user.joueur[res]);
               this.search = playerQuery;
               this.user.push(user);
             }
@@ -485,7 +483,6 @@ export default {
               element.includes(playerQuery)
             );
             if (res != -1) {
-              console.log(user.joueur[res]);
               this.search = playerQuery;
               this.user.push(user);
             }
@@ -499,7 +496,6 @@ export default {
               element.includes(playerQuery)
             );
             if (res != -1) {
-              console.log(user.joueur[res]);
               this.search = playerQuery;
               this.user.push(user);
             }
@@ -513,7 +509,6 @@ export default {
               element.includes(playerQuery)
             );
             if (res != -1) {
-              console.log(user.joueur[res]);
               this.search = playerQuery;
               this.user.push(user);
             }

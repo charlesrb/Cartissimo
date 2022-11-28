@@ -323,7 +323,6 @@ export default {
       .get("/")
       .then((data) => {
         this.users = data.data.result;
-        console.log(data.data.result);
       })
       .catch((error) => {
         error;

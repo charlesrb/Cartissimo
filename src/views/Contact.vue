@@ -73,8 +73,7 @@ export default {
           import.meta.env.VITE_PUBLIC_KEY
         )
         .then(
-          (result) => {
-            console.log("SUCCESS!", result.text);
+          () => {
             this.mode = "envoye"
           },
           (error) => {

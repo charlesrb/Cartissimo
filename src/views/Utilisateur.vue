@@ -207,7 +207,6 @@ export default {
         this.user = data.data.result.filter(
           (user) => user.pseudo == this.$route.query.user
         );
-        console.log(this.user);
       })
       .catch((error) => {
         error;

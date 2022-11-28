@@ -397,7 +397,6 @@ export default {
     },
 
     searchTeamInput(league, selectedTeam) {
-      let listeEquipe = [];
       // this.search = selectedTeam;
 
       document.getElementById("listeEquipesNba").style.display = "block";
@@ -407,7 +406,6 @@ export default {
           .get(`/${league}/${selectedTeam}`)
           .then((data) => {
             this.resultatRecherche = data.data;
-            console.log(data.data);
           })
           .catch((error) => {
             error;

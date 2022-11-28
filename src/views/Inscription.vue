@@ -161,7 +161,6 @@ export default {
       instanceUser
         .post("/", user)
         .then((data) => {
-          console.log(data);
           //   this.$router.push("/");
 
           // localStorage.setItem("token", data.data.token);
